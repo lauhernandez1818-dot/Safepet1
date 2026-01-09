@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Iniciar sesión — SafePet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-page{max-width:420px;margin:3.2rem auto;padding:1.4rem;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(3,17,27,0.06)}
+    .auth-page h2{margin:0 0 .6rem}
+    .form-row{margin:.6rem 0}
+    label{display:block;font-weight:700;margin-bottom:.2rem}
+    input[type="email"], input[type="password"]{width:100%; padding:.7rem; border-radius:8px; border:1px solid rgba(11,37,69,0.06)}
+    .auth-actions{display:flex; gap:.6rem; margin-top:1rem}
+    .auth-note{font-size:.9rem; color:rgba(11,37,69,.6); margin-top:.8rem}
+  </style>
+</head>
+<body class="page-bg">
+  <main>
+    <section class="glass-hero">
+      <div class="login-wrap">
+        <div class="login-card">
+          <div class="login-avatar"><img src="imagenes/logo.png" alt="SafePet"></div>
+
+          <div id="loggedInNotice" class="auth-note hidden" style="margin-bottom:.8rem; text-align:center">
+            <p>Ya estás autenticado. Puedes ir al inicio o cerrar sesión si deseas iniciar con otra cuenta.</p>
+            <div style="display:flex; gap:.6rem; margin-top:.4rem; justify-content:center">
+              <a href="index.html" class="btn btn-primary">Ir al inicio</a>
+              <button id="btnSignOut" class="btn">Cerrar sesión</button>
+            </div>
+          </div>
+
+          <form id="loginForm" novalidate>
+            <h2 class="login-title">Iniciar sesión</h2>
+
+            <div class="input-group">
+              <div class="input-icon">👤</div>
+              <input id="email" type="email" required placeholder="Email" aria-label="Email">
+            </div>
+
+            <div class="input-group">
+              <div class="input-icon">🔒</div>
+              <input id="password" type="password" required placeholder="Contraseña" aria-label="Contraseña">
+            </div>
+
+            <div class="remember-row">
+              <label style="display:flex; align-items:center; gap:.4rem; font-weight:600; color:rgba(255,255,255,0.9)"><input type="checkbox"> Recordar</label>
+              <a href="#" style="color:rgba(255,255,255,0.85); text-decoration:underline">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <div style="margin-top:.6rem">
+              <button class="login-btn" type="submit">Iniciar sesión</button>
+            </div>
+
+            <p style="margin-top:.8rem; text-align:center; font-size:.92rem; color:rgba(255,255,255,0.92)">¿No tienes cuenta? <a href="register.html" style="text-decoration:underline; color:inherit">Registrate</a></p>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- celebrate overlay -->
+      <div id="celebrate" class="celebrate-overlay hidden" aria-hidden="true">
+        <div class="celebrate-panel">
+          <h3>¡Bienvenido a SafePet!</h3>
+          <p>Gracias por ser parte de esta historia — vamos a seguir cuidando mascotas con amor ❤️</p>
+        </div>
+      </div>
+
+      <!-- confetti container -->
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+    </section>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>

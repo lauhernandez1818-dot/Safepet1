@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pet Shop — SafePet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Petshop specific */
+    .shop-hero{padding:2.2rem 1rem; text-align:center; background:linear-gradient(180deg,rgba(0,196,180,0.06),transparent)}
+    .shop-container{max-width:1100px; margin:0 auto; padding:1rem}
+    .shop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+    .product{background:#fff; border-radius:12px; padding:1rem; box-shadow:0 10px 30px rgba(10,30,40,0.04); display:flex; flex-direction:column; gap:.6rem}
+    .product img{width:100%; height:160px; object-fit:cover; border-radius:8px}
+    .product h4{margin:0; font-size:1rem}
+    .product p.price{font-weight:800; color:var(--turquoise); margin:.2rem 0}
+    .product .actions{margin-top:auto; display:flex; gap:.6rem}
+    .product .btn{flex:1}
+
+    @media (max-width:900px){ .shop-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .shop-grid{grid-template-columns:1fr} .product img{height:220px} }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:1rem 0">
+      <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:800">← Volver</a>
+      <h1 style="margin:0; font-size:1.1rem">Mini Pet Shop</h1>
+      <div></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="shop-hero">
+      <div class="shop-container">
+        <h2>Productos seleccionados</h2>
+        <p class="small">Compra rápido y recepciona tu pedido por WhatsApp.</p>
+      </div>
+    </section>
+
+    <div class="shop-container">
+
+      <!-- Auth notice: shown when user is NOT logged in -->
+      <div id="authNotice" class="auth-notice hidden" role="status" aria-live="polite" style="margin-bottom:1rem;">
+        <strong>Debes iniciar sesión para realizar compras.</strong>
+        <a href="login.html" class="btn" style="margin-left:.6rem">Iniciar sesión</a>
+      </div>
+      <div class="shop-grid">
+        <article class="product" data-name="Alimento Premium 2kg" data-price="$18">
+          <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Alimento Premium">
+          <h4>Alimento Premium 2kg</h4>
+          <p class="price">$18</p>
+          <p class="small">Comida completa para perros adultos — receta balanceada.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Snack de Pollo 200g" data-price="$4">
+          <img src="https://images.unsplash.com/photo-1543852787-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Snack de Pollo">
+          <h4>Snack de Pollo 200g</h4>
+          <p class="price">$4</p>
+          <p class="small">Snacks naturales, ideal para entrenamiento.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Cama Ort. Mediana" data-price="$35">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Cama Mediana">
+          <h4>Cama Ort. Mediana</h4>
+          <p class="price">$35</p>
+          <p class="small">Cama ortopédica para soporte de articulaciones.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Juguete Resistente" data-price="$7">
+          <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Juguete">
+          <h4>Juguete Resistente</h4>
+          <p class="price">$7</p>
+          <p class="small">Perfecto para masticadores fuertes.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Correa Ajustable" data-price="$12">
+          <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Correa">
+          <h4>Correa Ajustable</h4>
+          <p class="price">$12</p>
+          <p class="small">Correa cómoda y resistente con agarre acolchado.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Shampoo Hipoalerg." data-price="$9">
+          <img src="https://images.unsplash.com/photo-1581579188937-7a1c1e6f4de2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Shampoo">
+          <h4>Shampoo Hipoalerg.</h4>
+          <p class="price">$9</p>
+          <p class="small">Limpia y nutre la piel sensible de tu mascota.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+      </div>
+
+      <p class="small" style="margin-top:1rem">Para realizar una compra se abrirá WhatsApp con el pedido pre-formateado. Reemplaza el número de contacto por el número personal de la tienda en el script (variable <code>ownerNumber</code>).</p>
+
+      <!-- Auth detection script (uses firebase-config.js) -->
+      <script type="module">
+        import { auth } from './firebase-config.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js';
+
+        const notice = document.getElementById('authNotice');
+        const buyButtons = document.querySelectorAll('.buy');
+
+        onAuthStateChanged(auth, (user) => {
+          console.log('petshop auth state:', !!user);
+          if(!user){
+            notice.classList.remove('hidden');
+            buyButtons.forEach(b => { b.setAttribute('disabled','true'); b.classList.add('btn-disabled'); });
+          } else {
+            notice.classList.add('hidden');
+            buyButtons.forEach(b => { b.removeAttribute('disabled'); b.classList.remove('btn-disabled'); });
+          }
+        });
+      </script>
+    </div>
+  </main>
+
+  <!-- Buy Modal -->
+  <div id="buyModal" class="buy-modal hidden" aria-hidden="true">
+    <div class="modal-overlay" role="presentation"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="buyTitle">
+      <div class="modal-body">
+        <button class="modal-close" aria-label="Cerrar">✕</button>
+        <h3 id="buyTitle">Confirmar compra</h3>
+        <p class="small" id="buyProduct">Producto</p>
+        <div style="display:flex; gap:.6rem; align-items:center; margin:.6rem 0">
+          <label for="qty" class="small">Cantidad</label>
+          <input id="qty" class="qty" type="number" min="1" value="1">
+          <div style="margin-left:auto"><span class="small">Precio unitario</span><div class="price small" id="unitPrice">$0</div></div>
+        </div>
+        <p class="small">Total: <span class="total" id="totalPrice">$0</span></p>
+        <div style="display:flex; gap:.6rem; margin-top:.8rem;">
+          <button class="btn btn-primary" id="confirmBuy">Enviar Orden</button>
+          <button class="btn" id="cancelBuy">Cancelar</button>
+        </div>
+        <p class="small" style="margin-top:.6rem" id="buyNotice">La orden se enviará por WhatsApp si no se detecta Firebase. Si estás logueado y Firebase está configurado, la orden se guardará en la base de datos.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const ownerNumber = '584129983853'; // número de WhatsApp para recibir órdenes (Venezuela, sin '+')
+
+      const modal = document.getElementById('buyModal');
+      const modalClose = modal.querySelector('.modal-close');
+      const cancelBuy = document.getElementById('cancelBuy');
+      const qtyEl = document.getElementById('qty');
+      const unitPriceEl = document.getElementById('unitPrice');
+      const totalEl = document.getElementById('totalPrice');
+      const buyProductName = document.getElementById('buyProduct');
+      const confirmBuy = document.getElementById('confirmBuy');
+
+      let currentProduct = {name:'', price:0};
+
+      const showModal = () => { modal.classList.remove('hidden'); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); const first = modal.querySelector('input,button'); if(first) first.focus(); document.body.style.overflow='hidden'; };
+      const hideModal = () => { modal.classList.remove('open'); setTimeout(()=>{ modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }, 240); };
+
+      const parsePrice = (p) => { try{ return Number(String(p).replace(/[^0-9.,]/g,'').replace(',','.')) || 0; }catch(e){return 0;} };
+
+      const updateTotal = () => {
+        const q = Math.max(1, Number(qtyEl.value) || 1);
+        const total = (currentProduct.price * q);
+        totalEl.textContent = '$' + total.toFixed(2);
+      };
+
+      document.querySelectorAll('.buy').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.product');
+          const name = card.dataset.name || 'Producto';
+          const priceRaw = card.dataset.price || '0';
+          const price = parsePrice(priceRaw);
+          currentProduct = {name, price};
+          buyProductName.textContent = name;
+          unitPriceEl.textContent = '$' + price.toFixed(2);
+          qtyEl.value = 1;
+          updateTotal();
+          showModal();
+        });
+      });
+
+      qtyEl.addEventListener('input', updateTotal);
+      modalClose.addEventListener('click', hideModal);
+      cancelBuy.addEventListener('click', hideModal);
+
+      confirmBuy.addEventListener('click', async () => {
+        const qty = Math.max(1, Number(qtyEl.value) || 1);
+        const total = (currentProduct.price * qty);
+        const order = {
+          product: currentProduct.name,
+          unitPrice: currentProduct.price,
+          quantity: qty,
+          total: total,
+          createdAt: new Date().toISOString()
+        };
+
+        // If Firebase is available and user logged in, try to push to DB
+        if(window.firebase && (window.firebase.firestore || window.firebase.database)){
+          try{
+            const auth = window.firebase.auth ? window.firebase.auth() : null;
+            const user = auth && auth.currentUser ? auth.currentUser : null;
+            if(!user){
+              // not logged in - ask to log in
+              if(confirm('Debes iniciar sesión para guardar la orden en la base de datos. ¿Deseas iniciar sesión ahora?')){
+                // attempt to open a login flow if the site provides one, otherwise fallback to WhatsApp
+                if(typeof window.openLogin === 'function'){ window.openLogin(); hideModal(); return; }
+                else { alert('No se encontró un flujo de login en la página. Se abrirá WhatsApp como fallback.'); }
+              }
+            } else {
+              // try Firestore first
+              if(window.firebase.firestore){
+                const db = window.firebase.firestore();
+                await db.collection('orders').add(Object.assign({}, order, {userId:user.uid, userEmail:user.email}));
+                alert('Orden guardada en la base de datos. Nos pondremos en contacto pronto.');
+                hideModal(); return;
+              } else if(window.firebase.database){
+                const db = window.firebase.database();
+                const ref = db.ref('orders').push();
+                await ref.set(Object.assign({}, order, {userId:user.uid, userEmail:user.email}));
+                alert('Orden guardada en la base de datos. Nos pondremos en contacto pronto.');
+                hideModal(); return;
+              }
+            }
+          }catch(err){ console.error('Error guardando orden en Firebase', err); alert('Hubo un error guardando la orden en la base de datos. Se abrirá WhatsApp como fallback.'); }
+        }
+
+        // Fallback: open WhatsApp prefilled message
+        const messageLines = [];
+        messageLines.push('Hola! Me interesa este producto: ' + order.product);
+        messageLines.push('Cantidad: ' + order.quantity);
+        messageLines.push('Precio unitario: $' + order.unitPrice.toFixed(2));
+        messageLines.push('Total: $' + order.total.toFixed(2));
+        const message = messageLines.join('%0A');
+        const url = `https://wa.me/${ownerNumber}?text=${message}`;
+        window.open(url, '_blank');
+        hideModal();
+      });
+    })();
+  </script>
+
+</body>
+</html>
