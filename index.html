@@ -200,17 +200,51 @@
   <section id="fundadora" class="fundadora" data-aos="fade-up">
     <div class="container fundadora-inner">
       <div class="fundadora-media">
-        <img src="imagenes/fundadora.jpg" srcset="imagenes/fundadora.jpg 1x, imagenes/fundadora@2x.jpg 2x" sizes="(max-width:900px) 220px, 440px" width="220" height="220" loading="lazy" alt="María López — Fundadora SafePet" class="responsive-img">
-        <!-- Coralia image (if you have it, place at imagenes/coralia.jpg) -->
-        <img src="imagenes/coralia.jpg" alt="Coralia Goyo — Mano derecha / Mini CEO" width="120" height="120" loading="lazy" class="responsive-img" style="margin-left:1rem; border-radius:12px; object-fit:cover">
+        <figure class="team-ceo" data-fullname="" data-title="" data-bio="Evimar Malavé lidera SafePet desde La Guaira con una visión de calidez y excelencia. Su dirección estratégica garantiza que cada mascota reciba atención clínica y cariño en un ambiente que se siente como casa." data-bullets="Visión|Dirección estratégica" data-aos="fade-up" data-aos-delay="60">
+          <div class="figure-badge">
+            <img src="imagenes/patitas.png" alt="Patita" class="badge-paw" loading="lazy"/>
+            <span class="badge-text">Fundadora</span>
+          </div>
+          <img src="imagenes/fundadora.jpg" srcset="imagenes/fundadora.jpg 1x, imagenes/fundadora@2x.jpg 2x" sizes="(max-width:900px) 220px, 440px" width="220" height="220" loading="lazy" alt="Evimar Malavé — Fundadora SafePet" class="team-ceo-avatar js-open-profile" role="button" tabindex="0" onerror="this.onerror=null;this.src='imagenes/logo.png'">
+          <figcaption class="figure-caption"><strong>Evimar Malavé</strong></figcaption>
+        </figure>
+
+        <figure class="profile-card" data-fullname="" data-title="" data-bio="Coralia ha acompañado a Evimar desde los primeros días de SafePet y es la persona responsable de que cada detalle operativo funcione. Coordina turnos, supervisa la atención directa de las mascotas y mantiene la comunicación con las familias. Su ojo por el detalle, empatía y constancia aseguran que el cuidado sea consistente y afectuoso." data-bullets="Coordina turnos|Supervisa atención" data-aos="fade-up" data-aos-delay="120">
+          <div class="figure-badge">
+            <img src="imagenes/patitas.png" alt="Patita" class="badge-paw" loading="lazy"/>
+            <span class="badge-text">Mini CEO</span>
+          </div>
+          <img class="profile-avatar js-open-profile" src="imagenes/coralia.jpg" alt="Coralia Goyo" width="120" height="120" loading="lazy" role="button" tabindex="0" onerror="this.onerror=null;this.src='imagenes/logo.png'">
+          <figcaption class="figure-caption"><strong>Coralia Goyo</strong></figcaption>
+        </figure>
       </div>
-      <div class="fundadora-text">
-        <h2>Nuestra Fundadora</h2>
-        <p class="lead">Un Hogar fuera de casa</p>
-        <p>María López lidera SafePet desde La Guaira con una visión de calidez y excelencia. Su dirección estratégica garantiza que cada mascota reciba atención clínica y cariño en un ambiente que se siente como casa.</p>
-        <h3 id="coralia">Nuestra mano derecha — <span class="team-name">Coralia Goyo</span> <small style="font-weight:600; color:var(--turquoise)">(Mini CEO)</small></h3>
-        <p>Coralia ha acompañado a María desde los primeros días de SafePet y es la persona responsable de que cada detalle operativo funcione. Coordina turnos, supervisa la atención directa de las mascotas y mantiene la comunicación con las familias. Su ojo por el detalle, empatía y constancia aseguran que el cuidado sea consistente y afectuoso: es el pilar que permite que la visión de la fundadora se haga cotidiana.</p>
-        <p><a class="btn btn-small btn-outline" href="#equipo">Ver perfil del equipo</a></p>
+      <div class="fundadora-text" aria-hidden="true">
+        <p class="visually-hidden">Biografía completa disponible al abrir la foto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilares: desktop-only highlighted points -->
+  <section id="pilares" class="pilares" data-aos="fade-up">
+    <div class="container">
+      <h3 class="pilares-title">Los pilares clave de SafePet</h3>
+      <p class="pilares-lead">Calidad clínica, cariño y compromiso con cada mascota — valores que guían nuestro día a día.</p>
+      <div class="pilares-grid">
+        <article class="pilar" data-aos="fade-right" data-aos-delay="60">
+          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
+          <h4>Calidad Clínica</h4>
+          <p>Protocolos actualizados y atención basada en evidencia.</p>
+        </article>
+        <article class="pilar" data-aos="fade-up" data-aos-delay="120">
+          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
+          <h4>Cariño y Confort</h4>
+          <p>Ambiente cálido y atención personalizada para cada familia y mascota.</p>
+        </article>
+        <article class="pilar" data-aos="fade-left" data-aos-delay="180">
+          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
+          <h4>Compromiso</h4>
+          <p>Transparencia, comunicación y mejora continua con cada servicio.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -291,6 +325,8 @@
       <button class="modal-close" aria-label="Cerrar">✕</button>
       <div class="modal-body">
         <img id="modalAvatar" src="" alt="" class="modal-avatar">
+        <!-- Modal badge: will display profile photo + role (replaces patitas.png inside modal) -->
+        <div id="modalBadge" class="modal-badge" aria-hidden="true"></div>
         <h3 id="modalName"></h3>
         <p id="modalTitle" class="modal-title"></p>
         <p id="modalBio" class="modal-bio"></p>
@@ -423,14 +459,14 @@
           <div class="locate-grid-2">
             <div class="locate-card" id="loc-carro" data-mode="carro">
               <div class="locate-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 13l1.5-4.5A1.5 1.5 0 0 1 6 7h11.5a1 1 0 0 1 .9.56L21 11" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="17" r="1.6" stroke="var(--turquoise)" stroke-width="1.6"/><circle cx="18.5" cy="17" r="1.6" stroke="var(--turquoise)" stroke-width="1.6"/></svg></div>
-              <h4>Modo Carro</h4>
+              <h4>Cómo llegar en carro</h4>
               <p>Indicaciones y video de ruta para llegar en vehículo.</p>
               <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&destination=SafePet+Veterinaria&travelmode=driving" target="_blank">Abrir en Google Maps (Auto)</a>
             </div>
 
             <div class="locate-card" id="loc-walk" data-mode="caminar">
               <div class="locate-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round"/><path d="M5 21s1-4 7-4 7 4 7 4" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-              <h4>Modo Caminando</h4>
+              <h4>Cómo llegar a pie</h4>
               <p>Rutas a pie y recomendaciones para llegar caminando.</p>
               <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&destination=SafePet+Veterinaria&travelmode=walking" target="_blank">Abrir en Google Maps (Pie)</a>
             </div>
@@ -438,7 +474,7 @@
 
           <div id="directions-panel" class="directions-panel">
             <div class="directions" id="dir-carro">
-              <h4>Instrucciones en Auto</h4>
+              <h4>Cómo llegar en carro</h4>
               <ol>
                 <li>Toma la Av. Principal hacia el sur.</li>
                 <li>Gira a la derecha en Calle Jardín.</li>
@@ -451,14 +487,14 @@
             </div>
 
             <div class="directions hidden" id="dir-caminar">
-              <h4>Instrucciones Caminando</h4>
+              <h4>Cómo llegar a pie</h4>
               <ol>
                 <li>Sigue por Paseo Central hasta la plaza.</li>
                 <li>Cruza por el paso peatonal hacia Calle Olivo.</li>
                 <li>Avanza 200m y encontrarás la entrada a mano izquierda.</li>
               </ol>
               <video class="route-video" id="video-walk" controls poster="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
-                <source src="" type="video/mp4">
+                <source src="videos/caminando.mp4" type="video/mp4">
                 Tu navegador no soporta video.
               </video>
             </div>
@@ -522,8 +558,10 @@
         userName.style.display = 'inline';
           if(btnLogout) btnLogout.style.display = 'inline-block'; // Check if btnLogout exists
         userAvatar.src = user.photoURL || 'imagenes/logo.png';
-        const display = user.displayName || user.email || 'Cuenta';
-        userName.innerHTML = `<a href="login.html" class="user-link">${display}</a>`;
+        const full = user.displayName || user.email || 'Cuenta';
+        // Show the full user name (no abbreviation)
+        const displayText = full;
+        userName.innerHTML = `<a href="login.html" class="user-link user-name-pill" title="${full}"><span class="user-name-text">${displayText}</span></a>`; 
       } else {
         userMenu.classList.add('hidden');
         userAvatar.style.display = 'none';

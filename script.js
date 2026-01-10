@@ -90,11 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tryPlay = (videoEl, fallbackEl) => {
     if(!videoEl) return;
-    // ensure source exists; if not, try to set it to carro.mp4
-    const src = videoEl.querySelector('source')?.getAttribute('src');
-    if(!src || src.trim() === '' || !/carro/i.test(src)){
-      videoEl.querySelector('source')?.setAttribute('src', 'videos/carro.mp4');
-      videoEl.load();
+    const srcEl = videoEl.querySelector('source');
+    const src = srcEl?.getAttribute('src') || '';
+    // If there's no source, set a sensible default based on the video id
+    if(!src || src.trim() === ''){
+      const defaultSrc = videoEl.id === 'video-car' ? 'videos/carro.mp4' : (videoEl.id === 'video-walk' ? 'videos/caminando.mp4' : '');
+      if(defaultSrc && srcEl){
+        srcEl.setAttribute('src', defaultSrc);
+        videoEl.load();
+      }
     }
 
     videoEl.play().then(()=>{
@@ -333,6 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalName = document.getElementById('modalName');
   const modalTitle = document.getElementById('modalTitle');
   const modalBullets = document.getElementById('modalBullets');
+  const modalBadge = document.getElementById('modalBadge');
 
   let lastActiveElement = null;
   const modalBioEl = document.getElementById('modalBio');
@@ -350,7 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = card.dataset.title || card.querySelector('.profile-role')?.textContent || card.querySelector('.team-ceo-role')?.textContent || card.querySelector('.member-role')?.textContent || '';
     const bullets = (card.dataset.bullets || '').split('|').filter(Boolean);
     const bio = card.dataset.bio || card.querySelector('.team-ceo-bio')?.textContent || '';
-    const img = card.querySelector('img')?.getAttribute('src') || '';
+    // Prefer the profile avatar image (avoid grabbing the small badge paw image)
+    const imgEl = card.querySelector('.team-ceo-avatar, .profile-avatar, .member-avatar, img:not(.badge-paw)');
+    const img = imgEl?.getAttribute('src') || '';
 
     modalAvatar.setAttribute('src', img);
     modalAvatar.setAttribute('alt', name);
@@ -359,6 +366,17 @@ document.addEventListener('DOMContentLoaded', () => {
     modalBullets.innerHTML = '';
     bullets.forEach(b => { const li = document.createElement('li'); li.textContent = b.trim(); modalBullets.appendChild(li); });
     modalBioEl.textContent = bio;
+
+    // modal badge: show the person's short role text only and hide duplicated title
+    if(modalBadge){
+      const shortTitle = (title || '').split('—')[0].trim() || title || '';
+      modalBadge.innerHTML = `<span class="badge-text">${shortTitle}</span>`;
+      modalBadge.setAttribute('aria-hidden','false');
+      // hide the modalTitle paragraph to avoid duplication/underline
+      if(modalTitle){ modalTitle.textContent = ''; modalTitle.style.display = 'none'; }
+    } else {
+      if(modalTitle){ modalTitle.style.display = ''; modalTitle.textContent = title; }
+    }
 
     // actions: show 'Agendar Cita' only for médicos/veterinarios; always show Close
     modalActions.style.display = 'flex';

@@ -34,30 +34,38 @@ form?.addEventListener('submit', async (e) => {
 
   try{
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    // success — show celebration, confetti and then redirect
-    const celebrate = document.getElementById('celebrate');
+    // success — show a polished success overlay (like registration) and a short confetti burst, then redirect
+    const overlay = document.createElement('div');
+    overlay.className = 'success-overlay';
+    overlay.innerHTML = `
+      <div class="success-panel" role="status" aria-live="polite">
+        <div class="checkmark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" /></svg>
+        </div>
+        <h3>Iniciaste sesión correctamente</h3>
+        <p>Redirigiendo a la página de inicio...</p>
+      </div>`;
+    document.body.appendChild(overlay);
+
     const confettiRoot = document.getElementById('confetti');
-    if(celebrate){ celebrate.classList.remove('hidden'); celebrate.setAttribute('aria-hidden', 'false'); }
-    // simple confetti burst
     const colors = ['#FF5C7C','#FFD166','#4ADE80','#60A5FA','#C084FC','#FFB86B'];
-    const pieces = 36;
+    const pieces = 28;
     for(let i=0;i<pieces;i++){
       const el = document.createElement('div');
       el.className = 'piece';
       el.style.left = Math.random()*100 + '%';
       el.style.background = colors[Math.floor(Math.random()*colors.length)];
       el.style.transform = `translateY(-10vh) rotate(${Math.random()*360}deg)`;
-      el.style.animationDelay = (Math.random()*0.16)+'s';
+      el.style.animationDelay = (Math.random()*0.12)+'s';
       el.style.opacity = '1';
       if(confettiRoot) confettiRoot.appendChild(el);
     }
-    // hide after animation and redirect
+
     setTimeout(()=>{
-      if(celebrate){ celebrate.classList.add('hidden'); celebrate.setAttribute('aria-hidden','true'); }
-      if(confettiRoot){ confettiRoot.innerHTML = ''; }
-      // keep small delay so user sees the centered card; then redirect
+      if(overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      if(confettiRoot) confettiRoot.innerHTML = '';
       window.location.href = 'index.html';
-    }, 2600);
+    }, 1500);
 
   }catch(err){
     const code = err.code || '';
