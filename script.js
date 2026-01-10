@@ -172,9 +172,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if(videoCar){ videoCar.addEventListener('error', () => { carFallback?.classList.remove('hidden'); }); }
   if(videoWalk){ videoWalk.addEventListener('error', () => { /* could show fallback for walk */ }); }
 
-  // Send route (placeholder behaviour)
+  // Send route -> open WhatsApp prefilled message as if the client is lost
   document.getElementById('sendRoute')?.addEventListener('click', () => {
-    alert('Te hemos enviado un video de la ruta al chat. (Placeholder)');
+    // Recipient (contact number configured for the site)
+    const to = '584129983853';
+    // Build message simulating a lost client asking for the route video with detailed instructions
+    const mode = document.querySelector('.locate-card.active')?.dataset.mode === 'carro' ? 'en auto' : 'a pie';
+    const message = `Hola, soy cliente y estoy perdido/a. No entiendo cómo llegar a SafePet. Por favor, ¿me pueden enviar el video con indicaciones detalladas paso a paso del recorrido, incluyendo referencias (calles, puntos de referencia) y recomendaciones de dónde estacionar? Estoy ${mode} y mi referencia actual es: [escribe tu referencia aquí]. Muchas gracias.`;
+    const url = `https://wa.me/${to}?text=` + encodeURIComponent(message);
+    window.open(url, '_blank');
   });
 
   // Agendar Cita: open booking modal instead of scrolling
@@ -236,14 +242,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.querySelector('.carousel-btn.prev');
   const nextBtn = document.querySelector('.carousel-btn.next');
   if(carousel){
-    const cardWidth = () => carousel.querySelector('.member-card')?.getBoundingClientRect().width ?? 200;
-    prevBtn?.addEventListener('click', () => { carousel.scrollBy({ left: - (cardWidth() + 16), behavior: 'smooth' }); });
-    nextBtn?.addEventListener('click', () => { carousel.scrollBy({ left: (cardWidth() + 16), behavior: 'smooth' }); });
+    const cardWidth = () => carousel.querySelector('.member-card')?.getBoundingClientRect().width ?? 220;
+
+    const scrollAmount = () => Math.round(cardWidth() + parseInt(getComputedStyle(carousel).gap || 16));
+
+    prevBtn?.addEventListener('click', () => { carousel.scrollBy({ left: - scrollAmount(), behavior: 'smooth' }); });
+    nextBtn?.addEventListener('click', () => { carousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
+
     // keyboard support
     carousel.addEventListener('keydown', (e) => {
       if(e.key === 'ArrowRight') nextBtn?.click();
       if(e.key === 'ArrowLeft') prevBtn?.click();
     });
+
+    // Enable/disable arrows depending on scroll position
+    const updateArrows = () => {
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      prevBtn && (prevBtn.disabled = carousel.scrollLeft <= 8);
+      nextBtn && (nextBtn.disabled = carousel.scrollLeft >= (maxScroll - 8));
+    };
+    carousel.addEventListener('scroll', () => { updateArrows(); });
+    window.addEventListener('resize', () => { updateArrows(); });
+    setTimeout(updateArrows, 60);
+
+    // Animate centre card using IntersectionObserver inside the carousel
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting && en.intersectionRatio > 0.55){ en.target.classList.add('is-in-view'); }
+        else{ en.target.classList.remove('is-in-view'); }
+      });
+    }, { root: carousel, threshold: [0.55] });
+    carousel.querySelectorAll('.member-card').forEach(card => io.observe(card));
   }
 
   // Facility lightbox
