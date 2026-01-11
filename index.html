@@ -29,6 +29,9 @@
         <img src="imagenes/logo.png" alt="SafePet Logo" class="logo">
       </a>
 
+      <!-- Mobile-only: quick login button (left of hamburger) -->
+      <a href="login.html" id="mobileLoginBtn" class="btn btn-primary mobile-login-btn" aria-label="Iniciar sesión">Iniciar Sesión</a>
+
       <nav class="main-nav">
         <a href="#servicios">Servicios</a>
         <a href="#equipo">Nuestro Equipo</a>
@@ -108,13 +111,13 @@
   </section>
 
   <!-- Servicios Pro (actualizados) -->
-  <section id="servicios" class="servicios section-accent" data-aos="fade-up">
+  <section id="servicios" class="servicios section-accent section-paws" data-aos="fade-up">
     <div class="container">
       <h2>Nuestros Servicios</h2>
       <div class="servicios-grid">
 
         <article class="service card" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-media"><div class="service-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="20" height="14" rx="1.5" stroke="var(--turquoise)" stroke-width="1.6" fill="rgba(0,206,209,0.04)"/><path d="M7 10h10" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round"/></svg></div></div>
+          <div class="service-media"><img src="imagenes/Hospedaje.png" alt="Hospedaje" class="responsive-img" /></div>
           <div class="service-body">
             <h3>Hotel &amp; Hospedaje — "Sin Jaulas"</h3>
             <p>Suites espaciosas, paseos diarios y supervisión profesional en un entorno libre de jaulas.</p>
@@ -123,7 +126,7 @@
         </article>
 
         <article class="service card" data-aos="fade-up" data-aos-delay="200">
-          <div class="service-media"><div class="service-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M6 7l4 4-4 4" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7l4 4-4 4" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="service-media"><img src="imagenes/Gromming.png" alt="Grooming" class="responsive-img" /></div>
           <div class="service-body">
             <h3>Grooming</h3>
             <p>Cortes, spa y tratamientos con productos premium y atención especializada para cada tipo de pelaje.</p>
@@ -132,7 +135,7 @@
         </article>
 
         <article class="service card" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-media"><div class="service-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="14" height="18" rx="1" stroke="var(--turquoise)" stroke-width="1.6"/><path d="M9 7h6" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round"/></svg></div></div>
+          <div class="service-media"><img src="imagenes/Internacional.png" alt="Documentación Internacional" class="responsive-img" /></div>
           <div class="service-body">
             <h3>Documentación Internacional</h3>
             <p>Gestión de certificados y trámites para viajes internacionales con asesoría experta.</p>
@@ -141,7 +144,7 @@
         </article>
 
         <article class="service card" data-aos="fade-up" data-aos-delay="400">
-          <div class="service-media"><div class="service-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="7" r="3" stroke="var(--turquoise)" stroke-width="1.6"/><path d="M14 10v4a4 4 0 0 1-4 4" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round"/></svg></div></div>
+          <div class="service-media"><img src="imagenes/Serveterinario.png" alt="Servicio Veterinario" class="responsive-img" /></div>
           <div class="service-body">
             <h3>Servicio Veterinario</h3>
             <p>Consultas, cirugía y atención especializada con tecnología diagnóstica avanzada.</p>
@@ -156,7 +159,7 @@
   
 
   <!-- Nuestras Instalaciones: rejilla fluida (auto-fit) -->
-  <section id="instalaciones" class="instalaciones section-accent" data-aos="fade-up">
+  <section id="instalaciones" class="instalaciones section-accent section-paws" data-aos="fade-up">
     <div class="container">
       <h2>Nuestras Instalaciones</h2>
       <p class="lead">Espacios pensados para el confort y la seguridad de tu mascota.</p>
@@ -197,10 +200,58 @@
   </section>
 
   <!-- Nuestra Fundadora -->
-  <section id="fundadora" class="fundadora" data-aos="fade-up">
+  <section id="fundadora" class="fundadora section-offwhite section-paws" data-aos="fade-up">
     <div class="container fundadora-inner">
+      <!-- Pilares — versión refinada para desktop (tarjetas profesionales) -->
+      <div class="fundadora-text pilares-inline" aria-labelledby="pilares-heading">
+        <h3 id="pilares-heading" class="pilares-title">Nuestros Pilares</h3>
+        <p class="pilares-lead">Evimar Malavé y Coralia Goyo aportan liderazgo científico y operativo: no realizan atención clínica directa, sino que <strong>guían y respaldan</strong> a nuestro equipo médico profesional para garantizar protocolos, seguridad y altos estándares de cuidado.</p>
+
+        <div class="pilares-grid refined-pilares" role="list" aria-label="Los pilares de SafePet">
+          <article class="pilar pilar--card" role="listitem" data-aos="fade-up" data-aos-delay="80">
+            <div class="pilar-media" aria-hidden="true">
+              <div class="pilar-icon">
+                <!-- Clinica / Estetica SVG -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2v7" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="9" width="16" height="11" rx="2" stroke="var(--turquoise)" stroke-width="1.6"/></svg>
+              </div>
+            </div>
+            <div class="pilar-body">
+              <h4>Excelencia Clínica</h4>
+              <p>Protocolos modernos, equipamiento actualizado y supervisión veterinaria continua para la mejor atención.</p>
+            </div>
+          </article>
+
+          <article class="pilar pilar--card" role="listitem" data-aos="fade-up" data-aos-delay="140">
+            <div class="pilar-media" aria-hidden="true">
+              <div class="pilar-icon">
+                <!-- Heart / Care SVG -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 20s-6-4.35-8.2-6.2C1.8 11.7 4 8 7 8c1.8 0 2.5 1.2 5 4.2 2.5-3 3.2-4.2 5-4.2 3 0 5.2 3.7 3.2 5.8C18 15.65 12 20 12 20z" stroke="var(--turquoise)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="pilar-body">
+              <h4>Cariño Personalizado</h4>
+              <p>Atención cálida y personalizada, adaptada a la personalidad y necesidades de cada mascota.</p>
+            </div>
+          </article>
+
+          <article class="pilar pilar--card" role="listitem" data-aos="fade-up" data-aos-delay="200">
+            <div class="pilar-media" aria-hidden="true">
+              <div class="pilar-icon">
+                <!-- Shield / Commitment SVG -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l7 4v4c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" stroke="var(--turquoise)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="pilar-body">
+              <h4>Compromiso Transparente</h4>
+              <p>Comunicación abierta, seguimiento claro y mejora continua en cada servicio que entregamos.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
       <div class="fundadora-media">
-        <figure class="team-ceo" data-fullname="" data-title="" data-bio="Evimar Malavé lidera SafePet desde La Guaira con una visión de calidez y excelencia. Su dirección estratégica garantiza que cada mascota reciba atención clínica y cariño en un ambiente que se siente como casa." data-bullets="Visión|Dirección estratégica" data-aos="fade-up" data-aos-delay="60">
+        <figure class="team-ceo" data-fullname="" data-title="" data-bio="Evimar Malavé aporta liderazgo científico y dirección estratégica a SafePet; no realiza atenciones clínicas directas, sino que guía al equipo médico profesional para asegurar protocolos y estándares de calidad." data-bullets="Visión|Dirección estratégica" data-aos="fade-up" data-aos-delay="60">
           <div class="figure-badge">
             <img src="imagenes/patitas.png" alt="Patita" class="badge-paw" loading="lazy"/>
             <span class="badge-text">Fundadora</span>
@@ -209,10 +260,10 @@
           <figcaption class="figure-caption"><strong>Evimar Malavé</strong></figcaption>
         </figure>
 
-        <figure class="profile-card" data-fullname="" data-title="" data-bio="Coralia ha acompañado a Evimar desde los primeros días de SafePet y es la persona responsable de que cada detalle operativo funcione. Coordina turnos, supervisa la atención directa de las mascotas y mantiene la comunicación con las familias. Su ojo por el detalle, empatía y constancia aseguran que el cuidado sea consistente y afectuoso." data-bullets="Coordina turnos|Supervisa atención" data-aos="fade-up" data-aos-delay="120">
+        <figure class="profile-card" data-fullname="" data-title="" data-bio="Coralia coordina la operación y supervisión del equipo; organiza turnos y garantiza la correcta ejecución de protocolos clínicos por parte de nuestros doctores profesionales (no realiza atenciones veterinarias directas)." data-bullets="Coordinación|Supervisión operativa" data-aos="fade-up" data-aos-delay="120">
           <div class="figure-badge">
             <img src="imagenes/patitas.png" alt="Patita" class="badge-paw" loading="lazy"/>
-            <span class="badge-text">Mini CEO</span>
+            <span class="badge-text">Coordinación Operativa</span>
           </div>
           <img class="profile-avatar js-open-profile" src="imagenes/coralia.jpg" alt="Coralia Goyo" width="120" height="120" loading="lazy" role="button" tabindex="0" onerror="this.onerror=null;this.src='imagenes/logo.png'">
           <figcaption class="figure-caption"><strong>Coralia Goyo</strong></figcaption>
@@ -224,30 +275,6 @@
     </div>
   </section>
 
-  <!-- Pilares: desktop-only highlighted points -->
-  <section id="pilares" class="pilares" data-aos="fade-up">
-    <div class="container">
-      <h3 class="pilares-title">Los pilares clave de SafePet</h3>
-      <p class="pilares-lead">Calidad clínica, cariño y compromiso con cada mascota — valores que guían nuestro día a día.</p>
-      <div class="pilares-grid">
-        <article class="pilar" data-aos="fade-right" data-aos-delay="60">
-          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
-          <h4>Calidad Clínica</h4>
-          <p>Protocolos actualizados y atención basada en evidencia.</p>
-        </article>
-        <article class="pilar" data-aos="fade-up" data-aos-delay="120">
-          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
-          <h4>Cariño y Confort</h4>
-          <p>Ambiente cálido y atención personalizada para cada familia y mascota.</p>
-        </article>
-        <article class="pilar" data-aos="fade-left" data-aos-delay="180">
-          <div class="pilar-icon" aria-hidden="true"><img src="imagenes/patitas.png" alt="" width="28" height="28"></div>
-          <h4>Compromiso</h4>
-          <p>Transparencia, comunicación y mejora continua con cada servicio.</p>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <!-- Nuestro Equipo -->
   <section id="equipo" class="team" data-aos="fade-up">
@@ -515,19 +542,15 @@
     <div class="container footer-inner">
       <div>
         <img src="imagenes/logo.png" alt="SafePet" class="logo-small">
-        <p>SafePet — Cuidado veterinario premium. <br>Tel: <a href="tel:+123456789">+1 234 567 89</a></p>
+        <p>SafePet — Cuidado veterinario premium. <br>Tel: <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">0412 998 3853</a></p>
       </div>
 
       <div>
         <h4>Horario</h4>
         <ul class="schedule" aria-label="Horario de atención">
-          <li><strong>Lunes</strong><span class="time">8 a. m.–5 p. m.</span></li>
-          <li><strong>Martes</strong><span class="time">8 a. m.–5 p. m.</span></li>
-          <li><strong>Miércoles</strong><span class="time">8 a. m.–5 p. m.</span></li>
-          <li><strong>Jueves</strong><span class="time">8 a. m.–5 p. m.</span></li>
-          <li><strong>Viernes</strong><span class="time">8 a. m.–5 p. m.</span></li>
-          <li><strong>Sábado</strong><span class="time">8:30 a. m.–5 p. m.</span></li>
-          <li><strong>Domingo</strong><span class="time">9 a. m.–2 p. m.</span></li>
+          <li><strong>Lunes a Viernes</strong><span class="time">8:00 a. m.–5:00 p. m.</span></li>
+          <li><strong>Sábado</strong><span class="time">8:30 a. m.–5:00 p. m.</span></li>
+          <li><strong>Domingo</strong><span class="time">9:00 a. m.–2:00 p. m.</span></li>
         </ul>
       </div>
 
@@ -549,13 +572,15 @@
     const userMenu = document.getElementById('userMenu');
     const userAvatar = document.getElementById('userAvatar');
     const userName = document.getElementById('userName');
-     const btnLogout = document.getElementById('btnLogout'); // This button is removed
+    const btnLogout = document.getElementById('btnLogout'); // This button is removed
+    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
 
     onAuthStateChanged(auth, (user) => {
       if(user){
         userMenu.classList.remove('hidden');
         userAvatar.style.display = 'block';
         userName.style.display = 'inline';
+        if(mobileLoginBtn) mobileLoginBtn.style.display = 'none';
           if(btnLogout) btnLogout.style.display = 'inline-block'; // Check if btnLogout exists
         userAvatar.src = user.photoURL || 'imagenes/logo.png';
         const full = user.displayName || user.email || 'Cuenta';
@@ -566,6 +591,7 @@
         userMenu.classList.add('hidden');
         userAvatar.style.display = 'none';
         userName.style.display = 'none';
+        if(mobileLoginBtn) mobileLoginBtn.style.display = '';
           if(btnLogout) btnLogout.style.display = 'none'; // Check if btnLogout exists
       }
     });

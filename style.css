@@ -33,7 +33,18 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 
 /* Small paw icon before H2 headings */
 .container h2::before{content:''; display:inline-block; width:56px; height:56px; background-image:url('imagenes/patitas.png'); background-repeat:no-repeat; background-size:contain; margin-right:1rem; vertical-align:middle; opacity:.30; filter:brightness(0.7); transform:translateY(2px)}
+/* Paw pattern & blurred paw accent (apply via class: .section-paws) */
+.section-paws{position:relative; overflow:visible}
+.section-paws .container{position:relative; z-index:1}
+.section-paws::before{content:''; position:absolute; inset:0; background-image:url('imagenes/patitas.png'); background-repeat:repeat; background-size:48px; opacity:0.06; filter: blur(6px) saturate(1.02); pointer-events:none; z-index:-1; mix-blend-mode:overlay}
+.section-paws::after{content:''; position:absolute; right:-40px; bottom:-24px; width:260px; height:260px; background-image:url('imagenes/patitas.png'); background-repeat:no-repeat; background-size:contain; opacity:0.05; filter: blur(14px) saturate(1.05); transform:rotate(-10deg); pointer-events:none; z-index:-1}
+/* Subtle variant for sections where we want softer pattern */
+.section-paws.section-paws--soft::before{opacity:0.04; background-size:64px}
 
+/* Hide decorative paw layers on small screens to keep clarity */
+@media (max-width:900px){
+  .section-paws::before, .section-paws::after{display:none}
+}
 /* keep animations accessible for reduced-motion users */
 @media (prefers-reduced-motion: reduce){
   .hero-wave svg path{animation:none}
@@ -101,8 +112,13 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .site-header.is-top .user-link.user-name-pill{background:transparent !important; border:none !important; box-shadow:none !important; color:#ffffff !important}
 .header-inner{display:flex; align-items:center; gap:1rem; justify-content:space-between; padding:0.6rem 1.5rem}
 .logo{width:68px; height:68px; border-radius:50%; padding:6px; background:transparent; box-shadow:none}
-/* When header becomes active on scroll, restore normal pill appearance */
-.site-header.header-active .user-link.user-name-pill{background:#ffffff; border:1px solid rgba(11,37,69,0.06); box-shadow:0 8px 24px rgba(3,17,27,0.06); color:var(--navy)}
+/* When header becomes active on scroll, show a translucent pill (not solid white) */
+.site-header.header-active .user-link.user-name-pill{
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: none;
+  color: var(--white) !important;
+}
 
 /* User menu and name pill (polished appearance) */
 #userMenu{display:flex; align-items:center; gap:.6rem}
@@ -129,14 +145,24 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 /* Slightly tighter header on desktop so it doesn't overlap hero logo */
 .site-header.is-top{padding-top:6px; padding-bottom:6px}
 .mobile-toggle{display:none; background:transparent; border:none}
-.mobile-toggle span{display:block; width:26px; height:3px; background:var(--navy); margin:4px 0}
+.mobile-toggle span{display:block; width:26px; height:3px; background:#fff; margin:4px 0}
+/* Mobile quick login button (hidden on desktop) */
+.mobile-login-btn{display:none}
 
 /* Mobile header: hide brand and agendar CTA; keep compact user pill and hamburger right */
 @media (max-width:900px){
   .brand{display:none !important}
   .main-nav{display:none !important}
   #agendarBtn{display:none !important}
-  .header-inner{justify-content:space-between; align-items:center}
+  .header-inner{justify-content:space-between; align-items:center; position:relative}
+  /* Make the mobile hamburger lines white by default for better contrast on hero */
+  .mobile-toggle span{background:#fff}
+  /* Show the quick login button only on mobile (left of hamburger) — keep it in the header flow so it sits where the username would appear */
+  .mobile-login-btn{display:inline-flex; margin-right:.4rem; position:static; order:-1; align-self:center; z-index:1100; padding:.28rem .5rem; font-size:0.92rem; border-radius:999px; font-weight:700; box-shadow:0 6px 18px rgba(3,17,27,0.05); min-height:36px; align-items:center}
+  /* Position the mobile hamburger at the right corner */
+  .mobile-toggle{display:block; order:1; position:absolute; right:12px; top:50%; transform:translateY(-50%); z-index:1100; background:transparent; border:none}
+  /* tighter on very small screens: keep static positioning and reduce padding */
+  @media (max-width:480px){ .mobile-login-btn{padding:.24rem .4rem; font-size:0.84rem; min-height:32px} }
   /* Ensure user menu (name/avatar) appears on left and shows full name (no truncation) */
   #userMenu{display:flex !important; order:-1; align-items:center; gap:.6rem; flex:1; min-width:0; justify-content:flex-start}
   #userName{display:block !important; font-weight:700; font-size:0.98rem; color:var(--navy); white-space:normal; overflow:visible; text-overflow:unset; max-width:none}
@@ -144,8 +170,8 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   .user-link.user-name-pill .user-name-text{display:inline-block; white-space:normal; word-break:break-word}
   /* shrink avatar slightly to save space */
   #userMenu .user-avatar{width:36px; height:36px}
-  .mobile-toggle{order:1}
 }
+
 
 /* Fundadora: improve readability on small screens */
 @media (max-width:900px){
@@ -258,9 +284,94 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 
 /* KPI */
 .kpi{padding:1.6rem 0}
-.kpi-inner{display:flex; gap:1.5rem; justify-content:center}
+.kpi-inner{display:flex; gap:1.5rem; justify-content:center; position:relative; z-index:1}
 .kpi-card{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.96)); padding:1.2rem 2rem; border-radius:12px; box-shadow:0 6px 28px rgba(11,37,69,0.06); text-align:center}
 .counter{font-size:2.4rem; font-weight:800; color:var(--turquoise)}
+
+#servicios{
+  position:relative;
+  overflow:hidden;
+  background-image: url('imagenes/subfondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#servicios::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.25); /* ligera superposición para legibilidad */
+  pointer-events:none;
+  z-index:0;
+}
+#servicios > *{ position:relative; z-index:1; }
+#servicios .container{position:relative; z-index:1}
+
+/* Botones específicos para la sección Nuestros Servicios: fondo blanco y texto oscuro con sombra */
+#servicios .btn, #servicios .btn-outline{
+  background: var(--white) !important;
+  color: rgba(3,17,27,0.95) !important;
+  font-weight:700;
+  text-shadow: 0 2px 6px rgba(11,37,69,0.12);
+  box-shadow: 0 8px 28px rgba(11,37,69,0.06);
+  border: 1px solid rgba(3,17,27,0.06);
+}
+#servicios .btn-small{padding:0.5rem 0.8rem}
+#servicios .btn:hover, #servicios .btn:focus{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(11,37,69,0.12);
+  opacity:1;
+}
+#servicios .btn:active{ transform: translateY(-1px); }
+
+/* Botones 'vidriosos' verdes dentro de la sección (ej: Reservar Grooming, Solicitar Asesoría) */
+#servicios .service .btn-primary{
+  background: linear-gradient(180deg, rgba(42,200,200,0.52), rgba(16,160,170,0.42)) !important;
+  color: var(--white) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  box-shadow: 0 16px 46px rgba(10,120,140,0.18);
+  opacity:0.96;
+  text-shadow:none;
+}
+#servicios .service .btn-primary:hover, #servicios .service .btn-primary:focus{
+  transform: translateY(-4px);
+  box-shadow: 0 24px 72px rgba(6,110,130,0.22);
+  opacity:1;
+}
+
+/* Overwrite para botones específicos: Solicitar Asesoría y Pedir Consulta */
+#servicios .servicios-grid article:nth-child(3) .btn-primary,
+#servicios .servicios-grid article:nth-child(4) .btn-primary{
+  background: var(--white) !important;
+  color: rgba(3,17,27,0.95) !important;
+  border: 1px solid rgba(3,17,27,0.06) !important;
+  box-shadow: 0 8px 28px rgba(11,37,69,0.06) !important;
+  text-shadow: 0 2px 6px rgba(11,37,69,0.12) !important;
+  opacity:1 !important;
+}
+#servicios .servicios-grid article:nth-child(3) .btn-primary:hover,
+#servicios .servicios-grid article:nth-child(4) .btn-primary:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(11,37,69,0.12) !important;
+  background: var(--white) !important;
+  color: rgba(3,17,27,0.95) !important;
+}
+
+/* Mantener accesibilidad: asegurar contraste en textos dentro de botones */
+#servicios .btn, #servicios .btn-primary, #servicios .btn-outline{ color: rgba(3,17,27,0.95) !important }
+#servicios .btn[disabled]{ opacity:0.6 }
+
+
+@media (max-width:480px){
+  /* Usar imagen optimizada para móviles */
+  #servicios{
+    background-image: url('imagenes/subfondomobile.png');
+    background-position: center top;
+    background-size: cover;
+  }
+}
 
 /* CEO */
 .ceo{padding:1.6rem 0}
@@ -270,11 +381,18 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .ceo-gallery img{width:100%; height:160px; object-fit:cover; border-radius:10px}
 
 /* Team */
-.team{padding:1.6rem 0}
-.team h2{font-family:'Playfair Display', serif; font-size:2.1rem; font-weight:700; letter-spacing:-0.02em; color:var(--navy); margin-bottom:0.25rem}
+.team{position:relative; overflow:hidden; padding:2rem 0; background-image: url('imagenes/equipofondo.png'); background-size:cover; background-position:center; background-repeat:no-repeat}
+.team::before{content:""; position:absolute; inset:0; background: rgba(0,0,0,0.22); pointer-events:none; z-index:0}
+.team > *{position:relative; z-index:1}
+.team h2{font-family:'Playfair Display', serif; font-size:2.1rem; font-weight:700; letter-spacing:-0.02em; color:var(--white); margin-bottom:0.25rem}
 .team h2::after{content:''; display:block; width:72px; height:6px; background:linear-gradient(90deg,var(--turquoise), #00b3b8); border-radius:8px; margin-top:.5rem; opacity:.95}
-.team .lead{font-style:italic; color:rgba(11,37,69,0.75); margin-bottom:1rem}
-.team .team-name{font-family:'Playfair Display', serif; font-weight:800; color:var(--navy)}
+.team .lead{font-style:italic; color:rgba(255,255,255,0.9); margin-bottom:1rem}
+.team .team-name{font-family:'Playfair Display', serif; font-weight:800; color:var(--white)}
+
+@media (max-width:480px){
+  .team{background-image: url('imagenes/equipofondomobile.png'); background-position: center top; background-size:cover}
+  .fundadora{background-image: url('imagenes/fundadorasfondomobile.png'); background-position: center top; background-size:cover}
+}
 /* CEO featured */
 .team-ceo{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(247,251,252,1)); padding:1rem; border-radius:12px; box-shadow:0 10px 30px rgba(11,37,69,0.04); margin-bottom:1rem}
 .team-ceo-inner{display:flex; gap:1rem; align-items:center}
@@ -379,7 +497,9 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 @media (max-width:900px){
   .petshop{right:12px; bottom:env(safe-area-inset-bottom); transform:translateY(0)}
   /* Give the page enough bottom padding so content isn't obscured by the button */
-  body{padding-bottom:calc(96px + env(safe-area-inset-bottom));}
+  body{padding-bottom:calc(220px + env(safe-area-inset-bottom));}
+  /* Move petshop flush to the bottom (respecting safe-area) on very small screens; add small translate so it appears slightly over the edge */
+  @media (max-width:480px){ .petshop{right:10px; bottom:0; padding:.42rem .68rem; font-size:.84rem; transform:translateY(6px)} }
 }
 @media (min-width:901px){ .petshop{right:22px; bottom:22px; padding:.55rem .95rem; font-size:.95rem} }
 
@@ -487,7 +607,24 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .card{position:relative; overflow:hidden; border-radius:var(--radius); background:var(--glass-bg); border:1px solid var(--glass-border); backdrop-filter: blur(10px); min-height:220px; display:flex; flex-direction:column}
 
 /* Nuestra Fundadora */
-.fundadora{padding:2rem 0}
+.fundadora{
+  position:relative;
+  overflow:hidden;
+  padding:2rem 0;
+  background-image: url('imagenes/fundadorasfondo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.fundadora::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.28);
+  pointer-events:none;
+  z-index:0;
+}
+.fundadora > *{ position:relative; z-index:1; color: var(--white) }
 .fundadora-inner{display:grid; grid-template-columns:220px 1fr; gap:1.25rem; align-items:start}
 /* Fundadora media: make images a tidy column with captions */
 .fundadora-media{display:flex; flex-direction:column; gap:0.85rem; align-items:center}
@@ -538,7 +675,36 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .modal-badge img.modal-badge-img{width:44px; height:44px; object-fit:cover; border-radius:8px; box-shadow:0 8px 24px rgba(3,17,27,0.06)}
 .modal.open .modal-badge{display:inline-flex}
 
-/* Pilares (desktop-only highlight) */
+/* Pilares — versión refinada (tarjetas horizontales profesionales) */
+.pilares-inline{display:none;padding:1.2rem 0}
+.pilares-inline .pilares-title{font-family:'Playfair Display', serif;font-size:1.25rem;margin:0 0 .4rem;text-align:center}
+.pilares-inline .pilares-lead{color:rgba(11,37,69,0.72);text-align:center;margin:0 auto 1rem;font-size:0.98rem;max-width:720px}
+
+/* Grid of refined pillar cards */
+.refined-pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;align-items:stretch}
+.pilar--card{display:flex;gap:1rem;align-items:flex-start;background:#fff;border-radius:14px;padding:1rem;box-shadow:0 18px 46px rgba(3,17,27,0.06);transition:transform .22s ease,box-shadow .22s ease}
+.pilar--card:hover{transform:translateY(-6px);box-shadow:0 28px 80px rgba(3,17,27,0.09)}
+.pilar-media{flex:0 0 56px;display:flex;align-items:center;justify-content:center}
+.pilar-media .pilar-icon{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(0,206,209,0.06), rgba(0,183,195,0.02));box-shadow:inset 0 1px 0 rgba(255,255,255,0.45)}
+.pilar-body h4{margin:0 0 .3rem;font-size:1.05rem;font-weight:800;color:var(--navy)}
+.pilar-body p{margin:0;color:rgba(11,37,69,0.72);font-size:0.96rem;line-height:1.35}
+
+@media (min-width:901px){
+  .pilares-inline{display:block}
+  .pilares-inline{grid-column:2}
+  .fundadora-inner{grid-template-columns:1fr 840px 1fr}
+  .refined-pilares{gap:1.4rem}
+}
+
+/* Mobile: stack pillars as single column cards */
+@media (max-width:900px){
+  .refined-pilares{grid-template-columns:1fr;gap:0.85rem}
+  .pilar--card{padding:.95rem}
+  .pilar-media .pilar-icon{width:48px;height:48px}
+  .pilares-inline .pilares-lead{max-width:100%}
+}
+
+/* keep the standalone pilares styles for future use (deprecated when inline is used) */
 .pilares{display:none;padding:2.4rem 0}
 .pilares-title{font-family:'Playfair Display', serif;font-size:1.5rem;margin:0 0 .35rem;text-align:center}
 .pilares-lead{color:rgba(11,37,69,0.72);text-align:center;margin-bottom:1rem}
@@ -555,8 +721,8 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 
 /* Desktop layout: place founder and mini-CEO left/right with centered text column */
 @media (min-width:901px){
-  .fundadora-inner{display:grid; grid-template-columns: 1fr 360px 1fr; gap:2rem; align-items:center}
-  /* place the text in middle column spanning full width horizontally */
+  /* Ensure a centered middle column for a professional desktop layout */
+  .fundadora-inner{display:grid; grid-template-columns: 1fr 840px 1fr; gap:2rem; align-items:center}
   .fundadora-text{grid-column:2; text-align:center}
   .fundadora-media{grid-column:1 / -1; display:grid; grid-template-columns:1fr 360px 1fr; align-items:center; justify-items:center}
   /* Left card (Evimar) on column 1, right card (Coralia) on column 3 */
@@ -564,15 +730,23 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   .fundadora-media figure:nth-child(2){grid-column:3}
   .fundadora-media figure{width:320px; background:#fff; border-radius:14px; padding:1rem; box-shadow:0 24px 60px rgba(3,17,27,0.06); display:flex; flex-direction:column; align-items:center; gap:.6rem}
   .fundadora-media figure img{width:260px; height:260px; object-fit:cover; border-radius:12px}
+  /* Center the refined pillars and constrain their width for strong alignment */
+  .refined-pilares{max-width:760px; margin:0 auto}
+  .pilares-inline{margin-top:.4rem; margin-bottom:1.2rem}
 }
 
 /* Locate cards */
-.locate-grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:start}
-.locate-card{background:#fff; padding:1rem; border-radius:12px; box-shadow:0 10px 30px rgba(11,37,69,0.04); text-align:left; display:flex; flex-direction:column; justify-content:space-between; min-height:160px}
+.locate-grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:stretch}
+.locate-card{background:#fff; padding:1rem; border-radius:12px; box-shadow:0 10px 30px rgba(11,37,69,0.04); text-align:left; display:flex; flex-direction:column; justify-content:space-between; min-height:160px; height:100%}
 .locate-card h4{margin:0 0 .25rem; font-size:1rem; line-height:1.2}
 .locate-card p{margin:0; color:rgba(11,37,69,0.88); font-size:.95rem}
 .locate-icon{width:44px; height:44px; display:flex; align-items:center; justify-content:center; margin-bottom:.5rem}
 .btn-map{display:inline-block; margin-top:1rem; border:1px solid var(--turquoise); color:var(--turquoise); background:transparent; padding:.6rem .8rem; border-radius:8px}
+/* Make the locate Google Maps CTAs visually consistent */
+.locate-card .btn-map{display:inline-flex; align-items:center; justify-content:center; padding:.6rem .8rem; min-width:150px; max-width:100%; text-align:center; white-space:nowrap; border-radius:8px; font-weight:700; box-shadow:0 8px 24px rgba(0,206,209,0.06); align-self:center}/* When the viewport is very narrow, allow buttons to shrink and wrap gracefully */
+@media (max-width:420px){
+  .locate-card .btn-map{min-width:120px; padding:.46rem .6rem; font-size:0.88rem; white-space:normal}
+}
 
 @media (max-width:600px){
   .locate-card{min-height:0}
@@ -594,23 +768,74 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 /* Ensure turquoise for actionable icons */
 .icon-turquoise{color:var(--turquoise); fill:var(--turquoise); stroke:var(--turquoise)}
 .service-media{height:140px; background-size:cover; background-position:center}
-.service-body{padding:1rem}
+.service-media img{width:100%; height:140px; object-fit:cover; border-radius:12px; display:block}
+.service-body{padding:1rem; display:flex; flex-direction:column; justify-content:space-between}
+/* ensure service cards fill the grid row and match heights */
+.servicios-grid{align-items:stretch}
+.servicios-grid .card{height:100%}
 .card:hover{transform:translateY(-8px); transition:transform .32s}
 
 /* Instalaciones — Rejilla fluida y placeholders */
-.instalaciones{padding:2rem 0}
+.instalaciones{
+  position:relative;
+  overflow:hidden;
+  padding:2rem 0;
+  background-image: url('imagenes/instalaciones.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.instalaciones::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.35); /* overlay para mejorar legibilidad */
+  pointer-events:none;
+  z-index:0;
+}
+.instalaciones > *{ position:relative; z-index:1; }
 .instalaciones-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; align-items:start}
 .instalacion-card{background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:20px; padding:1rem; display:flex; flex-direction:column; gap:1rem; min-height:200px}
 .instalacion-card h3{margin:0; font-size:1rem; color:var(--navy); text-align:center}
 .placeholder{background:#f3f6f8; border-radius:20px; aspect-ratio:16/10; display:flex; align-items:center; justify-content:center}
 .placeholder-number{color:var(--turquoise); font-weight:800; font-size:clamp(1.6rem, 4.5vw, 3.2rem); line-height:1}
-@media (max-width:480px){ .instalacion-card{padding:.8rem} .placeholder-number{font-size:clamp(1.2rem, 6.5vw, 2.2rem)} }
+@media (max-width:480px){
+  .instalacion-card{padding:.8rem}
+  .placeholder-number{font-size:clamp(1.2rem, 6.5vw, 2.2rem)}
+  .instalaciones{
+    background-image: url('imagenes/instalacionesMobile.png');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
 
 /* Instagram */
-.instagram{padding:1.6rem 0}
+.instagram{position:relative; overflow:hidden; padding:1.6rem 0; background-image: url('imagenes/Instlive.png'); background-size:cover; background-position:center; background-repeat:no-repeat}
+.instagram::before{content:""; position:absolute; inset:0; background: rgba(0,0,0,0.22); pointer-events:none; z-index:0}
+.instagram > *{position:relative; z-index:1}
 .insta-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem}
 .instagram-embed{margin-top:1.2rem; display:flex; justify-content:center}
-.embed-placeholder{background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01)); padding:1.1rem; border-radius:12px; text-align:center; color:var(--navy)}
+/* Hacer que los textos dentro de la sección sean blancos */
+#instagram, #instagram h2, #instagram .insta-note, #instagram .embed-placeholder, #instagram .embed-placeholder p, #instagram .embed-placeholder .small, #instagram .testimonial-body .quote, #instagram .testimonial-body .meta{ color: var(--white) !important }
+
+/* Mantener "Nuestras redes" legible (no blanca) */
+#btnRedes{ background: var(--white); color: var(--navy); border:1px solid rgba(3,17,27,0.06); box-shadow:0 6px 18px rgba(3,17,27,0.04) }
+
+/* Hacer que el placeholder sea translúcido para dejar ver el fondo */
+.embed-placeholder{ background: rgba(255,255,255,0.06); padding:1.1rem; border-radius:12px; text-align:center }
+.embed-actions .btn{ padding:.45rem .6rem }
+
+/* Comentarios / testimonios en la sección Instagram: fondo oscuro semitransparente para legibilidad */
+#instagram .testimonial-card{ background: rgba(0,0,0,0.45) !important; padding:1rem; border-radius:12px; box-shadow:0 12px 34px rgba(0,0,0,0.25); display:flex; gap:1rem; align-items:flex-start; backdrop-filter: blur(6px); }
+#instagram .testimonial-avatar{ box-shadow:none; border:1px solid rgba(255,255,255,0.06); }
+#instagram .testimonial-body .quote{ color: var(--white) !important; opacity:0.95 }
+#instagram .testimonial-body .meta{ color: rgba(255,255,255,0.85) !important }
+
+@media (max-width:480px){
+  .instagram{background-image: url('imagenes/Instlivemobile.png'); background-position: center top; background-size:cover}
+  #instagram .testimonial-card{ min-width:260px }
+}
 .embed-placeholder p{margin:0 0 .6rem}
 .embed-actions{display:flex; gap:.5rem; justify-content:center; margin-bottom:.6rem}
 .embed-actions .btn{padding:.45rem .6rem}
@@ -842,8 +1067,17 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .page-bg{background-image: url('imagenes/fondoregistro.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; background-attachment:fixed}
 .page-bg .login-wrap::before, .page-bg .register-wrap::before { display:none }
 
-/* Scrolled / active header state */
-.site-header.header-active{background-color:#fff; box-shadow:0 6px 24px rgba(3,17,27,0.08);}
+/* Scrolled / active header state: darker translucent */
+.site-header.header-active{
+  background: rgba(3,17,27,0.85);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  box-shadow: 0 6px 24px rgba(3,17,27,0.12);
+}
+.site-header.header-active .main-nav a, .site-header.header-active .nav-link, .site-header.header-active .user-link{ color: var(--white) !important }
+.site-header.header-active .logo{ background: rgba(255,255,255,0.06); box-shadow: 0 10px 30px rgba(0,0,0,0.18) }
+/* Ensure hamburger lines remain white when header is active */
+.site-header.header-active .mobile-toggle span{ background: #fff !important; box-shadow: 0 2px 6px rgba(0,0,0,0.18); }
 .site-header.header-active .main-nav a{color:var(--navy)}
 .site-header.header-active .nav-link{color:var(--navy)}
 .site-header.header-active .user-link{color:var(--navy)}
@@ -868,6 +1102,9 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   opacity:1;
 }
 .petshop.petshop--dark:hover{ transform: translateY(-3px); box-shadow: 0 22px 64px rgba(0,0,0,0.22) }
+
+/* When header is in active (white) state, keep hamburger white for contrast */
+.site-header.header-active .mobile-toggle span{ background: #fff !important; box-shadow: 0 2px 6px rgba(0,0,0,0.18); }
 
 /* When at top (not scrolled) header links should be white */
 .site-header.is-top .main-nav a{color:#fff}
