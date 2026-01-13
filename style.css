@@ -386,7 +386,7 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .team > *{position:relative; z-index:1}
 .team h2{font-family:'Playfair Display', serif; font-size:2.1rem; font-weight:700; letter-spacing:-0.02em; color:var(--white); margin-bottom:0.25rem}
 .team h2::after{content:''; display:block; width:72px; height:6px; background:linear-gradient(90deg,var(--turquoise), #00b3b8); border-radius:8px; margin-top:.5rem; opacity:.95}
-.team .lead{font-style:italic; color:rgba(255,255,255,0.9); margin-bottom:1rem}
+.team .lead{font-style:italic; color:#ffffff !important; margin-bottom:1rem}
 .team .team-name{font-family:'Playfair Display', serif; font-weight:800; color:var(--white)}
 
 @media (max-width:480px){
@@ -519,11 +519,14 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .carousel-btn{display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,var(--turquoise), #00b3b8); color:#fff; border-radius:50%; width:64px; height:64px; box-shadow:0 26px 64px rgba(0,156,152,0.14); border:none; transition:transform .22s ease, opacity .22s ease, box-shadow .22s ease; z-index:1002}
 .carousel-btn.prev{left:14px}
 .carousel-btn.next{right:14px}
-.carousel-btn:hover{transform:scale(1.06); box-shadow:0 34px 96px rgba(0,156,152,0.20)}
-.carousel-btn:active{transform:scale(.98)}
+.carousel-btn:hover{transform:translateY(-50%) !important; box-shadow:0 34px 96px rgba(0,156,152,0.20)}
+.carousel-btn:active{transform:translateY(-50%) !important}
 .carousel-btn:disabled{opacity:.36; pointer-events:none; animation:none; box-shadow:0 10px 24px rgba(3,17,27,0.06)}
-@keyframes arrowPulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
-.carousel-btn:not(:disabled){animation:arrowPulse 2.8s ease-in-out infinite}
+/* arrowPulse animation removed to keep controls static */
+.carousel-btn:not(:disabled){animation:none}
+/* Ensure hover/active keep vertical centering but no scaling/movement */
+.carousel-btn:hover{transform:translateY(-50%) !important}
+.carousel-btn:active{transform:translateY(-50%) !important}
 .carousel-btn:focus{outline:3px solid rgba(0,183,195,0.16); outline-offset:4px}
 
 /* Icon inside the button */
@@ -560,10 +563,10 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .modal{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:1200; opacity:0; pointer-events:none; transition:opacity .22s ease}
 .modal.open{opacity:1; pointer-events:auto}
 .modal-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(3,17,27,0.62), rgba(3,17,27,0.68)); backdrop-filter: blur(6px)}
-.modal-panel{position:relative; /* softer tinted background to avoid harsh white */ background:linear-gradient(180deg, rgba(239,255,254,0.98), rgba(234,252,251,0.98)); border-radius:14px; padding:1.75rem 1.5rem; max-width:760px; width:96%; z-index:2; box-shadow:0 40px 120px rgba(3,17,27,0.18); transform:translateY(12px) scale(.98); opacity:0; border:1px solid rgba(11,37,69,0.06); transition:transform .32s cubic-bezier(.2,.9,.2,1), opacity .22s, box-shadow .25s; color:var(--navy);}
+.modal-panel{position:relative; /* softer tinted background to avoid harsh white */ background:linear-gradient(180deg, rgba(239,255,254,0.98), rgba(234,252,251,0.98)); border-radius:14px; padding:1.25rem 1rem; max-width:560px; width:92%; z-index:2; box-shadow:0 30px 90px rgba(3,17,27,0.14); transform:translateY(8px) scale(.99); opacity:0; border:1px solid rgba(11,37,69,0.06); transition:transform .28s cubic-bezier(.2,.9,.2,1), opacity .22s, box-shadow .22s; color:var(--navy);}
 .modal.open .modal-panel{transform:translateY(0) scale(1); opacity:1}
 .modal-close{position:absolute; right:14px; top:14px; background:rgba(255,255,255,0.9); border:none; font-size:1.3rem; cursor:pointer; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; box-shadow:0 6px 20px rgba(3,17,27,0.08)}
-.modal-avatar{width:140px; height:140px; border-radius:18px; object-fit:cover; display:block; margin:0 auto -.75rem; box-shadow:0 18px 44px rgba(11,37,69,0.12); transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .22s, filter .18s}
+.modal-avatar{width:120px; height:120px; border-radius:14px; object-fit:cover; display:block; margin:0 auto -.6rem; box-shadow:0 14px 36px rgba(11,37,69,0.12); transition:transform .24s cubic-bezier(.2,.9,.2,1), box-shadow .2s, filter .15s}
 .modal-avatar-glow{box-shadow:0 20px 60px rgba(0,206,209,0.12), inset 0 0 12px rgba(0,206,209,0.03)}
 .modal-bio{margin:.5rem 0 1rem; color:var(--navy); line-height:1.5; font-size:0.98rem; opacity:0.95}
 .modal-bullets{list-style:disc; padding-left:1.1rem; margin:.6rem 0}
@@ -584,19 +587,35 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 @keyframes glowAnim{0%{filter:drop-shadow(0 0 0 rgba(0,206,209,0))}50%{filter:drop-shadow(0 10px 50px rgba(0,206,209,0.08))}100%{filter:drop-shadow(0 0 0 rgba(0,206,209,0))}}
 
 /* Responsive */
-@media (max-width:900px){ .modal{align-items:flex-end}
-  .modal-panel{padding:0; width:100%; max-width:none; border-radius:12px 12px 0 0; margin:0; box-shadow:0 30px 80px rgba(3,17,27,0.28); max-height:100vh; height:100vh; overflow:hidden; transform:translateY(30%); display:flex; flex-direction:column}
+@media (max-width:900px){ 
+  /* Center modal and limit size on small->medium screens */
+  .modal{align-items:center; padding:1rem}
+  .modal-panel{padding:0.8rem 1rem; width:92%; max-width:520px; border-radius:12px; margin:6vh auto; box-shadow:0 30px 80px rgba(3,17,27,0.28); max-height:90vh; height:auto; overflow:hidden; transform:translateY(0); display:flex; flex-direction:column}
   .modal.open .modal-panel{transform:translateY(0)}
-  .modal-body{padding:1.25rem; overflow-y:auto; -webkit-overflow-scrolling:touch; flex:1}
+  .modal-body{padding:1rem; overflow-y:auto; -webkit-overflow-scrolling:touch; max-height:calc(90vh - 140px)}
   .modal-avatar{width:96px;height:96px; margin:0 auto .6rem}
   .modal-title{font-size:1.05rem}
   .modal-bio{font-size:1rem}
-  .modal-bullets{padding-left:1.2rem}
+  .modal-bullets{padding-left:1.2rem; max-height:40vh; overflow:auto}
   .modal-actions{flex-direction:column; align-items:stretch; padding:1rem; border-top:1px solid rgba(11,37,69,0.03); background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0))}
   .modal-close{right:14px; top:12px; background:rgba(255,255,255,0.95)}
   .modal-overlay{background:linear-gradient(180deg, rgba(3,17,27,0.72), rgba(3,17,27,0.78))}
   /* ensure content has breath on small screens */
   .modal-body{padding-bottom:1.6rem}
+}
+
+/* Make modal fit content on small phones so no internal scroll is needed */
+@media (max-width:480px){
+  .modal{align-items:center; padding:0.6rem}
+  .modal-panel{width:96%; max-width:420px; margin:3vh auto; border-radius:12px; padding:0.6rem 0.8rem; box-shadow:0 30px 80px rgba(3,17,27,0.28); max-height:calc(100vh - 16px); height:auto; overflow:visible; display:flex; flex-direction:column}
+  .modal.open .modal-panel{transform:translateY(0)}
+  .modal-body{padding:0.85rem; overflow:visible; -webkit-overflow-scrolling:auto; max-height:none}
+  .modal-avatar{width:84px;height:84px; margin:0 auto .5rem}
+  .modal-title{font-size:1rem}
+  .modal-bio{font-size:0.95rem}
+  .modal-bullets{padding-left:1rem; font-size:0.95rem; max-height:none; overflow:visible}
+  .modal-actions{flex-direction:column; gap:0.5rem; padding:0.6rem 0; border-top:0}
+  .modal-close{right:10px; top:8px}
 }
 
 /* Servicios grid */
@@ -634,18 +653,30 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .figure-caption{margin-top:.6rem; text-align:center; font-size:1rem; color:var(--navy)}
 .team-ceo-avatar:hover, .profile-card .profile-avatar:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 24px 70px rgba(11,37,69,0.12)}
 
+.fundadora-inner{grid-template-columns:1fr; text-align:center; align-items:center}
+.fundadora-media{flex-direction:column; align-items:center; gap:1rem}
+/* Uniform card + image sizing for mobile: consistent, centered and professional */
 @media (max-width:900px){
   .fundadora-inner{grid-template-columns:1fr; text-align:center; align-items:center}
-  .fundadora-media{flex-direction:column; align-items:center}
-  /* unify avatar sizes on mobile for a consistent, professional appearance */
-  .team-ceo-avatar{width:240px; height:240px}
-  .profile-card .profile-avatar{width:240px; height:240px}
-  /* smaller, tighter badge on mobile */
-  .figure-badge{margin:0 auto .9rem; font-size:0.95rem; padding:.28rem .8rem; height:36px; min-width:140px}
-  .fundadora{padding:2.6rem 0}
-  /* raise badges slightly so they overlap portraits nicely on mobile */
-  .fundadora-media figure .figure-badge{top:-22px}
-}    
+  .fundadora-media{display:flex; flex-direction:column; align-items:center; gap:1rem}
+
+  /* Figures act as consistent cards */
+  .fundadora-media figure{position:relative; width:92%; max-width:360px; background:#fff; border-radius:12px; padding:0.6rem; box-shadow:0 18px 46px rgba(3,17,27,0.06); display:flex; flex-direction:column; align-items:center; gap:0.5rem; box-sizing:border-box}
+
+  /* Force all photos to same square aspect ratio and fill the card consistently */
+  .fundadora-media figure img{width:calc(100% - 2px); height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:10px; display:block}
+
+  /* Caption spacing and typography consistency */
+  .figure-caption{margin-top:0.45rem; color:var(--navy); font-weight:700}
+
+  /* Make badge overlay small and centered above the photo */
+  .figure-badge{position:absolute; top:10px; left:50%; transform:translateX(-50%); margin:0; font-size:0.92rem; padding:.24rem .7rem; height:auto; min-width:120px}
+
+  /* Standardize avatar/card image sizes for other components used here */
+  .team-ceo-avatar, .profile-card .profile-avatar{width:200px; height:200px; border-radius:10px; object-fit:cover}
+
+  .fundadora{padding:2.2rem 0}
+}
 .figure-caption .caption-role{display:block; font-size:.82rem; color:rgba(11,37,69,0.6); margin-top:.18rem}
 
 /* Badge above founder image — refined professional style */
@@ -663,6 +694,49 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .fundadora-text h2{font-family:'Playfair Display', serif; font-size:1.6rem;margin:0}
 .fundadora-text .lead{color:var(--turquoise); font-weight:700; margin:.35rem 0}
 .fundadora-bio{margin-top:.6rem; color:rgba(11,37,69,0.9); line-height:1.5}
+
+/* Fix: ensure fundadora lead text is white and improve contrast of headings and badges */
+.fundadora .fundadora-text .lead{color:rgba(255,255,255,0.95); font-weight:700}
+.fundadora .fundadora-bio{color:rgba(255,255,255,0.86)}
+.fundadora-text h2{ text-shadow:0 6px 22px rgba(3,17,27,0.5)}
+
+/* Make badges stand out on the turquoise background */
+.fundadora .figure-badge{background:linear-gradient(90deg,var(--turquoise),#00b3b8); color:#fff; border:none; box-shadow:0 10px 28px rgba(0,183,195,0.12)}
+.fundadora .figure-badge .badge-text{color:#fff}
+.fundadora .figure-badge .badge-paw{filter:grayscale(1) brightness(0) invert(1); opacity:0.95}
+
+/* Liderazgo — layout y refinamientos para la sección de Fundadora/Gerente */
+.fundadora-inner{display:grid; grid-template-columns:1fr 360px; gap:2rem; align-items:center}
+/* Section text should be white to contrast with the turquoise background */
+.fundadora{color:#fff}
+.fundadora-text h2{font-family:'Playfair Display', serif; font-size:2rem; margin:0 0 .2rem; color:#fff}
+.fundadora-lead{color:rgba(255,255,255,0.95); font-weight:700; font-size:1.05rem; margin-bottom:.35rem}
+.fundadora-bio{color:rgba(255,255,255,0.86)}
+
+/* Center and tighten images; add subtle float animation and glow accent */
+.fundadora-media{display:flex; gap:1rem; justify-content:center; align-items:center}
+.fundadora-media figure{width:260px; max-width:320px; background:#fff; border-radius:12px; padding:1.1rem 0.8rem 0.8rem; box-shadow:0 18px 46px rgba(3,17,27,0.06); transition:transform .28s ease, box-shadow .28s ease; overflow:visible; position:relative; animation:float 6s ease-in-out infinite}
+/* Ensure images fill card without being cropped */
+.fundadora-media figure img{display:block; width:100%; height:auto; border-radius:10px; margin:0 auto}
+.fundadora-media figure:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 28px 80px rgba(3,17,27,0.12)}
+.team-ceo-avatar{width:200px; height:200px; border-radius:12px; object-fit:cover}
+.profile-avatar{width:140px; height:140px; border-radius:12px; object-fit:cover; margin-top:.6rem}
+
+/* Keep captions dark since cards are white */
+.figure-caption{color:#0b2545}
+.caption-role{color:rgba(11,37,69,0.6)}
+
+/* Subtle turquoise glow accent behind cards */
+.fundadora-media figure::before{content:""; position:absolute; inset:-8px; border-radius:14px; background:linear-gradient(90deg,var(--turquoise), #00b3b8); z-index:-1; filter:blur(10px); opacity:0.08; transition:opacity .28s ease}
+.fundadora-media figure:hover::before{opacity:0.18}
+
+/* Subtle float animation keyframes */
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+@media (max-width:900px){
+  .fundadora-inner{grid-template-columns:1fr; text-align:center; align-items:center}
+  .fundadora-media{flex-direction:column; gap:1.2rem}
+}
 /* AOS-friendly fallback: figures animate into view if AOS is present */
 .fundadora-media figure{opacity:0; transform:translateY(10px); transition:transform .36s cubic-bezier(.2,.9,.2,1), opacity .36s ease; position:relative}
 .fundadora-media figure.aos-animate{opacity:1; transform:none}
@@ -692,8 +766,18 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 @media (min-width:901px){
   .pilares-inline{display:block}
   .pilares-inline{grid-column:2}
-  .fundadora-inner{grid-template-columns:1fr 840px 1fr}
+  /* Constrain the founder layout to a centered max-width so it does not force zooming out */
+  .fundadora-inner{grid-template-columns: minmax(140px,220px) 1fr minmax(140px,220px); gap:2rem; max-width:1100px; margin:0 auto; align-items:center}
   .refined-pilares{gap:1.4rem}
+
+  /* Tidy the media column: make portrait cards smaller and consistent */
+  .fundadora-media{grid-column:1 / -1; display:grid; grid-template-columns:1fr 240px 1fr; align-items:center; justify-items:center}
+  .fundadora-media figure{width:240px; background:#fff; border-radius:12px; padding:.8rem; box-shadow:0 18px 46px rgba(3,17,27,0.06); display:flex; flex-direction:column; align-items:center; gap:.5rem}
+  .fundadora-media figure img{width:200px; height:200px; object-fit:cover; border-radius:10px}
+
+  /* Center the refined pillars and constrain their width for strong alignment */
+  .refined-pilares{max-width:760px; margin:0 auto}
+  .pilares-inline{margin-top:.4rem; margin-bottom:1.2rem}
 }
 
 /* Mobile: stack pillars as single column cards */
@@ -928,6 +1012,27 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   text-decoration:none; display:flex; align-items:center; gap:.5rem;
   transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
   opacity:0.96;
+}
+
+/* Desktop: uniform square images + matching modal avatar size; keep paw sizes untouched */
+@media (min-width:901px){
+  /* Use a tidy grid for the founder media so cards are ordered and centered */
+  .fundadora .fundadora-media{ display:grid; grid-template-columns: 1fr 360px 1fr; gap:1rem; align-items:center; justify-items:center }
+
+  /* Card container sizing (visual card) */
+  .fundadora .fundadora-media figure{ width:320px; padding:0.8rem; background:#fff; border-radius:14px; box-shadow:0 24px 60px rgba(3,17,27,0.06); display:flex; flex-direction:column; align-items:center; gap:0.5rem }
+
+  /* Force all founder photos to identical square size on desktop */
+  .fundadora .fundadora-media figure img{ width:260px; height:260px; object-fit:cover; border-radius:12px; display:block }
+
+  /* Ensure modal avatar uses the same visual size and shape for consistency */
+  /* Reduced avatar size on desktop so the profile modal stays compact */
+  #profileModal .modal-avatar, .modal .modal-avatar{ width:160px; height:160px; border-radius:12px; object-fit:cover }
+
+  /* Make profile modal more compact on desktop: limit width and padding */
+  .modal-panel{ max-width:520px; padding:1rem 1rem }
+
+  /* Keep badges/paws unchanged: do not override .figure-badge or .section-paws here */
 }
 .petshop:hover{ transform: translateY(-4px); box-shadow: 0 24px 72px rgba(6,110,130,0.22); opacity:1 }
 /* Smooth transition and subtle animation when toggling dark state */
@@ -1187,4 +1292,21 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 
 /* Utility */
 .hidden{display:none}
+
+/* Fix: force uniform square photos in the Fundadora section on mobile (only photos) */
+@media (max-width:900px){
+  .fundadora .fundadora-media figure img{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+    margin:0 auto;
+  }
+}
+
+/* Restore original small paw sizes and ensure decorative paw assets keep expected dimensions */
+.figure-badge .badge-paw{ width:18px !important; height:18px !important; }
+.section-paws::before{ background-size:48px !important; }
+.section-paws::after{ width:260px !important; height:260px !important; background-size:contain !important; }
 

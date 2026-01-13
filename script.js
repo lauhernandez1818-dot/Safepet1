@@ -356,49 +356,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const bullets = (card.dataset.bullets || '').split('|').filter(Boolean);
     const bio = card.dataset.bio || card.querySelector('.team-ceo-bio')?.textContent || '';
     // Prefer the profile avatar image (avoid grabbing the small badge paw image)
-    const imgEl = card.querySelector('.team-ceo-avatar, .profile-avatar, .member-avatar, img:not(.badge-paw)');
-    const img = imgEl?.getAttribute('src') || '';
-
-    modalAvatar.setAttribute('src', img);
-    modalAvatar.setAttribute('alt', name);
-    modalName.textContent = name;
-    modalTitle.textContent = title;
-    modalBullets.innerHTML = '';
-    bullets.forEach(b => { const li = document.createElement('li'); li.textContent = b.trim(); modalBullets.appendChild(li); });
-    modalBioEl.textContent = bio;
-
-    // modal badge: show the person's short role text only and hide duplicated title
-    if(modalBadge){
-      const shortTitle = (title || '').split('—')[0].trim() || title || '';
-      modalBadge.innerHTML = `<span class="badge-text">${shortTitle}</span>`;
-      modalBadge.setAttribute('aria-hidden','false');
-      // hide the modalTitle paragraph to avoid duplication/underline
-      if(modalTitle){ modalTitle.textContent = ''; modalTitle.style.display = 'none'; }
-    } else {
-      if(modalTitle){ modalTitle.style.display = ''; modalTitle.textContent = title; }
-    }
-
-    // actions: show 'Agendar Cita' only for médicos/veterinarios; always show Close
-    modalActions.style.display = 'flex';
-    const cta = modalActions.querySelector('.modal-cta');
-    const titleLower = (title || '').toLowerCase();
-    const isVet = /m[eé]dic|m[eé]dico|veterinari/i.test(titleLower);
-    if(isVet){
-      cta.style.display = 'inline-block';
-      // if the card provides a whatsapp link, prefer it; otherwise open booking modal pre-filled
-      if(card.dataset.whatsapp){ cta.setAttribute('href', card.dataset.whatsapp); cta.setAttribute('target','_blank'); }
-      else {
-        cta.setAttribute('href','#');
-        // remove previous handler and attach a one-time click to open booking modal and prefill service/title
-        cta.onclick = (ev) => { ev.preventDefault(); openBooking(); /* prefill service with Consultation and add note of doctor */ const svc = document.getElementById('bookService'); const notes = document.getElementById('bookNotes'); if(svc) svc.value = 'Consulta'; if(notes) notes.value = `Preferencia por consulta con ${name}`; };
-      }
-      // add pulse and avatar glow for emphasis
-      cta.classList.add('pulse');
-      modalAvatar.classList.add('modal-avatar-glow');
-    } else {
-      cta.style.display = 'none';
-      cta.classList.remove('pulse');
+    // special-case: group/team photo (the featured card can show a general photo)
+    if(card.dataset.groupphoto){
+      const groupImg = card.dataset.groupphoto;
+      modalAvatar.setAttribute('src', groupImg);
+      modalAvatar.setAttribute('alt', name || 'Equipo SafePet');
+      modalName.textContent = name || 'Nuestro Equipo';
+      modalTitle.textContent = title || '';
+      modalBullets.innerHTML = '';
+      modalBioEl.textContent = card.dataset.bio || '';
+      // hide badge and actions for group photo
+      if(modalBadge){ modalBadge.innerHTML = ''; modalBadge.setAttribute('aria-hidden','true'); }
+      modalActions.style.display = 'none';
+      // ensure title is visible for group card
+      if(modalTitle) { modalTitle.style.display = ''; }
+      // make sure no glow/pulse
       modalAvatar.classList.remove('modal-avatar-glow');
+    } else {
+      const imgEl = card.querySelector('.team-ceo-avatar, .profile-avatar, .member-avatar, img:not(.badge-paw)');
+      const img = imgEl?.getAttribute('src') || '';
+
+      modalAvatar.setAttribute('src', img);
+      modalAvatar.setAttribute('alt', name);
+      modalName.textContent = name;
+      modalTitle.textContent = title;
+      modalBullets.innerHTML = '';
+      bullets.forEach(b => { const li = document.createElement('li'); li.textContent = b.trim(); modalBullets.appendChild(li); });
+      modalBioEl.textContent = bio;
+
+      // modal badge: show the person's short role text only and hide duplicated title
+      if(modalBadge){
+        const shortTitle = (title || '').split('—')[0].trim() || title || '';
+        modalBadge.innerHTML = `<span class="badge-text">${shortTitle}</span>`;
+        modalBadge.setAttribute('aria-hidden','false');
+        // hide the modalTitle paragraph to avoid duplication/underline
+        if(modalTitle){ modalTitle.textContent = ''; modalTitle.style.display = 'none'; }
+      } else {
+        if(modalTitle){ modalTitle.style.display = ''; modalTitle.textContent = title; }
+      }
+
+      // actions: show 'Agendar Cita' only for médicos/veterinarios; always show Close
+      modalActions.style.display = 'flex';
+      const cta = modalActions.querySelector('.modal-cta');
+      const titleLower = (title || '').toLowerCase();
+      const isVet = /m[eé]dic|m[eé]dico|veterinari/i.test(titleLower);
+      if(isVet){
+        cta.style.display = 'inline-block';
+        // if the card provides a whatsapp link, prefer it; otherwise open booking modal pre-filled
+        if(card.dataset.whatsapp){ cta.setAttribute('href', card.dataset.whatsapp); cta.setAttribute('target','_blank'); }
+        else {
+          cta.setAttribute('href','#');
+          // remove previous handler and attach a one-time click to open booking modal and prefill service/title
+          cta.onclick = (ev) => { ev.preventDefault(); openBooking(); /* prefill service with Consultation and add note of doctor */ const svc = document.getElementById('bookService'); const notes = document.getElementById('bookNotes'); if(svc) svc.value = 'Consulta'; if(notes) notes.value = `Preferencia por consulta con ${name}`; };
+        }
+        // add pulse and avatar glow for emphasis
+        cta.classList.add('pulse');
+        modalAvatar.classList.add('modal-avatar-glow');
+      } else {
+        cta.style.display = 'none';
+        cta.classList.remove('pulse');
+        modalAvatar.classList.remove('modal-avatar-glow');
+      }
     }
 
     // show modal with animation and mark visible to AT
