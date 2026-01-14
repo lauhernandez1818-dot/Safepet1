@@ -142,6 +142,84 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .nav-cta{display:inline-block}
 .nav-link{color:var(--navy); text-decoration:none; padding:0.4rem 0.6rem; font-weight:600}
 
+/* Desktop header actions: PetShop & Chatbot */
+@media (min-width:901px){
+  /* Make header actions plain white text (no background) and keep them inline with nav */
+  .petshop-header, .chatbot-header{ display:inline-block; margin-left:0.8rem; padding:.4rem .6rem; font-weight:700; color:#fff !important; text-decoration:none; background:transparent !important; border:none !important; box-shadow:none !important }
+  .petshop-header:hover, .chatbot-header:hover{ opacity:0.92 }
+
+  /* Always keep them white and without a box, both over hero and when header becomes active */
+  .site-header.is-top .petshop-header, .site-header.is-top .chatbot-header,
+  .site-header.header-active .petshop-header, .site-header.header-active .chatbot-header{
+    color: #fff !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Hide header duplicates in mobile (these live in hamburger menu) */
+@media (max-width:900px){
+  .petshop-header, .chatbot-header{ display:none !important; }
+  .header-actions{ display:none !important; }
+}
+
+/* Header actions styling (desktop) */
+.header-actions{ display:flex; gap:.6rem; align-items:center; margin-left:0.6rem }
+.header-actions .header-action{ text-decoration:none }
+
+/* Header animations & micro-interactions */
+.site-header{ animation: headerEntrance .6s ease both; transition: background-color .28s ease, box-shadow .28s ease, transform .28s ease; will-change:transform }
+@keyframes headerEntrance{ from{ transform: translateY(-10px); opacity:0 } to{ transform: translateY(0); opacity:1 } }
+
+/* Nav links underline grow & lift on hover */
+.main-nav a{ position:relative; transition: color .2s ease, transform .18s ease }
+.main-nav a::after{ content:""; position:absolute; left:0; bottom:-8px; height:3px; width:0; background: rgba(255,255,255,0.9); border-radius:3px; transition: width .28s cubic-bezier(.2,.9,.2,1) }
+.main-nav a:hover, .main-nav a:focus{ transform: translateY(-2px) }
+.main-nav a:hover::after, .main-nav a:focus::after{ width:100% }
+
+/* Header actions: subtle glass hover + lift */
+.header-actions .header-action{ transition: transform .22s ease, box-shadow .22s ease, background .22s ease; border-radius:8px; padding:.32rem .5rem }
+.header-actions .header-action:hover, .header-actions .header-action:focus{ transform: translateY(-4px); background: rgba(255,255,255,0.06); box-shadow: 0 14px 36px rgba(0,0,0,0.12); outline:none }
+.header-actions .header-action:focus{ box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.header-actions .header-action:nth-child(1){ transition-delay:.02s }
+.header-actions .header-action:nth-child(2){ transition-delay:.04s }
+
+/* Keep text white and remove boxes consistently */
+.petshop-header, .chatbot-header, .header-action, .main-nav a{ color:#fff !important; background:transparent !important }
+
+/* Apply the same underline & lift to stand-alone nav links and header actions (e.g., Agendar Cita, Pet Shop, Chatbot) */
+.nav-link, .header-action, #agendarBtn{
+  position:relative;
+  transition: color .2s ease, transform .18s ease;
+}
+.nav-link::after, .header-action::after, #agendarBtn::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  height:3px;
+  width:0;
+  background: rgba(255,255,255,0.9);
+  border-radius:3px;
+  transition: width .28s cubic-bezier(.2,.9,.2,1);
+}
+.nav-link:hover, .nav-link:focus, .header-action:hover, .header-action:focus, #agendarBtn:hover, #agendarBtn:focus{
+  transform: translateY(-2px);
+}
+.nav-link:hover::after, .nav-link:focus::after, .header-action:hover::after, .header-action:focus::after, #agendarBtn:hover::after, #agendarBtn:focus::after{
+  width:100%;
+}
+
+/* Reduce underline distance on smaller screens */
+@media (max-width:1200px){ .main-nav a::after{ bottom:-6px; height:2px } }
+
+/* Accessibility: visible focus for keyboard users */
+.main-nav a:focus, .header-actions .header-action:focus, .nav-link:focus, #agendarBtn:focus{ box-shadow: 0 0 0 3px rgba(255,255,255,0.08) }
+
+/* Remove old floating buttons' visibility (we moved them to header) */
+.petshop{ display:none !important }
+.whatsapp, .whatsapp-btn{ display:none !important }
+
 /* Slightly tighter header on desktop so it doesn't overlap hero logo */
 .site-header.is-top{padding-top:6px; padding-bottom:6px}
 .mobile-toggle{display:none; background:transparent; border:none}
@@ -881,8 +959,25 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .instalaciones-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; align-items:start}
 .instalacion-card{background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:20px; padding:1rem; display:flex; flex-direction:column; gap:1rem; min-height:200px}
 .instalacion-card h3{margin:0; font-size:1rem; color:var(--navy); text-align:center}
-.placeholder{background:#f3f6f8; border-radius:20px; aspect-ratio:16/10; display:flex; align-items:center; justify-content:center}
+.placeholder{background:#f3f6f8; border-radius:20px; aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; overflow:hidden}
 .placeholder-number{color:var(--turquoise); font-weight:800; font-size:clamp(1.6rem, 4.5vw, 3.2rem); line-height:1}
+
+/* Instalacion image: ensure it covers the placeholder area without distortion */
+.instalacion-img{width:100%; height:100%; object-fit:cover; display:block; border-radius:20px; image-rendering:auto; backface-visibility:hidden; transform:translateZ(0); will-change:transform}
+
+/* Desktop override: ensure the image is visible and not covered by the placeholder background */
+@media (min-width:901px){
+  .instalaciones .placeholder{ background: transparent !important; }
+  .instalaciones .placeholder .instalacion-img{
+    display:block !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+}
+
 @media (max-width:480px){
   .instalacion-card{padding:.8rem}
   .placeholder-number{font-size:clamp(1.2rem, 6.5vw, 2.2rem)}
@@ -946,13 +1041,126 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .insta-post{position:relative; overflow:hidden; border-radius:10px}
 .insta-post img{width:100%; height:220px; object-fit:cover}
 .insta-post button{position:absolute; left:0; right:0; bottom:8px; margin:auto; width:70%; background:rgba(0,0,0,0.6); color:#fff; border:none; padding:.6rem; border-radius:999px}
-.testimonials{margin-top:1.25rem}
-.testimonial-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; align-items:start}
-.testimonial-card{background:#fff; padding:1rem; border-radius:12px; box-shadow:0 10px 30px rgba(11,37,69,0.06); display:flex; gap:1rem; align-items:flex-start}
+.testimonials{margin-top:1.25rem; position:relative; overflow:visible}
+.testimonial-grid{display:grid; gap:1rem; align-items:start; grid-template-columns:1fr}
+.testimonial-col{display:flex; flex-direction:column; gap:1rem}
+.testimonial-center{display:none}
+.testimonial-card{background:#fff; padding:1rem; border-radius:12px; box-shadow:0 10px 30px rgba(11,37,69,0.06); display:flex; gap:1rem; align-items:flex-start; opacity:1; transform:none}
 .testimonial-avatar{width:56px; height:56px; border-radius:50%; object-fit:cover; flex:0 0 56px; box-shadow:0 6px 18px rgba(0,0,0,0.08)}
 .testimonial-body .quote{font-style:italic; margin:0 0 .5rem; color:var(--navy)}
 .testimonial-body .meta{display:flex; gap:.5rem; align-items:center; color:rgba(11,37,69,0.7); font-weight:700}
 .stars{color:var(--turquoise)}
+
+/* Entrance animations (start fully off-screen) */
+.testimonial-card.from-left, .testimonial-card.from-right{opacity:0; animation-duration:.9s; animation-fill-mode:forwards; animation-timing-function:cubic-bezier(.2,.9,.24,1); will-change:transform,opacity}
+.testimonial-card.from-left{transform:translateX(calc(-100vw - 40px)); }
+.testimonial-card.from-right{transform:translateX(calc(100vw + 40px)); }
+@keyframes slideInLeft{to{transform:translateX(0) translateY(0); opacity:1}}
+@keyframes slideInRight{to{transform:translateX(0) translateY(0); opacity:1}}
+
+/* activate when section is visible */
+.testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeft; }
+.testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRight; }
+
+/* Desktop layout: keep section size, use overlay center gap */
+@media (min-width:900px){
+  .testimonial-grid{grid-template-columns:1fr 1fr; gap:2rem; position:relative}
+  .testimonial-center{display:block; position:absolute; left:50%; transform:translateX(-50%); width:360px; height:220px; top:0; pointer-events:none; z-index:2}
+  .embed-placeholder{position:relative; z-index:3}
+  .testimonial-col.left{align-items:flex-end}
+  .testimonial-col.right{align-items:flex-start}
+}
+
+/* Wide-screen behavior (target ~1920px): start off-screen and end near viewport edges in a staircase */
+@media (min-width:1600px){
+  /* start off-screen using viewport units and use CSS vars for Y offsets */
+  :root{ --testimonial-edge-inset: 620px; }
+  .testimonial-card.from-left{transform:translateX(calc(-100vw - 40px));}
+  .testimonial-card.from-right{transform:translateX(calc(100vw + 40px));}
+
+  /* Left column: show text first, then avatar (row reversed) */
+  .testimonial-col.left .testimonial-card{ flex-direction:row-reverse; }
+  .testimonial-col.left .testimonial-card .testimonial-body{ text-align:left }
+  .testimonial-col.left .testimonial-card .testimonial-avatar{ margin-left:0; margin-right:0 }
+
+  /* staircase vertical offsets and CSS-controlled delays (one-by-one). --ty is the vertical offset kept during animation */
+  .testimonial-col.left .testimonial-card:nth-child(1){ --ty: 0px; transform:translateX(calc(-100vw - 40px)) translateY(var(--ty)); animation-delay:0s }
+  .testimonial-col.left .testimonial-card:nth-child(2){ --ty: 28px; transform:translateX(calc(-100vw - 40px)) translateY(var(--ty)); animation-delay:.28s }
+  .testimonial-col.left .testimonial-card:nth-child(3){ --ty: 56px; transform:translateX(calc(-100vw - 40px)) translateY(var(--ty)); animation-delay:.56s }
+
+  .testimonial-col.right .testimonial-card:nth-child(1){ --ty: 0px; transform:translateX(calc(100vw + 40px)) translateY(var(--ty)); animation-delay:0s }
+  .testimonial-col.right .testimonial-card:nth-child(2){ --ty: 28px; transform:translateX(calc(100vw + 40px)) translateY(var(--ty)); animation-delay:.28s }
+  .testimonial-col.right .testimonial-card:nth-child(3){ --ty: 56px; transform:translateX(calc(100vw + 40px)) translateY(var(--ty)); animation-delay:.56s }
+
+  /* when section is in view, use edge keyframes (final positions near viewport edges) */
+  .testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeftEdge; }
+  .testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRightEdge; }
+
+  /* final positions are near the absolute viewport edges (24px inset) */
+  .testimonial-card.from-left, .testimonial-card.from-right{animation-duration:.95s}
+}
+
+/* keyframes for wide-screen edge placement (use --ty for final vertical position) */
+@keyframes slideInLeftEdge{ to{ transform:translateX(calc(-50vw + var(--testimonial-edge-inset))) translateY(var(--ty)); opacity:1 } }
+@keyframes slideInRightEdge{ to{ transform:translateX(calc(50vw - var(--testimonial-edge-inset))) translateY(var(--ty)); opacity:1 } }
+
+/* Variantes por resolución de escritorio */
+@media (min-width:1200px) and (max-width:1365px){
+  /* Adjusted for 1280px widths: bring cards much closer to center */
+  :root{ --testimonial-edge-inset: 480px; }
+  .testimonial-col.left .testimonial-card{ flex-direction:row-reverse }
+  .testimonial-col.left .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.left .testimonial-card:nth-child(2){ --ty:16px; animation-delay:.24s }
+  .testimonial-col.left .testimonial-card:nth-child(3){ --ty:32px; animation-delay:.48s }
+  .testimonial-col.right .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.right .testimonial-card:nth-child(2){ --ty:16px; animation-delay:.24s }
+  .testimonial-col.right .testimonial-card:nth-child(3){ --ty:32px; animation-delay:.48s }
+  .testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeftEdge }
+  .testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRightEdge }
+}
+
+@media (min-width:1366px) and (max-width:1439px){
+  :root{ --testimonial-edge-inset: 320px; }
+  .testimonial-col.left .testimonial-card{ flex-direction:row-reverse }
+  .testimonial-col.left .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.left .testimonial-card:nth-child(2){ --ty:24px; animation-delay:.24s }
+  .testimonial-col.left .testimonial-card:nth-child(3){ --ty:48px; animation-delay:.48s }
+  .testimonial-col.right .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.right .testimonial-card:nth-child(2){ --ty:24px; animation-delay:.24s }
+  .testimonial-col.right .testimonial-card:nth-child(3){ --ty:48px; animation-delay:.48s }
+  .testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeftEdge }
+  .testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRightEdge }
+}
+
+@media (min-width:1440px) and (max-width:1599px){
+  :root{ --testimonial-edge-inset: 420px; }
+  .testimonial-col.left .testimonial-card{ flex-direction:row-reverse }
+  .testimonial-col.left .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.left .testimonial-card:nth-child(2){ --ty:26px; animation-delay:.26s }
+  .testimonial-col.left .testimonial-card:nth-child(3){ --ty:52px; animation-delay:.52s }
+  .testimonial-col.right .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.right .testimonial-card:nth-child(2){ --ty:26px; animation-delay:.26s }
+  .testimonial-col.right .testimonial-card:nth-child(3){ --ty:52px; animation-delay:.52s }
+  .testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeftEdge }
+  .testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRightEdge }
+}
+
+@media (min-width:1920px){
+  :root{ --testimonial-edge-inset: 760px; }
+  .testimonial-col.left .testimonial-card{ flex-direction:row-reverse }
+  .testimonial-col.left .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.left .testimonial-card:nth-child(2){ --ty:30px; animation-delay:.30s }
+  .testimonial-col.left .testimonial-card:nth-child(3){ --ty:60px; animation-delay:.60s }
+  .testimonial-col.right .testimonial-card:nth-child(1){ --ty:0px; animation-delay:0s }
+  .testimonial-col.right .testimonial-card:nth-child(2){ --ty:30px; animation-delay:.30s }
+  .testimonial-col.right .testimonial-card:nth-child(3){ --ty:60px; animation-delay:.60s }
+  .testimonials.in-view .testimonial-card.from-left{ animation-name: slideInLeftEdge }
+  .testimonials.in-view .testimonial-card.from-right{ animation-name: slideInRightEdge }
+  .testimonial-card.from-left, .testimonial-card.from-right{animation-duration:1s}
+}
+
+/* Mobile behavior (unchanged) */
+@media (max-width:900px){ .route-video{max-height:280px; width:100%; } .testimonial-grid{grid-template-columns:1fr; overflow-x:auto; scroll-snap-type:x mandatory} .testimonial-card{min-width:260px; scroll-snap-align:center} }
 
 /* Locate */
 .locate{padding:1.6rem 0}
@@ -993,7 +1201,59 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 }
 
 /* WhatsApp floating */
-.whatsapp{position:fixed; right:20px; bottom:20px; background:var(--turquoise); color:var(--navy); padding:.8rem 1rem; border-radius:40px; font-weight:700; z-index:999}
+.whatsapp, .whatsapp-btn{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#25d366; /* WhatsApp green */
+  color:#fff;
+  padding:12px 20px;
+  border-radius:50px;
+  font-family: Arial, sans-serif;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+  z-index:1001;
+  transition: transform .3s ease;
+}
+
+.whatsapp-btn:hover, .whatsapp:hover{
+  transform: scale(1.06);
+  color:white;
+  text-decoration:none;
+}
+
+/* Hide floating buttons on small and tablet screens; show them inside the mobile menu */
+@media (max-width:900px){
+  .petshop,
+  .whatsapp-btn{ display:none !important; }
+}
+
+/* Prevent overlap on very small screens: raise petshop and whatsapp slightly apart */
+@media (max-width:600px){
+  .petshop{right:12px; bottom:80px; padding:.6rem .8rem; font-size:.95rem}
+  .whatsapp-btn{right:12px; bottom:12px; padding:.6rem .8rem; font-size:.95rem}
+}
+
+/* Mobile menu action buttons */
+#mobileMenu .mobile-menu-actions{display:flex; flex-direction:column; gap:.8rem; padding:1.2rem 1rem; z-index:3; padding-bottom:1.6rem}
+#mobileMenu .mobile-menu-actions .mobile-menu-btn{display:block; width:calc(100% - 2rem); max-width:520px; margin:0 auto; padding:.85rem 1rem; border-radius:10px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 24px rgba(3,17,27,0.12);}
+#mobileMenu .mobile-menu-actions .mobile-menu-btn.btn-primary{background:linear-gradient(180deg, rgba(42,200,200,0.52), rgba(16,160,170,0.42)); color:#fff; border:none}
+#mobileMenu .mobile-menu-actions .mobile-menu-btn.btn-outline{background:transparent; border:1px solid rgba(255,255,255,0.12); color:var(--white);}
+
+/* Distinct WhatsApp mobile button to maximize visibility */
+#mobileMenu .mobile-menu-actions .whatsapp-mobile-btn{ background: linear-gradient(90deg,#25d366,#1ebc57); color:#fff; border:none; display:flex; align-items:center; justify-content:center; }
+#mobileMenu .mobile-menu-actions .whatsapp-mobile-btn img{display:inline-block}
+
+/* Pet Shop mobile button: place below Chatbot and make visible */
+#mobileMenu .mobile-menu-actions .petshop-mobile-btn{ background: linear-gradient(180deg, rgba(6,210,210,0.95), rgba(0,153,153,0.95)); color:#fff; border:none; opacity:1; margin-top:0.2rem }
+
+/* Ensure buttons in mobile menu have sufficient contrast and spacing */
+#mobileMenu .mobile-menu-actions .mobile-menu-btn:active, #mobileMenu .mobile-menu-actions .mobile-menu-btn:focus{transform:translateY(-1px); outline:none;}
+@media (max-width:420px){ #mobileMenu .mobile-menu-actions .mobile-menu-btn{ font-size:0.95rem; padding:.75rem .9rem } }
 .petshop{
   position:fixed;
   right:20px;

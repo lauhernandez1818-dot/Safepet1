@@ -279,6 +279,24 @@ document.addEventListener('DOMContentLoaded', () => {
     carousel.querySelectorAll('.member-card').forEach(card => io.observe(card));
   }
 
+  // Animate testimonials when they enter the viewport
+  const testimonialsSection = document.querySelector('.testimonials');
+  if(testimonialsSection){
+    if(!('IntersectionObserver' in window)){
+      testimonialsSection.classList.add('in-view');
+    } else {
+      const tObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting && entry.intersectionRatio > 0.18){
+            testimonialsSection.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: [0.18] });
+      tObserver.observe(testimonialsSection);
+    }
+  }
+
   // Facility lightbox
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.querySelector('.lightbox-image');

@@ -43,6 +43,12 @@
 
       <a href="#" id="agendarBtn" class="nav-link">Agendar Cita</a>
 
+      <!-- Header actions for desktop: Chatbot + Pet Shop (hidden on mobile) -->
+      <div class="header-actions" aria-hidden="false">
+        <a id="headerChatbot" href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion" class="btn btn-outline header-action chatbot-header" target="_blank" rel="noopener noreferrer" aria-label="Hablar con nuestro Chatbot">Chatbot</a>
+        <a id="headerPetshop" href="petshop.html" class="nav-link header-action petshop-header" aria-label="Ir a Pet Shop">Pet Shop</a>
+      </div>
+
       <button id="mobileToggle" class="mobile-toggle" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -63,6 +69,11 @@
         <a href="#como-llegar">Cómo Llegar</a>
         <a href="#contacto">Contacto</a>
       </nav>
+
+      <div class="mobile-menu-actions" role="group" aria-label="Acciones móviles">
+        <a href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion" class="btn btn-primary mobile-menu-btn whatsapp-mobile-btn" target="_blank" rel="noopener noreferrer" aria-label="Hablar con nuestro Chatbot">Hablar con nuestro Chatbot</a>
+        <a id="mobilePetshopBtn" href="petshop.html" class="btn btn-primary mobile-menu-btn petshop-mobile-btn" aria-label="Ir a Pet Shop">Ir a Pet Shop</a>
+      </div>
     </div>
   </header>
 
@@ -181,8 +192,15 @@
         </article>
 
         <article class="instalacion-card" aria-labelledby="inst-4">
-          <div class="placeholder" role="img" aria-hidden="true"><span class="placeholder-number">4</span></div>
-            <h3 id="inst-4">Laboratorio</h3>
+          <div class="placeholder" role="img" aria-hidden="true">
+            <img src="imagenes/Veterinaria.jpg"
+                 srcset="imagenes/Veterinaria.jpg 4096w, imagenes/Veterinaria.jpg 1024w"
+                 sizes="(max-width:480px) 92vw, (max-width:900px) 420px, 480px"
+                 decoding="async" fetchpriority="high"
+                onerror="this.onerror=null;this.src='imagenes/Veterinaria.jpg'"
+                alt="Veterinaria" class="instalacion-img" loading="lazy">
+          </div>
+            <h3 id="inst-4">Veterinaria</h3>
         </article>
 
         <article class="instalacion-card" aria-labelledby="inst-5">
@@ -465,21 +483,61 @@
 
       <div class="testimonials">
         <div class="testimonial-grid">
-          <article class="testimonial-card" data-aos="fade-up">
-            <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Laura G">
-            <div class="testimonial-body">
-              <p class="quote">"Gracias a <strong>SafePet</strong>, Bruno volvió a casa sano y feliz. ¡Servicio impecable!"</p>
-              <div class="meta"><strong>Laura G.</strong><span class="stars">★★★★★</span></div>
-            </div>
-          </article>
 
-          <article class="testimonial-card" data-aos="fade-up" data-aos-delay="120">
-            <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Miguel R">
-            <div class="testimonial-body">
-              <p class="quote">"Atención 24/7 y una comunicación que me tranquiliza siempre. Confío plenamente en el equipo."</p>
-              <div class="meta"><strong>Miguel R.</strong><span class="stars">★★★★★</span></div>
-            </div>
-          </article>
+          <div class="testimonial-col left">
+            <article class="testimonial-card from-left">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Laura G">
+              <div class="testimonial-body">
+                <p class="quote">"Gracias a <strong>SafePet</strong>, Bruno volvió a casa sano y feliz. ¡Servicio impecable!"</p>
+                <div class="meta"><strong>Laura G.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+
+            <article class="testimonial-card from-left">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Ana S">
+              <div class="testimonial-body">
+                <p class="quote">"El equipo fue muy atento con Lulú y me mantuvieron informado en todo momento."</p>
+                <div class="meta"><strong>Ana S.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+
+            <article class="testimonial-card from-left">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Carlos P">
+              <div class="testimonial-body">
+                <p class="quote">"Profesionales y cariño con las mascotas, me gustó mucho la atención recibida."</p>
+                <div class="meta"><strong>Carlos P.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="testimonial-center" aria-hidden="true"></div>
+
+          <div class="testimonial-col right">
+            <article class="testimonial-card from-right">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Miguel R">
+              <div class="testimonial-body">
+                <p class="quote">"Atención 24/7 y una comunicación que me tranquiliza siempre. Confío plenamente en el equipo."</p>
+                <div class="meta"><strong>Miguel R.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+
+            <article class="testimonial-card from-right">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Sofia M">
+              <div class="testimonial-body">
+                <p class="quote">"Muy satisfechos con el servicio de peluquería y la limpieza del lugar."</p>
+                <div class="meta"><strong>Sofía M.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+
+            <article class="testimonial-card from-right">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" loading="lazy" width="48" height="48" alt="Diego L">
+              <div class="testimonial-body">
+                <p class="quote">"Siempre vuelvo por la confianza que me genera el equipo y el cariño con mi mascota."</p>
+                <div class="meta"><strong>Diego L.</strong><span class="stars">★★★★★</span></div>
+              </div>
+            </article>
+          </div>
+
         </div>
       </div>
 
@@ -569,7 +627,7 @@
     </div>
   </footer>
 
-  <a href="petshop.html" class="petshop" aria-label="Ir a Pet Shop">🛒 Ir a Pet Shop</a>
+
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
