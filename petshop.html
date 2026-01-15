@@ -6,19 +6,80 @@
   <title>Pet Shop — SafePet</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Petshop specific */
-    .shop-hero{padding:2.2rem 1rem; text-align:center; background:linear-gradient(180deg,rgba(0,196,180,0.06),transparent)}
+    /* Petshop specific - minimal, turquoise & white palette */
+    .shop-hero{padding:2.2rem 1rem; text-align:center; background:linear-gradient(180deg,rgba(0,206,209,0.04),transparent)}
     .shop-container{max-width:1100px; margin:0 auto; padding:1rem}
     .shop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
-    .product{background:#fff; border-radius:12px; padding:1rem; box-shadow:0 10px 30px rgba(10,30,40,0.04); display:flex; flex-direction:column; gap:.6rem}
-    .product img{width:100%; height:160px; object-fit:cover; border-radius:8px}
-    .product h4{margin:0; font-size:1rem}
-    .product p.price{font-weight:800; color:var(--turquoise); margin:.2rem 0}
+
+    /* Desktop spacing: make sections taller to avoid empty feeling */
+    @media (min-width:1000px){
+      .shop-hero{padding:4.2rem 1rem}
+      .shop-container{padding:2rem}
+      .shop-grid{gap:1.4rem}
+      .product{min-height:320px; padding:1.25rem}
+      .product img{width:140px; height:140px}
+      .auth-notice{padding:1.25rem 1.5rem}
+    }
+
+    /* Minimal product card */
+    .product{background:#fff; border-radius:12px; padding:1rem; display:flex; flex-direction:column; gap:.6rem; border:1px solid rgba(0,206,209,0.06);}
+    .product img{width:120px; height:120px; object-fit:cover; border-radius:8px; align-self:center; margin:0 auto}
+    .product h4{margin:0; font-size:1rem; text-align:center; color:var(--navy); font-weight:700}
+    .product p.price{font-weight:800; color:var(--turquoise); margin:.35rem 0; text-align:center}
+    .product p.small{color:rgba(11,37,69,0.7); text-align:center}
     .product .actions{margin-top:auto; display:flex; gap:.6rem}
     .product .btn{flex:1}
 
+    /* Card hover + entry animation */
+    .product{opacity:0; transform:translateY(10px); transition:transform .42s cubic-bezier(.2,.9,.2,1), opacity .42s ease, box-shadow .22s ease}
+    .product.is-visible{opacity:1; transform:none}
+    /* Neutral hover shadow (removed turquoise tint) */
+    .product:hover{box-shadow:0 12px 30px rgba(11,37,69,0.08); transform: translateY(-6px)}
+
+    /* Categories - redesigned: pill buttons, icons, responsive scroll */
+    .categories-wrap{position:relative}
+    .categories-row{margin:1rem 0 1.6rem; display:flex; gap:.8rem; justify-content:flex-start; align-items:center; overflow:auto; padding:0 .25rem; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch}
+    .categories-row::-webkit-scrollbar{height:8px}
+    .categories-row::-webkit-scrollbar-thumb{background:rgba(11,37,69,0.06); border-radius:8px}
+    .category-card{display:inline-flex; align-items:center; gap:.6rem; padding:.6rem .9rem; border-radius:999px; background:transparent; border:1px solid rgba(11,37,69,0.06); color:var(--navy); font-weight:700; transition:transform .18s ease, background .18s ease, box-shadow .18s ease; flex:0 0 auto; scroll-snap-align:center}
+    .category-card .cat-icon{font-size:1.05rem; display:inline-block}
+    .category-card .cat-label{white-space:nowrap}
+    .category-card:hover{transform:translateY(-4px); box-shadow:0 8px 20px rgba(11,37,69,0.04)}
+    .category-card.active{background:linear-gradient(90deg,var(--turquoise), #00b3b8); color:#fff; border-color:transparent; box-shadow:0 10px 30px rgba(0,179,184,0.12)}
+    @media (max-width:900px){ .categories-row{gap:.6rem} }
+    @media (max-width:600px){ .categories-row{padding:0 .5rem} .category-card{padding:.5rem .75rem} }
+    /* Desktop distribution: make pills occupy full line width and space evenly */
+    @media (min-width:1000px){
+      .categories-row{justify-content:space-between; overflow:visible; padding:0 0.5rem}
+      .category-card{flex:1 1 0; max-width:220px; justify-content:center}
+      .categories-row .category-card{margin:0 .4rem}
+    }
+
+    /* Buttons */
+    .btn-primary{background:linear-gradient(90deg,var(--turquoise), #00b3b8); color:#fff; border:none}
+
+    /* Responsive tweaks */
     @media (max-width:900px){ .shop-grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:600px){ .shop-grid{grid-template-columns:1fr} .product img{height:220px} }
+    @media (max-width:600px){ .shop-grid{grid-template-columns:1fr} .product img{width:100%; height:auto; aspect-ratio:1/1; object-fit:cover} .category-card{font-size:.95rem} }
+    /* Variant pills styling */
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+    .variant-pills{display:flex; gap:.6rem; justify-content:center; margin:.6rem 0}
+      .variant-pill{display:flex; flex-direction:column; align-items:center; gap:.25rem; padding:.45rem .6rem; background:transparent; border:1px solid rgba(11,37,69,0.06); border-radius:10px; cursor:pointer; transition:transform .16s ease, background .16s ease, box-shadow .12s ease}
+      .variant-pill img{width:48px; height:48px; object-fit:cover; border-radius:8px; background:#fff}
+      .variant-pill span{font-weight:700; color:var(--navy)}
+      .variant-pill .pill-price{font-size:.78rem; color:var(--navy)}
+      .variant-pill[aria-selected="true"]{background:#fff; color:var(--navy); border-color:rgba(11,37,69,0.12); box-shadow:0 6px 18px rgba(11,37,69,0.04)}
+      .variant-pill[aria-selected="true"] .pill-price{color:var(--navy)}
+    .variant-pill:hover{transform:translateY(-4px)}
+  </style>
+
+  <style>
+    /* Image & price swap animations */
+    @keyframes imgSwap{0%{opacity:0; transform:scale(.96)}60%{opacity:.9; transform:scale(1.02)}100%{opacity:1; transform:scale(1)}}
+    .img-animate{animation: imgSwap .36s cubic-bezier(.2,.9,.2,1);}
+
+    @keyframes pricePulse{0%{transform:translateY(6px); opacity:0}60%{transform:translateY(-4px); opacity:1}100%{transform:translateY(0); opacity:1}}
+    .price-animate{display:inline-block; animation: pricePulse .32s ease forwards}
   </style>
 </head>
 <body>
@@ -38,6 +99,21 @@
       </div>
     </section>
 
+    <!-- Categories: Pastillas/Medicamentos, Shampoos, Juguetes, Cama, Ropa -->
+    <section class="shop-categories" style="padding:1rem 0">
+      <div class="shop-container">
+        <div class="categories-wrap">
+          <div class="categories-row">
+            <button class="category-card btn active" data-category="medicamentos"><span class="cat-icon">💊</span><span class="cat-label">Pastillas y Jarabes</span></button>
+            <button class="category-card btn" data-category="shampoos"><span class="cat-icon">🧴</span><span class="cat-label">Shampoos</span></button>
+            <button class="category-card btn" data-category="juguetes"><span class="cat-icon">🧸</span><span class="cat-label">Juguetes</span></button>
+            <button class="category-card btn" data-category="camas"><span class="cat-icon">🛏️</span><span class="cat-label">Cama</span></button>
+            <button class="category-card btn" data-category="ropa"><span class="cat-icon">👕</span><span class="cat-label">Ropa</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="shop-container">
 
       <!-- Auth notice: shown when user is NOT logged in -->
@@ -46,7 +122,7 @@
         <a href="login.html" class="btn" style="margin-left:.6rem">Iniciar sesión</a>
       </div>
       <div class="shop-grid">
-        <article class="product" data-name="Alimento Premium 2kg" data-price="$18">
+        <article class="product" data-name="Alimento Premium 2kg" data-price="$18" data-category="alimento">
           <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Alimento Premium">
           <h4>Alimento Premium 2kg</h4>
           <p class="price">$18</p>
@@ -54,7 +130,7 @@
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
 
-        <article class="product" data-name="Snack de Pollo 200g" data-price="$4">
+        <article class="product" data-name="Snack de Pollo 200g" data-price="$4" data-category="snack">
           <img src="https://images.unsplash.com/photo-1543852787-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Snack de Pollo">
           <h4>Snack de Pollo 200g</h4>
           <p class="price">$4</p>
@@ -62,7 +138,7 @@
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
 
-        <article class="product" data-name="Cama Ort. Mediana" data-price="$35">
+        <article class="product" data-name="Cama Ort. Mediana" data-price="$35" data-category="camas">
           <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Cama Mediana">
           <h4>Cama Ort. Mediana</h4>
           <p class="price">$35</p>
@@ -70,7 +146,7 @@
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
 
-        <article class="product" data-name="Juguete Resistente" data-price="$7">
+        <article class="product" data-name="Juguete Resistente" data-price="$7" data-category="juguetes">
           <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Juguete">
           <h4>Juguete Resistente</h4>
           <p class="price">$7</p>
@@ -78,7 +154,7 @@
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
 
-        <article class="product" data-name="Correa Ajustable" data-price="$12">
+        <article class="product" data-name="Correa Ajustable" data-price="$12" data-category="accesorios">
           <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Correa">
           <h4>Correa Ajustable</h4>
           <p class="price">$12</p>
@@ -86,16 +162,163 @@
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
 
-        <article class="product" data-name="Shampoo Hipoalerg." data-price="$9">
+        <article class="product" data-name="Shampoo Hipoalerg." data-price="$9" data-category="shampoos">
           <img src="https://images.unsplash.com/photo-1581579188937-7a1c1e6f4de2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Shampoo">
           <h4>Shampoo Hipoalerg.</h4>
           <p class="price">$9</p>
           <p class="small">Limpia y nutre la piel sensible de tu mascota.</p>
           <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
         </article>
+
+        <!-- Medicamentos: añadidos por petición del usuario -->
+        <article class="product" data-name="Doloxicam jarabe — Doctor Pet" data-price="$8.50" data-category="medicamentos">
+          <img src="imagenes/PetShop/Doloxicam.png" alt="Doloxicam jarabe" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/Doloxicam.png 1x, imagenes/PetShop/Doloxicam.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Doloxicam jarabe — Doctor Pet</h4>
+          <p class="price">$8.50</p>
+          <p class="small">Jarabe veterinario — consulte dosificación.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <!-- Doxican: variantes 100mg / 200mg (imagenes en imagenes/PetShop/) -->
+        <article class="product" data-name="Doxican 100-200mg" data-category="medicamentos">
+          <img src="imagenes/PetShop/Doxican100mg.png" alt="Doxican" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/Doxican100mg.png 1x, imagenes/PetShop/Doxican100mg.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Doxican 100-200mg</h4>
+          <p class="price">$9.99</p>
+          <p class="small">Seleccione la presentación adecuada y consulte al veterinario antes de administrar.</p>
+          <label for="doxicam-variants" class="small visually-hidden">Presentación</label>
+          <!-- Variant pills: visible UI synced with the hidden select for accessibility -->
+          <div class="variant-pills" role="tablist" aria-label="Presentaciones Doxican">
+            <button type="button" class="variant-pill" data-value="100" data-price="9.99" data-img="imagenes/PetShop/Doxican100mg.png" aria-selected="true">
+              <img src="imagenes/PetShop/Doxican100mg.png" alt="100 mg" width="48" height="48" loading="lazy" decoding="async">
+              <span>100 mg</span>
+              <small class="pill-price">$9.99</small>
+            </button>
+            <button type="button" class="variant-pill" data-value="200" data-price="15.99" data-img="imagenes/PetShop/Doxican200mg.png" aria-selected="false">
+              <img src="imagenes/PetShop/Doxican200mg.png" alt="200 mg" width="48" height="48" loading="lazy" decoding="async">
+              <span>200 mg</span>
+              <small class="pill-price">$15.99</small>
+            </button>
+          </div>
+          <select id="doxicam-variants" class="variant-select visually-hidden" aria-hidden="false">
+            <option value="100" data-price="9.99" data-img="imagenes/PetShop/Doxican100mg.png" selected>Doxican 100 mg</option>
+            <option value="200" data-price="15.99" data-img="imagenes/PetShop/Doxican200mg.png">Doxican 200 mg</option>
+          </select>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Metadol — Doctor Pet" data-price="$6.75" data-category="medicamentos">
+          <img src="imagenes/PetShop/Metadol.png" alt="Metadol" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/Metadol.png 1x, imagenes/PetShop/Metadol.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Metadol — Doctor Pet</h4>
+          <p class="price">$6.75</p>
+          <p class="small">Analgésico veterinario — use según indicación médica.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Micielix" data-price="$7.20" data-category="medicamentos">
+          <img src="imagenes/PetShop/micielix.png" alt="Micielix" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/micielix.png 1x, imagenes/PetShop/micielix.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Micielix</h4>
+          <p class="price">$7.20</p>
+          <p class="small">Suplemento / tratamiento — siga recomendaciones.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Ciclinix" data-price="$5.50" data-category="medicamentos">
+          <img src="imagenes/PetShop/Ciclinix.png" alt="Ciclinix" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/Ciclinix.png 1x, imagenes/PetShop/Ciclinix.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Ciclinix</h4>
+          <p class="price">$5.50</p>
+          <p class="small">Tratamiento tópico/oral — consulte instrucciones.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Lisoforte" data-price="$11.00" data-category="medicamentos">
+          <img src="imagenes/PetShop/LisoForte60ml.png" alt="Lisoforte" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/LisoForte60ml.png 1x, imagenes/PetShop/LisoForte60ml.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Lisoforte</h4>
+          <p class="price">$11.00</p>
+          <p class="small">Complemento vitamínico — use según indicación profesional.</p>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
+
+        <article class="product" data-name="Laveforte" data-price="$4.50" data-category="medicamentos">
+          <img src="imagenes/PetShop/Laveforte60ml.png" alt="Laveforte" class="product-main-img" loading="lazy" decoding="async" width="300" height="300" srcset="imagenes/PetShop/Laveforte60ml.png 1x, imagenes/PetShop/Laveforte60ml.png 2x" sizes="(max-width:900px)45vw,240px">
+          <h4>Laveforte</h4>
+          <p class="price">$4.50</p>
+          <p class="small">Solución veterinaria — consulte al veterinario. Disponible en 60ml y 120ml.</p>
+          <label for="laveforte-variants" class="small visually-hidden">Presentación</label>
+          <div class="variant-pills" role="tablist" aria-label="Presentaciones Laveforte">
+            <button type="button" class="variant-pill" data-value="60" data-price="4.50" data-img="imagenes/PetShop/Laveforte60ml.png" aria-selected="true">
+              <img src="imagenes/PetShop/Laveforte60ml.png" alt="60 ml" width="48" height="48" loading="lazy" decoding="async">
+              <span>60 ml</span>
+              <small class="pill-price">$4.50</small>
+            </button>
+            <button type="button" class="variant-pill" data-value="120" data-price="7.50" data-img="imagenes/PetShop/Laveforte120ml.png" aria-selected="false">
+              <img src="imagenes/PetShop/Laveforte120ml.png" alt="120 ml" width="48" height="48" loading="lazy" decoding="async">
+              <span>120 ml</span>
+              <small class="pill-price">$7.50</small>
+            </button>
+          </div>
+          <select id="laveforte-variants" class="variant-select visually-hidden">
+            <option value="60" data-price="4.50" data-img="imagenes/PetShop/Laveforte60ml.png" selected>Laveforte 60ml</option>
+            <option value="120" data-price="7.50" data-img="imagenes/PetShop/Laveforte120ml.png">Laveforte 120ml</option>
+          </select>
+          <div class="actions"><button class="btn btn-primary buy">Comprar</button><button class="btn" data-info="add-to-wishlist">♡</button></div>
+        </article>
       </div>
 
-      <p class="small" style="margin-top:1rem">Para realizar una compra se abrirá WhatsApp con el pedido pre-formateado. Reemplaza el número de contacto por el número personal de la tienda en el script (variable <code>ownerNumber</code>).</p>
+      <script>
+        // Simple category filtering
+        (function(){
+          const categoryButtons = document.querySelectorAll('.category-card');
+          const products = document.querySelectorAll('.product');
+
+          function showAll(){ products.forEach(p=> p.style.display='flex'); }
+
+          categoryButtons.forEach((btn, idx)=>{
+            btn.addEventListener('click', ()=>{
+              const cat = btn.dataset.category;
+              categoryButtons.forEach(b=>b.classList.remove('active'));
+              btn.classList.add('active');
+              if(!cat || cat==='all'){ products.forEach((p,i)=>{ p.style.display='flex'; setTimeout(()=>p.classList.add('is-visible'), 40 + i*30); }); return; }
+              products.forEach((p,i)=>{
+                const pcat = p.dataset.category || '';
+                if(pcat === cat){ p.style.display = 'flex'; setTimeout(()=>p.classList.add('is-visible'), 40 + i*30); }
+                else { p.classList.remove('is-visible'); setTimeout(()=> p.style.display='none', 200); }
+              });
+            });
+          });
+        })();
+      </script>
+
+      <script>
+        // Categories carousel controls (mobile-friendly)
+        (function(){
+          const wrap = document.querySelector('.categories-wrap');
+          if(!wrap) return;
+          const row = wrap.querySelector('.categories-row');
+          function scrollAmount(){
+            const w = row.clientWidth || 240;
+            return Math.round(w * 0.6);
+          }
+
+          // make tap on card still work and snap into view after click
+          row.addEventListener('click', (e)=>{
+            const c = e.target.closest('.category-card');
+            if(!c) return;
+            // center the clicked pill
+            const center = c.offsetLeft - (row.clientWidth/2) + (c.offsetWidth/2);
+            row.scrollTo({left: center, behavior:'smooth'});
+          });
+        })();
+      </script>
+
+        <script>
+          // reveal products on load with subtle stagger
+          document.addEventListener('DOMContentLoaded', () => {
+            const products = document.querySelectorAll('.product');
+            products.forEach((p, i) => { p.style.display = 'flex'; setTimeout(() => p.classList.add('is-visible'), 60 + i * 30); });
+          });
+        </script>
+
+      <!-- Nota de compra removida por el usuario -->
 
       <!-- Auth detection script (uses firebase-config.js) -->
       <script type="module">
@@ -171,15 +394,65 @@
       document.querySelectorAll('.buy').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const card = e.target.closest('.product');
-          const name = card.dataset.name || 'Producto';
-          const priceRaw = card.dataset.price || '0';
-          const price = parsePrice(priceRaw);
+
+          // If product has variant selector, use selected option data
+          const variantSelect = card.querySelector('.variant-select');
+          let name = card.dataset.name || 'Producto';
+          let price = 0;
+          if(variantSelect){
+            const opt = variantSelect.options[variantSelect.selectedIndex];
+            const vLabel = opt ? opt.textContent.trim() : '';
+            const vPrice = opt ? opt.dataset.price : undefined;
+            name = name + (vLabel ? ' — ' + vLabel : '');
+            price = parsePrice(vPrice || card.dataset.price || '0');
+          } else {
+            const priceRaw = card.dataset.price || '0';
+            price = parsePrice(priceRaw);
+          }
           currentProduct = {name, price};
           buyProductName.textContent = name;
           unitPriceEl.textContent = '$' + price.toFixed(2);
           qtyEl.value = 1;
           updateTotal();
           showModal();
+        });
+      });
+
+      // Update product image and price display when variant changes (for Doxicam)
+      document.querySelectorAll('.variant-select').forEach(sel => {
+        sel.addEventListener('change', (e) => {
+          const opt = sel.options[sel.selectedIndex];
+          const img = sel.closest('.product').querySelector('.product-main-img');
+          const priceEl = sel.closest('.product').querySelector('.price');
+          if(opt && opt.dataset.img && img){
+            img.classList.remove('img-animate'); void img.offsetWidth; img.src = opt.dataset.img; img.classList.add('img-animate');
+          }
+          if(priceEl){
+            priceEl.classList.remove('price-animate'); void priceEl.offsetWidth;
+            priceEl.textContent = opt && opt.dataset.price && Number(opt.dataset.price) ? '$' + Number(opt.dataset.price).toFixed(2) : 'Consultar precio';
+            priceEl.classList.add('price-animate');
+          }
+        });
+      });
+
+      // Variant pill clicks: sync with hidden select and update image/price
+      document.querySelectorAll('.variant-pills').forEach(group => {
+        group.addEventListener('click', (e) => {
+          const pill = e.target.closest('.variant-pill');
+          if(!pill) return;
+          const container = pill.closest('.product');
+          const select = container.querySelector('.variant-select');
+          if(select){
+            // set select value to pill value
+            const val = pill.dataset.value;
+            for(const opt of select.options){ if(opt.value === val){ opt.selected = true; break; } }
+            // update aria-selected
+            group.querySelectorAll('.variant-pill').forEach(p=> p.setAttribute('aria-selected','false'));
+            pill.setAttribute('aria-selected','true');
+            // trigger change behavior
+            const evt = new Event('change', { bubbles:true });
+            select.dispatchEvent(evt);
+          }
         });
       });
 

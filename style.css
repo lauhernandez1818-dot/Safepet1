@@ -41,9 +41,57 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 /* Subtle variant for sections where we want softer pattern */
 .section-paws.section-paws--soft::before{opacity:0.04; background-size:64px}
 
+/* Overrides for the Instalaciones section: white heading text and white paw decorations */
+#instalaciones .container h2,
+#instalaciones .container p.lead,
+#instalaciones .instalacion-card h3{
+  color: var(--white) !important;
+}
+
+/* Make the small paw before the H2 render in white using mask-image */
+#instalaciones .container h2::before{
+  content: '';
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+  margin-right: 1rem;
+  vertical-align: middle;
+  transform: translateY(2px);
+  background-color: var(--white);
+  -webkit-mask-image: url('imagenes/patitas.png');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: url('imagenes/patitas.png');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  opacity: 1;
+  filter: none;
+}
+
+/* Make the blurred/repeated decorative paws lighter and effectively white-toned */
+#instalaciones.section-paws::before,
+#instalaciones.section-paws::after{
+  filter: invert(1) brightness(2) saturate(0.2) blur(6px);
+  opacity: 0.08;
+}
+
 /* Hide decorative paw layers on small screens to keep clarity */
 @media (max-width:900px){
   .section-paws::before, .section-paws::after{display:none}
+}
+
+/* Desktop: increase vertical spacing to reduce empty feeling on large screens */
+@media (min-width:1000px){
+  .hero{padding:5.2rem 1rem}
+  .hero-inner{padding-top:1rem; padding-bottom:1rem}
+  .container{padding:2.5rem}
+  section{padding-top:2.2rem; padding-bottom:2.2rem}
+  .kpi-inner{gap:2.2rem}
+  .servicios-grid{gap:1.6rem}
+  .service.card{min-height:340px; padding:1.1rem}
+  .instalaciones-grid{gap:1.4rem}
+  .instalacion-img{height:220px; width:auto; object-fit:cover}
+  .team-carousel{padding:1rem 0}
 }
 /* keep animations accessible for reduced-motion users */
 @media (prefers-reduced-motion: reduce){
@@ -131,7 +179,16 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   #userMenu .user-avatar{width:36px; height:36px}
 } 
 .main-nav{display:flex; gap:1rem; align-items:center}
-.main-nav a{color:#fff; text-decoration:none; padding:0.5rem; font-weight:600}
+.main-nav a{color:#fff; text-decoration:none; padding:0.5rem; font-weight:600; white-space:nowrap}
+
+/* Prevent wrapping for key header items so labels stay on one line */
+.header-actions .header-action,
+.nav-link,
+#agendarBtn,
+.petshop-header,
+.chatbot-header{
+  white-space:nowrap;
+}
 .btn{border-radius:10px; padding:0.65rem 1rem; text-decoration:none; display:inline-block}
 .btn-primary{background:linear-gradient(90deg,var(--turquoise), #00b3b8); color:var(--navy); font-weight:700; box-shadow:0 6px 24px rgba(0,206,209,0.12); border:2px solid rgba(0,0,0,0.12)}
 .btn-primary.luminous{box-shadow:0 0 40px rgba(0,206,209,0.18), inset 0 -6px 14px rgba(0,0,0,0.04); animation: glow 3s infinite}
