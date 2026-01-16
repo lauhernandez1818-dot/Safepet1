@@ -158,7 +158,7 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .site-header{position:fixed; top:0; left:0; width:100%; z-index:1000; backdrop-filter: blur(6px); background:transparent; transition:background-color .3s ease, box-shadow .3s ease, color .3s ease}
 /* Top-of-page header: make user pill transparent so it blends with hero */
 .site-header.is-top .user-link.user-name-pill{background:transparent !important; border:none !important; box-shadow:none !important; color:#ffffff !important}
-.header-inner{display:flex; align-items:center; gap:1rem; justify-content:space-between; padding:0.6rem 1.5rem}
+.header-inner{display:flex; align-items:center; gap:1rem; justify-content:space-between; padding:0.6rem 1.5rem; min-height:80px}
 .logo{width:68px; height:68px; border-radius:50%; padding:6px; background:transparent; box-shadow:none}
 /* When header becomes active on scroll, show a translucent pill (not solid white) */
 .site-header.header-active .user-link.user-name-pill{
@@ -169,14 +169,64 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 }
 
 /* User menu and name pill (polished appearance) */
-#userMenu{display:flex; align-items:center; gap:.6rem}
-#userMenu .user-avatar{width:40px; height:40px; border-radius:50%; object-fit:cover; box-shadow:0 8px 22px rgba(3,17,27,0.06)}
-/* Show full user name: remove truncation rules so long names can wrap and display completely */
-.user-link.user-name-pill{display:inline-flex; align-items:center; gap:.6rem; padding:.36rem .8rem; background:#ffffff; border-radius:999px; font-weight:800; color:var(--navy); max-width:none; white-space:normal; overflow:visible; text-overflow:unset; border:1px solid rgba(11,37,69,0.06); box-shadow:0 8px 24px rgba(3,17,27,0.06);}
-.user-link.user-name-pill .user-name-text{display:inline-block; overflow:visible; text-overflow:unset; white-space:normal; max-width:none; word-break:break-word} 
+#userMenu{display:flex; align-items:center; gap:.5rem; position:relative}
+#userMenu .user-avatar{width:40px; height:40px; border-radius:50%; object-fit:cover; box-shadow:0 8px 22px rgba(3,17,27,0.06); transition:all 0.3s ease; cursor:pointer; position:relative}
+#userMenu .user-avatar:hover{transform:scale(1.05); box-shadow:0 12px 28px rgba(3,17,27,0.15)}
+/* Hide username from header - only show avatar on desktop */
+#userName{display:none !important}
 @media (max-width:900px){
-  .user-link.user-name-pill{max-width:60%}
-  #userMenu .user-avatar{width:36px; height:36px}
+  #userName{display:block !important}
+  #userMenu{flex:1; justify-content:flex-end}
+}
+
+/* Avatar hover mini modal with glassmorphism */
+.avatar-modal{position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(20px); background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9)); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border:1px solid rgba(255,255,255,0.3); border-radius:16px; padding:1rem; box-shadow:0 20px 40px rgba(3,17,27,0.15); z-index:1001; opacity:0; visibility:hidden; transition:all 0.3s ease; pointer-events:none; min-width:200px; text-align:center; margin-top:5px}
+.avatar-modal.show{opacity:1; visibility:visible; transform:translateX(-50%) translateY(20px); pointer-events:auto}
+.avatar-modal::before{content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:8px solid rgba(255,255,255,0.95); z-index:1}
+.avatar-modal .modal-avatar{width:80px; height:80px; border-radius:50%; object-fit:contain; background:#fff; margin:0 auto 0.5rem; border:3px solid rgba(0,206,209,0.2); box-shadow:0 8px 24px rgba(3,17,27,0.1)}
+.avatar-modal .modal-name{font-size:1.1rem; font-weight:700; color:var(--navy); margin-bottom:0.25rem}
+.avatar-modal .modal-email{font-size:0.9rem; color:rgba(11,37,69,0.7); margin-bottom:0.5rem}
+.avatar-modal .modal-actions{display:flex; gap:0.5rem; justify-content:center}
+.avatar-modal .modal-btn{background:linear-gradient(135deg, var(--turquoise), #00b3b8); color:var(--navy); border:none; padding:0.4rem 0.8rem; border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.2s ease}
+.avatar-modal .modal-btn:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,206,209,0.3)}
+.avatar-modal .modal-btn.secondary{background:rgba(255,255,255,0.8); color:var(--navy); border:1px solid rgba(11,37,69,0.1)}
+.avatar-modal .modal-btn.secondary:hover{background:rgba(255,255,255,0.95)}
+
+/* Specific improvements for 1280x720 resolution */
+@media (width:1280px) and (height:720px){
+  .header-inner{padding:0.8rem 1.5rem; font-size:1.05rem}
+  .main-nav{gap:1.2rem}
+  .main-nav a{font-size:1rem; padding:0.6rem; font-weight:700; letter-spacing:0.5px}
+  .nav-link{font-size:1rem; padding:0.5rem 0.8rem; font-weight:700}
+  .header-actions .header-action{font-size:0.95rem; padding:0.5rem 0.8rem}
+  #userMenu .user-avatar{width:48px; height:48px; box-shadow:0 10px 25px rgba(3,17,27,0.08)}
+  .avatar-modal{min-width:220px; padding:1.2rem; border-radius:18px}
+  .avatar-modal .modal-avatar{width:90px; height:90px; border:4px solid rgba(0,206,209,0.2)}
+  .avatar-modal .modal-name{font-size:1.2rem; font-weight:800}
+  .avatar-modal .modal-email{font-size:1rem; margin-bottom:0.6rem}
+  .avatar-modal .modal-btn{padding:0.5rem 1rem; font-size:1rem; font-weight:700; border-radius:10px}
+  .logo{font-size:1.1rem}
+}
+
+/* Hide modal on mobile - desktop only */
+@media (max-width:900px){
+  .avatar-modal{display:none !important}
+}
+
+@media (max-width:600px){
+  .avatar-modal{min-width:180px; padding:0.8rem}
+  .avatar-modal .modal-avatar{width:60px; height:60px}
+  .avatar-modal .modal-name{font-size:1rem}
+  .avatar-modal .modal-email{font-size:0.85rem}
+  .avatar-modal .modal-btn{padding:0.35rem 0.7rem; font-size:0.9rem}
+}
+/* Show user name: allow full name display */
+.user-link.user-name-pill{display:inline-flex; align-items:center; gap:.4rem; padding:.32rem .6rem; background:#ffffff; border-radius:999px; font-weight:700; color:var(--navy); max-width:none; white-space:nowrap; overflow:visible; border:1px solid rgba(11,37,69,0.06); box-shadow:0 8px 24px rgba(3,17,27,0.06);}
+.user-link.user-name-pill .user-name-text{display:inline-block; white-space:nowrap; overflow:visible; word-break:break-word}
+@media (max-width:900px){
+  .user-link.user-name-pill{max-width:none; padding:.24rem .4rem; overflow:visible}
+  .user-link.user-name-pill .user-name-text{max-width:none; overflow:visible}
+  #userMenu .user-avatar{width:44px; height:44px}
 } 
 .main-nav{display:flex; gap:1rem; align-items:center}
 .main-nav a{color:#fff; text-decoration:none; padding:0.5rem; font-weight:600; white-space:nowrap}
@@ -299,12 +349,12 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   /* tighter on very small screens: keep static positioning and reduce padding */
   @media (max-width:480px){ .mobile-login-btn{padding:.24rem .4rem; font-size:0.84rem; min-height:32px} }
   /* Ensure user menu (name/avatar) appears on left and shows full name (no truncation) */
-  #userMenu{display:flex !important; order:-1; align-items:center; gap:.6rem; flex:1; min-width:0; justify-content:flex-start}
-  #userName{display:block !important; font-weight:700; font-size:0.98rem; color:var(--navy); white-space:normal; overflow:visible; text-overflow:unset; max-width:none}
-  .user-link.user-name-pill{max-width:none; padding:.28rem .5rem}
-  .user-link.user-name-pill .user-name-text{display:inline-block; white-space:normal; word-break:break-word}
-  /* shrink avatar slightly to save space */
-  #userMenu .user-avatar{width:36px; height:36px}
+  #userMenu{display:flex !important; order:-1; align-items:center; gap:.6rem; flex:0 0 auto; justify-content:flex-start}
+  #userName{display:block !important; font-weight:700; font-size:0.92rem; color:var(--navy); white-space:normal; overflow:visible; text-overflow:unset; max-width:none}
+  .user-link.user-name-pill{max-width:none; padding:.24rem .4rem; overflow:visible}
+  .user-link.user-name-pill .user-name-text{display:inline-block; white-space:nowrap; overflow:visible; max-width:none}
+  /* larger avatar for mobile */
+  #userMenu .user-avatar{width:44px; height:44px}
 }
 
 
@@ -1493,7 +1543,7 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   .video-fallback{padding:.8rem; font-size:.95rem}
 }
 /* glass hero */
-.glass-hero{display:block; padding:3rem 1rem; min-height:70vh; align-items:center; display:flex}
+1496:.glass-hero{display:block; padding:3rem 1rem; min-height:70vh; align-items:center; display:flex; background:transparent;}
 .glass-hero .inner{display:flex; gap:2rem; width:100%; align-items:flex-start}
 
 .glass-story{flex:1; background:rgba(255,255,255,0.06); padding:1.2rem; border-radius:12px; backdrop-filter:blur(6px); color:#fff}
@@ -1525,7 +1575,7 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 /* doggy background behind login card */
 .login-wrap{position:relative}
 .login-wrap::before{content:''; position:absolute; inset:0; background-image: url('imagenes/dogs-bg.jpg'); background-size:cover; background-position:center; opacity:0.14; filter:blur(2px) saturate(1.05); z-index:-2}
-.login-wrap::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.6)); z-index:-1}
+.login-wrap::after{content:''; position:absolute; inset:0; background:transparent; z-index:-1}
 .login-title{margin-top:18px; margin-bottom:12px; text-align:center; color:rgba(255,255,255,0.96); font-family:'Playfair Display', serif}
 .input-group{display:flex; align-items:center; gap:.6rem; background:rgba(11,37,69,0.08); padding:.5rem; border-radius:10px; margin-bottom:.85rem}
 .input-icon{width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:rgba(0,0,0,0.12); color:#fff}
@@ -1618,6 +1668,66 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   #bookingModal .modal-body{padding:1rem; max-height:calc(90vh - 80px); overflow-y:auto}
 }
 
+@media (min-width:901px){
+  .user-menu{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    position:relative;
+    margin-left: 1rem; /* Ajustar según sea necesario para el espaciado */
+  }
+  .user-menu.hidden{
+    display:none !important;
+  }
+  .user-avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    border:2px solid var(--turquoise);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .user-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(0,206,209,0.4);
+  }
+  .user-name-pill{
+    background:var(--turquoise);
+    padding:0.3rem 0.8rem;
+    border-radius:20px;
+    color:white;
+    font-weight:700;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    transition: background .2s ease, box-shadow .2s ease;
+  }
+  .user-name-pill:hover{
+    background:var(--turquoise-dark);
+    box-shadow: 0 4px 12px rgba(0,206,209,0.2);
+  }
+  .user-name-text{
+  }
+  /* Ensure header elements align correctly with user menu */
+  .header-inner{
+    justify-content:space-between;
+    align-items:center;
+  }
+  .header-actions{
+    display:flex !important;
+    gap:0.6rem;
+    align-items:center;
+    margin-left:1rem;
+  }
+  .mobile-login-btn{
+    display:none !important;
+  }
+  .site-header .main-nav{
+    display:flex !important;
+  }
+}
+
 /* Video fallback */
 .video-fallback{background:rgba(11,37,69,0.04); border-radius:8px; padding:1rem; margin-top:.65rem; text-align:center}
 .video-fallback p{margin:0 0 .6rem 0}
@@ -1634,7 +1744,7 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 }
 
 /* Glassmorphism login styles (hero + story + confetti) */
-.glass-hero{min-height:72vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(0,196,180,0.06), rgba(0,166,214,0.03)); position:relative; overflow:hidden}
+.glass-hero{min-height:72vh; display:flex; align-items:center; justify-content:center; background:transparent; position:relative; overflow:hidden}
 .glass-hero .inner{max-width:1000px; width:100%; display:grid; grid-template-columns:1fr 420px; gap:2rem; align-items:center; padding:3rem}
 @media (max-width:900px){ .glass-hero .inner{grid-template-columns:1fr; padding:2rem} }
 

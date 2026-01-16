@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Carrito — SafePet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --turquoise: #00B3B8;
+      --turquoise-dark: #00999d;
+      --turquoise-light: #E6F7F8;
+      --navy: #0B2545;
+      --navy-light: rgba(11, 37, 69, 0.6);
+      --white: #FFFFFF;
+      --gray-light: #F7FAFB;
+      --gray-border: rgba(11, 37, 69, 0.08);
+      --shadow-sm: 0 2px 8px rgba(11, 37, 69, 0.04);
+      --shadow-md: 0 8px 24px rgba(11, 37, 69, 0.08);
+      --shadow-lg: 0 16px 48px rgba(11, 37, 69, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--gray-light);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .topbar {
+      background: var(--white);
+      border-bottom: 3px solid var(--turquoise);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 40px;
+      display: block;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-link {
+      color: var(--turquoise);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-link:hover {
+      background: var(--turquoise-light);
+    }
+
+    .btn-icon {
+      background: var(--turquoise);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .page-header p {
+      color: var(--navy-light);
+      margin: 0;
+    }
+
+    /* Cart List */
+    .cart-list {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--navy-light);
+    }
+
+    .empty-cart-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+
+    .empty-cart h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .empty-cart p {
+      margin: 0 0 1.5rem;
+      color: var(--navy-light);
+    }
+
+    .btn-primary-empty {
+      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary-empty:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Cart Item */
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--gray-border);
+      transition: background 0.2s ease;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item:hover {
+      background: var(--gray-light);
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .item-thumb {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: var(--gray-light);
+      border: 2px solid var(--gray-border);
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .item-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .item-variant {
+      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      color: var(--white);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .item-price-unit {
+      color: var(--navy-light);
+      font-size: 0.9rem;
+    }
+
+    .item-qty-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-label {
+      font-size: 0.85rem;
+      color: var(--navy-light);
+      font-weight: 600;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gray-light);
+      border-radius: 10px;
+      padding: 0.25rem;
+    }
+
+    .qty-btn {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      transition: all 0.2s ease;
+    }
+
+    .qty-btn:hover {
+      background: var(--turquoise);
+      color: var(--white);
+      border-color: var(--turquoise);
+    }
+
+    .qty-input {
+      width: 50px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .item-total-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+    }
+
+    .item-total-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--turquoise);
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: 1px solid var(--gray-border);
+      color: var(--navy-light);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      background: #fee;
+      border-color: #fcc;
+      color: #c33;
+    }
+
+    /* Total Section */
+    .total-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-top: 2px solid var(--gray-border);
+    }
+
+    .total-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .total-amount {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--turquoise);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* Modal */
+    .form-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 37, 69, 0.6);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .form-modal.open {
+      display: flex;
+    }
+
+    .form-panel {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 550px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-header h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .form-header p {
+      margin: 0;
+      color: var(--navy-light);
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group label .required {
+      color: var(--turquoise);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--gray-border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--turquoise);
+      box-shadow: 0 0 0 3px var(--turquoise-light);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Delivery Option */
+    .delivery-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .delivery-option {
+      position: relative;
+    }
+
+    .delivery-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .delivery-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      border: 2px solid var(--gray-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--white);
+      text-align: center;
+    }
+
+    .delivery-option label .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .delivery-option label .text {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .delivery-option input[type="radio"]:checked + label {
+      border-color: var(--turquoise);
+      background: var(--turquoise-light);
+      box-shadow: 0 0 0 3px var(--turquoise-light);
+    }
+
+    .delivery-option input[type="radio"]:checked + label .text {
+      color: var(--turquoise);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .form-actions button {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.875rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-cancel {
+      background: transparent;
+      border: 2px solid var(--gray-border);
+      color: var(--navy);
+    }
+
+    .btn-cancel:hover {
+      background: var(--gray-light);
+      border-color: var(--navy-light);
+    }
+
+    .btn-submit {
+      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      color: var(--white);
+      border: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 1rem;
+      }
+
+      .item-qty-section,
+      .item-total-section {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--gray-border);
+      }
+
+      .item-thumb {
+        width: 80px;
+        height: 80px;
+      }
+
+      .total-amount {
+        font-size: 1.5rem;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
+
+      .form-panel {
+        padding: 1.5rem;
+      }
+
+      .delivery-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-actions {
+        justify-content: space-between;
+      }
+
+      .cart-list {
+        padding: 1rem;
+      }
+
+      .cart-item {
+        padding: 1rem 0;
+      }
+
+      .form-panel {
+        padding: 1.25rem;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="logo" aria-label="SafePet Home">
+        <img src="imagenes/logo.png" alt="SafePet">
+      </a>
+      <div class="topbar-actions">
+        <a href="petshop.html" class="btn-link">Seguir comprando</a>
+        <button id="cartHomeBtn" class="btn-icon" aria-label="Volver al inicio">🏠</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <h1>Tu Carrito</h1>
+      <p>Revisa tus productos antes de finalizar tu pedido</p>
+    </div>
+
+    <div id="cartRoot" class="cart-list" role="region" aria-live="polite"></div>
+
+    <div id="totalSection" class="total-section" style="display: none;">
+      <div class="total-row">
+        <span class="total-label">Total</span>
+        <span class="total-amount" id="totalAmount">$0.00</span>
+      </div>
+    </div>
+
+    <div class="action-buttons" id="actionButtons" style="display: none;">
+      <button id="sendOrderBtn" class="btn-primary">Enviar Orden</button>
+    </div>
+  </main>
+
+  <!-- Modal de formulario -->
+  <div id="orderFormModal" class="form-modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <div class="form-panel">
+      <div class="form-header">
+        <h3 id="formTitle">Información para el pago</h3>
+        <p>Completa tus datos para procesar tu orden</p>
+      </div>
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="customerName">Nombre completo <span class="required">*</span></label>
+          <input type="text" id="customerName" name="name" required placeholder="Ej: Juan Pérez">
+        </div>
+        <div class="form-group">
+          <label for="customerEmail">Correo electrónico <span class="required">*</span></label>
+          <input type="email" id="customerEmail" name="email" required placeholder="Ej: juan@ejemplo.com">
+        </div>
+        <div class="form-group">
+          <label for="customerPhone">Teléfono <span class="required">*</span></label>
+          <input type="tel" id="customerPhone" name="phone" required placeholder="Ej: +584123456789">
+        </div>
+        <div class="form-group">
+          <label>Método de entrega <span class="required">*</span></label>
+          <div class="delivery-options">
+            <div class="delivery-option">
+              <input type="radio" id="deliveryStore" name="deliveryType" value="tienda" checked>
+              <label for="deliveryStore">
+                <span class="icon">🏪</span>
+                <span class="text">En tienda</span>
+              </label>
+            </div>
+            <div class="delivery-option">
+              <input type="radio" id="deliveryHome" name="deliveryType" value="domicilio">
+              <label for="deliveryHome">
+                <span class="icon">🚚</span>
+                <span class="text">A domicilio</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" id="addressGroup" style="display: none;">
+          <label for="customerAddress">Dirección de entrega <span class="required">*</span></label>
+          <textarea id="customerAddress" name="address" placeholder="Ingresa tu dirección completa para la entrega"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancelForm" class="btn-cancel">Cancelar</button>
+          <button type="submit" class="btn-submit">Enviar Orden</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const ownerNumber = '584129983853';
+    
+    function getCart() {
+      try {
+        return JSON.parse(localStorage.getItem('safepet_cart') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      try {
+        localStorage.setItem('safepet_cart', JSON.stringify(cart || []));
+        window.dispatchEvent(new Event('cart:updated'));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function formatMoney(n) {
+      return '$' + Number(n || 0).toFixed(2);
+    }
+
+    const root = document.getElementById('cartRoot');
+    const totalSection = document.getElementById('totalSection');
+    const actionButtons = document.getElementById('actionButtons');
+    const totalAmount = document.getElementById('totalAmount');
+
+    function renderCart() {
+      const cart = getCart();
+      root.innerHTML = '';
+      
+      if (!cart.length) {
+        root.innerHTML = `
+          <div class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <h3>Tu carrito está vacío</h3>
+            <p>Agrega productos desde la tienda para comenzar tu compra</p>
+            <a href="petshop.html" class="btn-primary-empty">Ir a la tienda</a>
+          </div>
+        `;
+        totalSection.style.display = 'none';
+        actionButtons.style.display = 'none';
+        return;
+      }
+
+      cart.forEach((it, idx) => {
+        const el = document.createElement('div');
+        el.className = 'cart-item';
+        el.innerHTML = `
+          <img class="item-thumb" src="${it.image || 'imagenes/logo.png'}" alt="${it.product}">
+          <div class="item-info">
+            <div class="item-name">
+              ${it.product}
+              ${it.variant ? `<span class="item-variant">${it.variant}</span>` : ''}
+            </div>
+            <div class="item-price-unit">Precio unitario: ${formatMoney(it.unitPrice)}</div>
+          </div>
+          <div class="item-qty-section">
+            <div class="qty-label">Cantidad</div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-idx="${idx}" data-op="dec" aria-label="Disminuir cantidad">−</button>
+              <input class="qty-input" type="number" min="1" data-idx="${idx}" value="${it.quantity}" aria-label="Cantidad">
+              <button class="qty-btn" data-idx="${idx}" data-op="inc" aria-label="Aumentar cantidad">+</button>
+            </div>
+          </div>
+          <div class="item-total-section">
+            <div class="item-total-price">${formatMoney(it.unitPrice * it.quantity)}</div>
+            <button class="remove-btn" data-idx="${idx}" aria-label="Eliminar producto">Eliminar</button>
+          </div>
+        `;
+        root.appendChild(el);
+      });
+
+      totalSection.style.display = 'block';
+      actionButtons.style.display = 'flex';
+    }
+
+    function recalcAndRender() {
+      renderCart();
+      
+      // Attach listeners
+      document.querySelectorAll('.qty-btn').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const idx = Number(b.dataset.idx);
+          const op = b.dataset.op;
+          const cart = getCart();
+          if (!cart[idx]) return;
+          
+          if (op === 'dec') {
+            cart[idx].quantity = Math.max(1, Number(cart[idx].quantity || 1) - 1);
+          } else {
+            cart[idx].quantity = Number(cart[idx].quantity || 1) + 1;
+          }
+          saveCart(cart);
+          recalcAndRender();
+        });
+      });
+
+      document.querySelectorAll('.qty-input').forEach(i => {
+        i.addEventListener('change', (e) => {
+          const idx = Number(i.dataset.idx);
+          const cart = getCart();
+          if (cart[idx]) {
+            cart[idx].quantity = Math.max(1, Number(i.value) || 1);
+            saveCart(cart);
+            recalcAndRender();
+          }
+        });
+      });
+
+      document.querySelectorAll('.remove-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          const idx = Number(b.dataset.idx);
+          const cart = getCart();
+          cart.splice(idx, 1);
+          saveCart(cart);
+          recalcAndRender();
+        });
+      });
+
+      // Update total
+      const total = getCart().reduce((s, i) => s + (Number(i.unitPrice || 0) * Number(i.quantity || 0)), 0);
+      totalAmount.textContent = formatMoney(total);
+    }
+
+    // Mostrar formulario al hacer clic en "Enviar Orden"
+    document.getElementById('sendOrderBtn').addEventListener('click', () => {
+      const cart = getCart();
+      if (!cart.length) {
+        alert('El carrito está vacío');
+        return;
+      }
+      const modal = document.getElementById('orderFormModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Toggle dirección según método de entrega
+    document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        const addressGroup = document.getElementById('addressGroup');
+        const addressInput = document.getElementById('customerAddress');
+        if (e.target.value === 'domicilio') {
+          addressGroup.style.display = 'block';
+          addressInput.required = true;
+        } else {
+          addressGroup.style.display = 'none';
+          addressInput.required = false;
+          addressInput.value = '';
+        }
+      });
+    });
+
+    // Cerrar modal
+    document.getElementById('cancelForm').addEventListener('click', () => {
+      const modal = document.getElementById('orderFormModal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('orderForm').reset();
+      document.getElementById('addressGroup').style.display = 'none';
+    });
+
+    // Cerrar modal al hacer clic fuera
+    document.getElementById('orderFormModal').addEventListener('click', (e) => {
+      if (e.target.id === 'orderFormModal') {
+        e.target.classList.remove('open');
+        document.body.style.overflow = '';
+        document.getElementById('orderForm').reset();
+        document.getElementById('addressGroup').style.display = 'none';
+      }
+    });
+
+    // Enviar orden cuando se envía el formulario
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cart = getCart();
+      if (!cart.length) {
+        alert('El carrito está vacío');
+        return;
+      }
+
+      // Obtener datos del formulario
+      const formData = {
+        name: document.getElementById('customerName').value.trim(),
+        email: document.getElementById('customerEmail').value.trim(),
+        phone: document.getElementById('customerPhone').value.trim(),
+        deliveryType: document.querySelector('input[name="deliveryType"]:checked').value,
+        address: document.getElementById('customerAddress').value.trim()
+      };
+
+      // Validar campos requeridos
+      if (!formData.name || !formData.email || !formData.phone) {
+        alert('Por favor completa todos los campos requeridos (*)');
+        return;
+      }
+
+      if (formData.deliveryType === 'domicilio' && !formData.address) {
+        alert('Por favor ingresa la dirección de entrega');
+        return;
+      }
+
+      // Build order object
+      const order = {
+        items: cart,
+        total: cart.reduce((s, i) => s + (Number(i.unitPrice || 0) * Number(i.quantity || 0)), 0),
+        createdAt: new Date().toISOString(),
+        customer: formData
+      };
+
+      // Try Firebase if available and user logged in
+      try {
+        if (window.firebase && window.firebase.auth) {
+          const auth = window.firebase.auth();
+          const user = auth.currentUser;
+          if (user && window.firebase.firestore) {
+            const db = window.firebase.firestore();
+            await db.collection('orders').add(Object.assign({}, order, {
+              userId: user.uid,
+              userEmail: user.email
+            }));
+            alert('Orden enviada y guardada en la base de datos. Gracias.');
+            localStorage.removeItem('safepet_cart');
+            window.dispatchEvent(new Event('cart:updated'));
+            recalcAndRender();
+            document.getElementById('orderFormModal').classList.remove('open');
+            document.body.style.overflow = '';
+            document.getElementById('orderForm').reset();
+            document.getElementById('addressGroup').style.display = 'none';
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('firebase send failed', err);
+      }
+
+      // Fallback: WhatsApp message (solo productos, sin datos del cliente)
+      const lines = ['Hola! Me gustaría hacer el siguiente pedido:'];
+      
+      cart.forEach(it => {
+        const base = it.product || '';
+        let variant = it.variant || '';
+        
+        // Normalizar variante
+        const variantNormalized = variant.replace(/\s+/g, '').toLowerCase();
+        
+        // Formatear variante para mostrar
+        let variantFormatted = variant.replace(/(\d+)(mg|ml)/gi, '$1 $2');
+        
+        // Construir nombre del producto
+        let productName = base;
+        if (variant && variantNormalized) {
+          const baseNormalized = base.replace(/\s+/g, '').toLowerCase();
+          if (!baseNormalized.includes(variantNormalized)) {
+            productName = base + ' ' + variantFormatted;
+          }
+        }
+        
+        const price = (Number(it.unitPrice) || 0).toFixed(2);
+        lines.push(`${productName} x${it.quantity} - $${price}`);
+      });
+      
+      lines.push('');
+      lines.push(`Total: $${order.total.toFixed(2)}`);
+
+      const message = encodeURIComponent(lines.join('\n'));
+      const url = `https://wa.me/${ownerNumber}?text=${message}`;
+      window.open(url, '_blank');
+      
+      // Cerrar modal
+      document.getElementById('orderFormModal').classList.remove('open');
+      document.body.style.overflow = '';
+      
+      // Limpiar formulario
+      document.getElementById('orderForm').reset();
+      document.getElementById('addressGroup').style.display = 'none';
+    });
+
+    // Navigation
+    document.getElementById('cartHomeBtn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    window.addEventListener('cart:updated', () => recalcAndRender());
+
+    // On load
+    document.addEventListener('DOMContentLoaded', () => {
+      recalcAndRender();
+      try {
+        const count = getCart().reduce((s, i) => s + (Number(i.quantity) || 0), 0);
+        localStorage.setItem('safepet_cart_count', count);
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

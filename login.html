@@ -13,6 +13,83 @@
     input[type="email"], input[type="password"]{width:100%; padding:.7rem; border-radius:8px; border:1px solid rgba(11,37,69,0.06)}
     .auth-actions{display:flex; gap:.6rem; margin-top:1rem}
     .auth-note{font-size:.9rem; color:rgba(11,37,69,.6); margin-top:.8rem}
+
+    .profile-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.5rem;
+    }
+
+    .profile-panel.hidden {
+      display: none;
+    }
+
+    .profile-picture-wrap {
+      position: relative;
+      width: 140px; /* Más amplio */
+      height: 140px; /* Más amplio */
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--gray-light);
+      border: 4px solid var(--turquoise); /* Borde más pronunciado */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1rem; /* Espacio debajo de la imagen */
+    }
+
+    .profile-picture {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #changePictureBtn {
+      background: var(--turquoise);
+      color: var(--white);
+      padding: 0.75rem 1.5rem; /* Botón más amplio */
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    #changePictureBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .profile-panel .input-group {
+      width: 100%;
+      max-width: 300px; /* Ajustar ancho de los inputs */
+      text-align: left;
+    }
+
+    .profile-panel .input-group label {
+      color: var(--navy);
+    }
+
+    .profile-panel input[type="text"], .profile-panel input[type="email"] {
+      border: 1px solid var(--gray-border);
+      background: var(--gray-light);
+      color: var(--navy);
+    }
+
+    .profile-panel input[type="email"][disabled] {
+      background: var(--gray-border);
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .profile-panel {
+        padding: 1rem;
+      }
+    }
   </style>
 </head>
 <body class="page-bg">
@@ -22,12 +99,30 @@
         <div class="login-card">
           <div class="login-avatar"><img src="imagenes/logo.png" alt="SafePet"></div>
 
-          <div id="loggedInNotice" class="auth-note hidden" style="margin-bottom:.8rem; text-align:center">
-            <p>Ya estás autenticado. Puedes ir al inicio o cerrar sesión si deseas iniciar con otra cuenta.</p>
-            <div style="display:flex; gap:.6rem; margin-top:.4rem; justify-content:center">
-              <a href="index.html" class="btn btn-primary">Ir al inicio</a>
-              <button id="btnSignOut" class="btn">Cerrar sesión</button>
+          <div id="profilePanel" class="profile-panel hidden">
+            <h2 class="login-title">Mi Perfil</h2>
+            <div class="profile-picture-wrap">
+              <img id="profilePicture" src="imagenes/logo.png" alt="Foto de perfil" class="profile-picture">
+              <input type="file" id="profilePictureInput" accept="image/*" class="visually-hidden">
             </div>
+            <button type="button" id="changePictureBtn" class="btn btn-secondary">Cambiar Foto</button>
+
+            <div class="input-group">
+              <label for="profileName">Nombre</label>
+              <input id="profileName" type="text" placeholder="Tu nombre" aria-label="Tu nombre">
+            </div>
+
+            <div class="input-group">
+              <label for="profileEmail">Correo Electrónico</label>
+              <input id="profileEmail" type="email" disabled aria-label="Tu correo electrónico">
+            </div>
+
+            <div class="auth-actions" style="margin-top: 1.5rem; justify-content: center;">
+              <button type="button" id="saveProfileBtn" class="btn btn-primary">Guardar Cambios</button>
+              <button type="button" id="btnSignOut" class="btn">Cerrar sesión</button>
+              <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">Volver</a>
+            </div>
+            <p class="auth-note" style="text-align:center; margin-top:1rem;">Para cambiar tu contraseña, por favor, cierra sesión e utiliza la opción "¿Olvidaste tu contraseña?".</p>
           </div>
 
           <form id="loginForm" novalidate>

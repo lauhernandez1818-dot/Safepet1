@@ -50,9 +50,20 @@
       <button id="mobileToggle" class="mobile-toggle" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
-      <div id="userMenu" class="user-menu hidden" style="display:flex; align-items:center; gap:.6rem">
-        <img id="userAvatar" src="imagenes/logo.png" alt="Cuenta" class="user-avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover;display:none">
+      <div id="userMenu" class="user-menu hidden">
+        <img id="userAvatar" src="imagenes/logo.png" alt="Cuenta" class="user-avatar" style="border-radius:50%;object-fit:cover;display:none">
         <span id="userName" style="font-weight:700;display:none"></span>
+      </div>
+
+      <!-- Avatar Hover Modal -->
+      <div id="avatarModal" class="avatar-modal">
+        <img id="modalUserAvatar" src="imagenes/logo.png" alt="Foto de perfil" class="modal-avatar">
+        <div id="modalUserName" class="modal-name">Nombre de Usuario</div>
+        <div id="modalUserEmail" class="modal-email">correo@ejemplo.com</div>
+        <div class="modal-actions">
+          <button onclick="window.location.href='login.html'" class="modal-btn">Mi Perfil</button>
+          <button id="modalLogoutBtn" class="modal-btn secondary">Cerrar Sesión</button>
+        </div>
       </div>
     </div>
 
@@ -655,11 +666,17 @@
         userName.style.display = 'inline';
         if(mobileLoginBtn) mobileLoginBtn.style.display = 'none';
           if(btnLogout) btnLogout.style.display = 'inline-block'; // Check if btnLogout exists
-        userAvatar.src = user.photoURL || 'imagenes/logo.png';
+        const userPhoto = localStorage.getItem(`profilePhoto_${user.uid}`);
+        userAvatar.src = userPhoto || user.photoURL || 'imagenes/logo.png';
         const full = user.displayName || user.email || 'Cuenta';
         // Show the full user name (no abbreviation)
         const displayText = full;
-        userName.innerHTML = `<a href="login.html" class="user-link user-name-pill" title="${full}"><span class="user-name-text">${displayText}</span></a>`; 
+        userName.innerHTML = `<a href="login.html" class="user-link user-name-pill" title="${full}"><span class="user-name-text">${displayText}</span></a>`;
+
+        // Update modal with user data
+        modalUserAvatar.src = userPhoto || user.photoURL || 'imagenes/logo.png';
+        modalUserName.textContent = user.displayName || 'Usuario';
+        modalUserEmail.textContent = user.email || 'correo@ejemplo.com';
       } else {
         userMenu.classList.add('hidden');
         userAvatar.style.display = 'none';
@@ -674,6 +691,38 @@
          try{ await signOut(auth); location.href = 'index.html'; }catch(e){ console.error(e); alert('No se pudo cerrar sesión.'); }
        });
      }
+
+     // Avatar hover modal functionality
+     const avatarModal = document.getElementById('avatarModal');
+     const modalLogoutBtn = document.getElementById('modalLogoutBtn');
+
+     userAvatar.addEventListener('mouseenter', () => {
+       avatarModal.classList.add('show');
+     });
+
+     userAvatar.addEventListener('mouseleave', () => {
+       avatarModal.classList.remove('show');
+     });
+
+     // Keep modal visible when hovering over it
+     avatarModal.addEventListener('mouseenter', () => {
+       avatarModal.classList.add('show');
+     });
+
+     avatarModal.addEventListener('mouseleave', () => {
+       avatarModal.classList.remove('show');
+     });
+
+     // Modal logout button
+     modalLogoutBtn.addEventListener('click', async () => {
+       try {
+         await signOut(auth);
+         location.href = 'index.html';
+       } catch(e) {
+         console.error(e);
+         alert('No se pudo cerrar sesión.');
+       }
+     });
   </script>
 </body>
 </html>
