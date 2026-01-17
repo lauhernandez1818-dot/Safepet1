@@ -467,6 +467,11 @@
       font-size: 1.1rem;
     }
 
+    .offer-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
     .offer-card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: var(--shadow-lg);
@@ -533,6 +538,8 @@
       transition: all 0.3s ease;
       opacity: 0;
       transform: translateY(10px);
+      align-items: center;
+      text-align: center;
     }
 
     .product.is-visible {
@@ -563,6 +570,7 @@
       text-align: center;
       color: var(--navy);
       font-weight: 700;
+      line-height: 1.3;
     }
 
     .product .price {
@@ -577,23 +585,27 @@
       color: var(--navy-light);
       text-align: center;
       font-size: 0.9rem;
-      line-height: 1.5;
+      line-height: 1.4;
+      margin: 0.25rem 0;
     }
 
     .product .actions {
-      margin-top: auto;
-      display: flex;
-      gap: 0.75rem;
+      width: 100%;
+      margin-top: 1rem;
     }
 
     .product .btn {
-      flex: 1;
+      width: 100%;
       padding: 0.75rem;
       border-radius: 10px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
       border: none;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .btn-primary {
@@ -915,13 +927,12 @@
 
     @media (max-width: 900px) {
       .topbar-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1rem;
+        justify-content: space-between;
       }
 
       .top-actions {
-        justify-content: flex-end; /* Alinea los botones a la derecha en móvil */
+        display: flex;
+        gap: 0.75rem;
       }
 
       .search-wrap {
@@ -965,15 +976,161 @@
         max-height: 90vh;
         padding: 1rem;
       }
+
+      /* Tarjetas más pequeñas en mobile */
+      .shop-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .product {
+        padding: 0.75rem;
+      }
+
+      .product img {
+        height: 120px;
+        margin: 0 auto 0.5rem;
+      }
+
+      .product h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .product .price {
+        font-size: 1rem;
+        margin: 0.25rem 0;
+      }
+
+      .product .small {
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+
+      .product .actions {
+        margin-top: 0.5rem;
+      }
+
+      .product .btn {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+
+      /* Variant pills más ordenadas en mobile */
+      .variant-pills {
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .variant-pill {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.4rem 0.5rem;
+        min-width: 60px;
+      }
+
+      .variant-pill img {
+        width: 40px;
+        height: 40px;
+        padding: 2px;
+      }
+
+      .variant-pill span {
+        font-size: 0.75rem;
+      }
+
+      .variant-pill .pill-price {
+        font-size: 0.7rem;
+      }
     }
 
     @media (max-width: 600px) {
       .shop-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+      }
+
+      .product {
+        padding: 0.5rem;
       }
 
       .product img {
-        height: 180px;
+        height: 100px;
+        margin: 0 auto 0.25rem;
+      }
+
+      .product h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+        line-height: 1.2;
+      }
+
+      .product .price {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+      }
+
+      .product .small {
+        font-size: 0.75rem;
+        line-height: 1.2;
+        margin: 0.2rem 0;
+      }
+
+      .product .actions {
+        width: 100%;
+        margin-top: 0.8rem;
+      }
+
+      .product .btn {
+        width: 100%;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+      }
+
+      /* Asegurar que el botón de comprar tenga suficiente espacio */
+      .product .btn-primary {
+        min-height: 44px;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      /* Variant pills mejor organizadas en pantallas pequeñas */
+      .variant-pills {
+        gap: 0.4rem;
+        margin: 0.4rem 0;
+        justify-content: space-around;
+      }
+
+      .variant-pill {
+        padding: 0.3rem 0.4rem;
+        min-width: 50px;
+        max-width: 70px;
+      }
+
+      .variant-pill img {
+        width: 35px;
+        height: 35px;
+        padding: 1px;
+      }
+
+      .variant-pill span {
+        font-size: 0.7rem;
+        text-align: center;
+        line-height: 1;
+      }
+
+      .variant-pill .pill-price {
+        font-size: 0.65rem;
+        margin-top: 0.1rem;
       }
 
       .category-card {
@@ -995,8 +1152,163 @@
         height: 50px;
       }
     }
-  </style>
-</head>
+
+    /* Estilos adicionales para variant pills responsive */
+    .variant-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .variant-pill {
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      flex: 0 0 auto;
+      min-height: 70px;
+    }
+
+    .variant-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Asegurar que las variant pills se vean bien en diferentes tamaños */
+    @media (max-width: 480px) {
+      .variant-pills {
+        gap: 0.3rem;
+      }
+
+      .variant-pill {
+        min-width: 45px;
+        max-width: 60px;
+        padding: 0.25rem 0.3rem;
+        min-height: 60px;
+      }
+
+      .variant-pill img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .variant-pill span {
+        font-size: 0.65rem;
+      }
+
+      .variant-pill .pill-price {
+        font-size: 0.6rem;
+      }
+
+      /* Estilos adicionales para botones en móviles pequeños */
+      .product .actions {
+        margin-top: 0.6rem;
+      }
+
+      .product .btn {
+        min-height: 38px;
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+        line-height: 1.2;
+      }
+
+      .product .btn-primary {
+        min-height: 42px;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+      }
+
+      /* Success Notification Styles */
+      .success-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #00B3B8 0%, #00999d 100%);
+        color: white;
+        padding: 0;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 179, 184, 0.3);
+        z-index: 10000;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        max-width: 400px;
+        min-width: 300px;
+      }
+
+      .success-notification.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+
+      .notification-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+        animation: bounce 0.6s ease;
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+
+      .notification-text {
+        flex: 1;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .notification-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 768px) {
+        .success-notification {
+          left: 10px;
+          right: 10px;
+          min-width: auto;
+          max-width: none;
+        }
+
+        .notification-content {
+          padding: 14px 16px;
+        }
+
+        .notification-text {
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
 <body>
   <header class="site-header">
     <div class="topbar">
@@ -1023,32 +1335,32 @@
               </button>
             </div>
           </div>
+          <div class="top-actions">
+            <button class="icon-btn" aria-label="Contactar por WhatsApp">
+                <a href="https://wa.me/584129983853" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.38 1.77.78 2.59a2 2 0 0 1-.45 2.11L9.91 9.91a14 14 0 0 0 6 6l1.5-1.5a2 2 0 0 1 2.11-.45c.82.4 1.69.66 2.59.78A2 2 0 0 1 22 16.92z"></path></svg>
+                </a>
+            </button>
+            <button class="icon-btn" aria-label="Cuenta" id="accountBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="icon-btn" aria-label="Carrito" id="cartBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              <span class="cart-count">0</span>
+            </button>
+          </div>
         </div>
         <div class="search-wrap">
           <input id="siteSearch" class="search-input" placeholder="Buscar un producto o artículo" aria-label="Buscar" autocomplete="off">
           <div id="searchDropdown" class="search-dropdown" role="listbox" aria-label="Sugerencias de búsqueda"></div>
         </div>
-        <div class="top-actions">
-          <button class="icon-btn" aria-label="Contactar por WhatsApp">
-              <a href="https://wa.me/584129983853" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.38 1.77.78 2.59a2 2 0 0 1-.45 2.11L9.91 9.91a14 14 0 0 0 6 6l1.5-1.5a2 2 0 0 1 2.11-.45c.82.4 1.69.66 2.59.78A2 2 0 0 1 22 16.92z"></path></svg>
-              </a>
-          </button>
-          <button class="icon-btn" aria-label="Cuenta" id="accountBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-          </button>
-          <button class="icon-btn" aria-label="Carrito" id="cartBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
-            <span class="cart-count">0</span>
-          </button>
-          </div>
         </div>
         <!-- Categories below search -->
         <div class="categories-bar">
@@ -1097,42 +1409,42 @@
         <div class="carousel-wrapper">
           <button class="carousel-arrow prev" id="offersPrev" aria-label="Anterior">‹</button>
           <div class="offers-carousel auto-animate" id="offersCarousel" aria-label="Ofertas">
-          <div class="offer-card">
+          <div class="offer-card" data-product="Doloxicam jarabe — Doctor Pet">
             <img src="imagenes/PetShop/Doloxicam.png" alt="Doloxicam">
             <strong>Doloxicam</strong>
             <div class="small">$8.50</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Doxican">
             <img src="imagenes/PetShop/Doxican100mg.png" alt="Doxican 100mg">
             <strong>Doxican 100 mg</strong>
             <div class="small">$9.99</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Doxican">
             <img src="imagenes/PetShop/Doxican200mg.png" alt="Doxican 200mg">
             <strong>Doxican 200 mg</strong>
             <div class="small">$15.99</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Metadol — Doctor Pet">
             <img src="imagenes/PetShop/Metadol.png" alt="Metadol">
             <strong>Metadol</strong>
             <div class="small">$6.75</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Micielix">
             <img src="imagenes/PetShop/micielix.png" alt="Micielix">
             <strong>Micielix</strong>
             <div class="small">$7.20</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Ciclinix">
             <img src="imagenes/PetShop/Ciclinix.png" alt="Ciclinix">
             <strong>Ciclinix</strong>
             <div class="small">$5.50</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Lisoforte">
             <img src="imagenes/PetShop/LisoForte60ml.png" alt="Lisoforte">
             <strong>Lisoforte</strong>
             <div class="small">$11.00</div>
           </div>
-          <div class="offer-card">
+          <div class="offer-card" data-product="Laveforte">
             <img src="imagenes/PetShop/Laveforte60ml.png" alt="Laveforte 60ml">
             <strong>Laveforte 60 ml</strong>
             <div class="small">$4.50</div>
@@ -1158,9 +1470,8 @@
           <h4>Alimento Premium 2kg</h4>
           <p class="price">$18</p>
           <p class="small">Comida completa para perros adultos — receta balanceada.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1169,9 +1480,8 @@
           <h4>Snack de Pollo 200g</h4>
           <p class="price">$4</p>
           <p class="small">Snacks naturales, ideal para entrenamiento.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1180,9 +1490,8 @@
           <h4>Cama Ort. Mediana</h4>
           <p class="price">$35</p>
           <p class="small">Cama ortopédica para soporte de articulaciones.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1191,9 +1500,8 @@
           <h4>Juguete Resistente</h4>
           <p class="price">$7</p>
           <p class="small">Perfecto para masticadores fuertes.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1202,9 +1510,8 @@
           <h4>Correa Ajustable</h4>
           <p class="price">$12</p>
           <p class="small">Correa cómoda y resistente con agarre acolchado.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1213,9 +1520,8 @@
           <h4>Shampoo Hipoalerg.</h4>
           <p class="price">$9</p>
           <p class="small">Limpia y nutre la piel sensible de tu mascota.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1225,9 +1531,8 @@
           <h4>Doloxicam jarabe — Doctor Pet</h4>
           <p class="price">$8.50</p>
           <p class="small">Jarabe veterinario — consulte dosificación.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1252,9 +1557,8 @@
             <option value="100" data-price="9.99" data-img="imagenes/PetShop/Doxican100mg.png" selected>100 mg</option>
             <option value="200" data-price="15.99" data-img="imagenes/PetShop/Doxican200mg.png">200 mg</option>
           </select>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1263,9 +1567,8 @@
           <h4>Metadol — Doctor Pet</h4>
           <p class="price">$6.75</p>
           <p class="small">Analgésico veterinario — use según indicación médica.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1274,9 +1577,8 @@
           <h4>Micielix</h4>
           <p class="price">$7.20</p>
           <p class="small">Suplemento / tratamiento — siga recomendaciones.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1285,9 +1587,8 @@
           <h4>Ciclinix</h4>
           <p class="price">$5.50</p>
           <p class="small">Tratamiento tópico/oral — consulte instrucciones.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1296,9 +1597,8 @@
           <h4>Lisoforte</h4>
           <p class="price">$11.00</p>
           <p class="small">Complemento vitamínico — use según indicación profesional.</p>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
 
@@ -1323,9 +1623,8 @@
             <option value="60" data-price="4.50" data-img="imagenes/PetShop/Laveforte60ml.png" selected>Laveforte 60ml</option>
             <option value="120" data-price="7.50" data-img="imagenes/PetShop/Laveforte120ml.png">Laveforte 120ml</option>
           </select>
-          <div class="actions">
-            <button class="btn btn-primary buy">Comprar</button>
-            <button class="btn" data-info="add-to-wishlist">♡</button>
+          <div class="actions" style="margin-top: auto;">
+            <button class="btn btn-primary buy" style="width: 100%;">Comprar</button>
           </div>
         </article>
       </div>
@@ -1369,7 +1668,6 @@
             <button class="btn btn-primary btn-primary-lg" id="confirmBuy">Comprar</button>
             <button class="btn btn-secondary" id="cancelBuy">Cancelar</button>
           </div>
-          <p class="small" style="margin-top:1rem; color:var(--navy-light)">La orden se enviará por WhatsApp si no se detecta Firebase. Si estás logueado y Firebase está configurado, la orden se guardará en la base de datos.</p>
         </div>
       </div>
     </div>
@@ -1819,11 +2117,106 @@
               }
             }
           }catch(e){ console.warn('firebase cart sync skip', e); }
-          try{ alert('Artículo agregado al carrito'); }catch(e){}
+          try{
+        showSuccessNotification('¡Compra exitosa! Artículo agregado al carrito 🛒');
+      }catch(e){
+        console.log('Producto agregado al carrito');
+      }
           hideModal();
         }catch(err){ console.error('confirmBuy add to cart error', err); alert('No fue posible añadir al carrito. Intenta nuevamente.'); }
       });
     })();
+
+    // Offer cards navigation
+    (function(){
+      const offerCards = document.querySelectorAll('.offer-card');
+
+      offerCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          const productName = card.dataset.product;
+          if (!productName) return;
+
+          // Find the corresponding product in the main grid
+          const products = document.querySelectorAll('.product');
+          let targetProduct = null;
+
+          products.forEach(product => {
+            const productDataName = product.dataset.name;
+            if (productDataName && productDataName.includes(productName)) {
+              targetProduct = product;
+            }
+          });
+
+          if (targetProduct) {
+            // Scroll to the product with smooth animation
+            targetProduct.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+
+            // Add a highlight effect
+            targetProduct.style.transition = 'box-shadow 0.3s ease';
+            targetProduct.style.boxShadow = '0 0 0 3px var(--turquoise-light), 0 8px 24px rgba(0,179,184,0.2)';
+
+            // Remove the highlight after animation
+            setTimeout(() => {
+              targetProduct.style.boxShadow = '';
+            }, 2000);
+          }
+        });
+
+        // Add cursor pointer to indicate clickability
+        card.style.cursor = 'pointer';
+
+        // Add hover effect
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-4px)';
+          card.style.boxShadow = 'var(--shadow-lg)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+    })();
+
+    // Función para mostrar notificación de éxito animada
+    function showSuccessNotification(message) {
+      // Crear el elemento de notificación
+      const notification = document.createElement('div');
+      notification.className = 'success-notification';
+      notification.innerHTML = `
+        <div class="notification-content">
+          <div class="notification-icon">✅</div>
+          <div class="notification-text">${message}</div>
+          <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+      `;
+
+      // Agregar al body
+      document.body.appendChild(notification);
+
+      // Forzar reflow para que la animación funcione
+      notification.offsetHeight;
+
+      // Agregar clase para animar entrada
+      notification.classList.add('show');
+
+      // Remover automáticamente después de 4 segundos
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }
+      }, 4000);
+    }
   </script>
 </body>
 </html>

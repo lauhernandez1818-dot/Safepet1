@@ -92,6 +92,8 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   .instalaciones-grid{gap:1.4rem}
   .instalacion-img{height:220px; width:auto; object-fit:cover}
   .team-carousel{padding:1rem 0}
+
+
 }
 /* keep animations accessible for reduced-motion users */
 @media (prefers-reduced-motion: reduce){
@@ -208,8 +210,14 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
   .logo{font-size:1.1rem}
 }
 
-/* Hide modal on mobile - desktop only */
+/* Mobile adjustments for avatar on the left */
 @media (max-width:900px){
+  .user-menu {
+    order: 10; /* Move back to the end on mobile */
+    margin-right: 0;
+    margin-left: 1rem;
+  }
+
   .avatar-modal{display:none !important}
 }
 
