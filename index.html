@@ -25,27 +25,19 @@
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <!-- Brand logo removed per request -->
-
-      <!-- Mobile-only: quick login button (left of hamburger) -->
       <a href="login.html" id="mobileLoginBtn" class="btn btn-primary mobile-login-btn" aria-label="Iniciar sesión">Iniciar Sesión</a>
-
       <nav class="main-nav">
         <a href="#servicios">Servicios</a>
-        <a href="#equipo">Nuestro Equipo</a>
         <a href="#instalaciones">Nuestras Instalaciones</a>
+        <a href="#equipo">Nuestro Equipo</a>
         <a href="#como-llegar">Cómo Llegar</a>
-        <a href="#contacto" class="btn btn-ghost">Contacto</a>
       </nav>
-
-      <a href="#" id="agendarBtn" class="nav-link">Agendar Cita</a>
-
-      <!-- Header actions for desktop: Chatbot + Pet Shop (hidden on mobile) -->
       <div class="header-actions" aria-hidden="false">
+        <a href="#contacto" class="btn btn-ghost header-action contact-link">Contacto</a>
         <a id="headerChatbot" href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion" class="btn btn-outline header-action chatbot-header" target="_blank" rel="noopener noreferrer" aria-label="Hablar con nuestro Chatbot">Chatbot</a>
         <a id="headerPetshop" href="petshop.html" class="nav-link header-action petshop-header" aria-label="Ir a Pet Shop">Pet Shop</a>
+        <a href="login.html" id="desktopLoginBtn" class="nav-link header-action">Iniciar Sesión</a>
       </div>
-
       <div id="userMenu" class="user-menu hidden">
         <a href="login.html" id="userAvatarLink">
           <img id="userAvatar" src="imagenes/logo.webp" alt="Cuenta" class="user-avatar" style="border-radius:50%;object-fit:cover;display:none">
@@ -633,6 +625,20 @@
     const userName = document.getElementById('userName');
     const btnLogout = document.getElementById('btnLogout'); // This button is removed
     const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+    const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+
+    // Verificación inicial para móviles
+    const isMobile = window.innerWidth <= 900;
+    if(isMobile && userMenu) {
+      userMenu.style.order = '2';
+      userMenu.style.marginLeft = '0.5rem';
+    }
+
+    // Verificación inicial: mostrar botón de login por defecto
+    if(desktopLoginBtn) {
+      desktopLoginBtn.style.display = '';
+    }
+
 
     onAuthStateChanged(auth, (user) => {
       if(user){
@@ -640,7 +646,8 @@
         userAvatar.style.display = 'block';
         userName.style.display = 'inline';
         if(mobileLoginBtn) mobileLoginBtn.style.display = 'none';
-          if(btnLogout) btnLogout.style.display = 'inline-block'; // Check if btnLogout exists
+        if(desktopLoginBtn) desktopLoginBtn.style.display = 'none';
+        if(btnLogout) btnLogout.style.display = 'inline-block'; // Check if btnLogout exists
         const userPhoto = localStorage.getItem(`profilePhoto_${user.uid}`);
         userAvatar.src = userPhoto || user.photoURL || 'imagenes/logo.webp';
         const full = user.displayName || user.email || 'Cuenta';
@@ -657,6 +664,7 @@
         userAvatar.style.display = 'none';
         userName.style.display = 'none';
         if(mobileLoginBtn) mobileLoginBtn.style.display = '';
+        if(desktopLoginBtn) desktopLoginBtn.style.display = '';
           if(btnLogout) btnLogout.style.display = 'none'; // Check if btnLogout exists
       }
     });
@@ -666,17 +674,6 @@
          try{ await signOut(auth); location.href = 'index.html'; }catch(e){ console.error(e); alert('No se pudo cerrar sesión.'); }
        });
      }
-
-     // Avatar hover modal functionality
-       }
-     });
   </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-
-</html>
-
-
->>>>>>> b17d3a64d48bbcb0b90deb97a2c402a2766f6c2b
