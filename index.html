@@ -47,7 +47,9 @@
       </div>
 
       <div id="userMenu" class="user-menu hidden">
-        <img id="userAvatar" src="imagenes/logo.webp" alt="Cuenta" class="user-avatar" style="border-radius:50%;object-fit:cover;display:none">
+        <a href="login.html" id="userAvatarLink">
+          <img id="userAvatar" src="imagenes/logo.webp" alt="Cuenta" class="user-avatar" style="border-radius:50%;object-fit:cover;display:none">
+        </a>
         <span id="userName" style="font-weight:700;display:none"></span>
       </div>
 
@@ -56,15 +58,6 @@
       </button>
 
       <!-- Avatar Hover Modal -->
-      <div id="avatarModal" class="avatar-modal">
-        <img id="modalUserAvatar" src="imagenes/logo.webp" alt="Foto de perfil" class="modal-avatar">
-        <div id="modalUserName" class="modal-name">Nombre de Usuario</div>
-        <div id="modalUserEmail" class="modal-email">correo@ejemplo.com</div>
-        <div class="modal-actions">
-          <button onclick="window.location.href='login.html'" class="modal-btn">Mi Perfil</button>
-          <button id="modalLogoutBtn" class="modal-btn secondary">Cerrar Sesión</button>
-        </div>
-      </div>
     </div>
 
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
@@ -227,7 +220,7 @@
 
         <article class="instalacion-card" aria-labelledby="inst-6">
             <div class="placeholder" role="img" aria-hidden="true">
-              <img src="imagenes/peluqueria.webp" alt="Peluquería" class="instalacion-img" loading="lazy">
+              <img src="imagenes/Peluqueria.webp" alt="Peluquería" class="instalacion-img" loading="lazy">
             </div>
             <h3 id="inst-6">Peluquería</h3>
         </article>
@@ -675,37 +668,8 @@
      }
 
      // Avatar hover modal functionality
-     const avatarModal = document.getElementById('avatarModal');
-     const modalLogoutBtn = document.getElementById('modalLogoutBtn');
-
-     userAvatar.addEventListener('mouseenter', () => {
-       avatarModal.classList.add('show');
-     });
-
-     userAvatar.addEventListener('mouseleave', () => {
-       avatarModal.classList.remove('show');
-     });
-
-     // Keep modal visible when hovering over it
-     avatarModal.addEventListener('mouseenter', () => {
-       avatarModal.classList.add('show');
-     });
-
-     avatarModal.addEventListener('mouseleave', () => {
-       avatarModal.classList.remove('show');
-     });
-
-     // Modal logout button
-     modalLogoutBtn.addEventListener('click', async () => {
-       try {
-         await signOut(auth);
-         location.href = 'index.html';
-       } catch(e) {
-         console.error(e);
-         alert('No se pudo cerrar sesión.');
        }
      });
   </script>
 </body>
-
 </html>

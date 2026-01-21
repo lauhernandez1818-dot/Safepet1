@@ -47,22 +47,6 @@
       object-fit: cover;
     }
 
-    #changePictureBtn {
-      background: var(--turquoise);
-      color: var(--white);
-      padding: 0.75rem 1.5rem; /* Botón más amplio */
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow-sm);
-    }
-
-    #changePictureBtn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
 
     .profile-panel .input-group {
       width: 100%;
@@ -85,6 +69,12 @@
       cursor: not-allowed;
     }
 
+    /* Hacer botones más pequeños para mejor apariencia */
+    .btn {
+      padding: 0.6rem 1rem !important;
+      font-size: 0.95rem !important;
+    }
+
     @media (max-width: 600px) {
       .profile-panel {
         padding: 1rem;
@@ -97,15 +87,15 @@
     <section class="glass-hero">
       <div class="login-wrap">
         <div class="login-card">
-          <div class="login-avatar"><img src="imagenes/logo.png" alt="SafePet"></div>
+          <div class="login-avatar"><img src="imagenes/logo.webp" alt="SafePet"></div>
 
           <div id="profilePanel" class="profile-panel hidden">
             <h2 class="login-title">Mi Perfil</h2>
             <div class="profile-picture-wrap">
-              <img id="profilePicture" src="imagenes/logo.png" alt="Foto de perfil" class="profile-picture">
+              <img id="profilePicture" src="imagenes/logo.webp" alt="Foto de perfil" class="profile-picture">
               <input type="file" id="profilePictureInput" accept="image/*" class="visually-hidden">
             </div>
-            <button type="button" id="changePictureBtn" class="btn btn-secondary">Cambiar Foto</button>
+            <button type="button" id="changePictureBtn" class="btn btn-primary">Cambiar Foto</button>
 
             <div class="input-group">
               <label for="profileName">Nombre</label>
@@ -119,8 +109,8 @@
 
             <div class="auth-actions" style="margin-top: 1.5rem; justify-content: center;">
               <button type="button" id="saveProfileBtn" class="btn btn-primary">Guardar Cambios</button>
-              <button type="button" id="btnSignOut" class="btn">Cerrar sesión</button>
-              <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">Volver</a>
+              <button type="button" id="btnSignOut" class="btn btn-primary">Cerrar sesión</button>
+              <a href="index.html" class="btn btn-primary" style="text-decoration:none;">Volver</a>
             </div>
             <p class="auth-note" style="text-align:center; margin-top:1rem;">Para cambiar tu contraseña, por favor, cierra sesión e utiliza la opción "¿Olvidaste tu contraseña?".</p>
           </div>
@@ -144,7 +134,7 @@
             </div>
 
             <div style="margin-top:.6rem">
-              <button class="login-btn" type="submit">Iniciar sesión</button>
+              <button class="btn btn-primary" type="submit">Iniciar sesión</button>
             </div>
 
             <p style="margin-top:.8rem; text-align:center; font-size:.92rem; color:rgba(255,255,255,0.92)">¿No tienes cuenta? <a href="register.html" style="text-decoration:underline; color:inherit">Registrate</a></p>
