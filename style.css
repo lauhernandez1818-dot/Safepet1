@@ -1107,10 +1107,10 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 .insta-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem}
 .instagram-embed{margin-top:1.2rem; display:flex; justify-content:center}
 /* Hacer que los textos dentro de la sección sean blancos */
-#instagram, #instagram h2, #instagram .insta-note, #instagram .embed-placeholder, #instagram .embed-placeholder p, #instagram .embed-placeholder .small, #instagram .testimonial-body .quote, #instagram .testimonial-body .meta{ color: var(--navy) !important }
+#instagram, #instagram h2, #instagram .insta-note, #instagram .embed-placeholder, #instagram .embed-placeholder p, #instagram .embed-placeholder .small{ color: var(--navy) !important }
 
 /* Mantener "Nuestras redes" legible (no blanca) */
-#btnRedes{ background: var(--white); color: var(--navy); border:1px solid rgba(3,17,27,0.06); box-shadow:0 6px 18px rgba(3,17,27,0.04) }
+#btnRedes{ background: var(--turquoise); color: var(--navy); border:1px solid rgba(0,206,209,0.2); box-shadow:0 6px 18px rgba(0,206,209,0.1) }
 
 /* Hacer que el placeholder sea translúcido para dejar ver el fondo */
 .embed-placeholder{ background: rgba(255,255,255,0.06); padding:1.1rem; border-radius:12px; text-align:center }
@@ -1119,8 +1119,8 @@ body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue
 /* Comentarios / testimonios en la sección Instagram: fondo oscuro semitransparente para legibilidad */
 #instagram .testimonial-card{ background: rgba(0,0,0,0.45) !important; padding:1rem; border-radius:12px; box-shadow:0 12px 34px rgba(0,0,0,0.25); display:flex; gap:1rem; align-items:flex-start; backdrop-filter: blur(6px); }
 #instagram .testimonial-avatar{ box-shadow:none; border:1px solid rgba(255,255,255,0.06); }
-#instagram .testimonial-body .quote{ color: var(--navy) !important; opacity:0.95 }
-#instagram .testimonial-body .meta{ color: rgba(11,37,69,0.7) !important }
+#instagram .testimonial-body .quote{ color: var(--white) !important; opacity:0.95 }
+#instagram .testimonial-body .meta{ color: rgba(255,255,255,0.85) !important }
 
 @media (max-width:480px){
   .instagram{background:linear-gradient(135deg, var(--turquoise) 0%, #ffffff 100%)}
