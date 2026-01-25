@@ -876,7 +876,7 @@
     <div id="totalSection" class="total-section" style="display: none;">
       <div class="total-row">
         <span class="total-label">Total</span>
-        <span class="total-amount" id="totalAmount">$0.00</span>
+
       </div>
     </div>
 
@@ -967,9 +967,7 @@
       }
     }
 
-    function formatMoney(n) {
-      return '$' + Number(n || 0).toFixed(2);
-    }
+
 
     const root = document.getElementById('cartRoot');
     const totalSection = document.getElementById('totalSection');
@@ -1004,7 +1002,7 @@
               ${it.product}
               ${it.variant ? `<span class="item-variant">${it.variant}</span>` : ''}
             </div>
-            <div class="item-price-unit">Precio unitario: ${formatMoney(it.unitPrice)}</div>
+
           </div>
           <div class="item-qty-section">
             <div class="qty-label">Cantidad</div>
@@ -1015,7 +1013,7 @@
             </div>
           </div>
           <div class="item-total-section">
-            <div class="item-total-price">${formatMoney(it.unitPrice * it.quantity)}</div>
+
             <button class="remove-btn" data-idx="${idx}" aria-label="Eliminar producto">Eliminar</button>
           </div>
         `;
@@ -1153,7 +1151,6 @@
       // Build order object
       const order = {
         items: cart,
-        total: cart.reduce((s, i) => s + (Number(i.unitPrice || 0) * Number(i.quantity || 0)), 0),
         createdAt: new Date().toISOString(),
         customer: formData
       };
@@ -1209,7 +1206,6 @@
           customer: formData,
           order: {
             items: cart,
-            total: order.total,
             itemCount: cart.length
           },
           paymentStatus: 'processing',
@@ -1247,12 +1243,11 @@
           }
         }
         
-        const price = (Number(it.unitPrice) || 0).toFixed(2);
-        lines.push(`${productName} x${it.quantity} - $${price}`);
+        lines.push(`${productName} x${it.quantity}`);
       });
       
       lines.push('');
-      lines.push(`Total: $${order.total.toFixed(2)}`);
+      lines.push('¿Hay disponibilidad de estos productos y cuál sería el precio?');
 
       const message = encodeURIComponent(lines.join('\n'));
       const url = `https://wa.me/${ownerNumber}?text=${message}`;
