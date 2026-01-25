@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Iniciar sesión — SafePet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-page{max-width:420px;margin:3.2rem auto;padding:1.4rem;background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(3,17,27,0.06)}
+    .auth-page h2{margin:0 0 .6rem}
+    .form-row{margin:.6rem 0}
+    label{display:block;font-weight:700;margin-bottom:.2rem}
+    input[type="email"], input[type="password"]{width:100%; padding:.7rem; border-radius:8px; border:1px solid rgba(11,37,69,0.06)}
+    .auth-actions{display:flex; gap:.6rem; margin-top:1rem}
+    .auth-note{font-size:.9rem; color:rgba(11,37,69,.6); margin-top:.8rem}
+
+    .profile-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.5rem;
+    }
+
+    .profile-panel.hidden {
+      display: none;
+    }
+
+    .profile-picture-wrap {
+      position: relative;
+      width: 140px; /* Más amplio */
+      height: 140px; /* Más amplio */
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--gray-light);
+      border: 4px solid var(--turquoise); /* Borde más pronunciado */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1rem; /* Espacio debajo de la imagen */
+    }
+
+    .profile-picture {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+
+    .profile-panel .input-group {
+      width: 100%;
+      max-width: 300px; /* Ajustar ancho de los inputs */
+      text-align: left;
+    }
+
+    .profile-panel .input-group label {
+      color: var(--navy);
+    }
+
+    .profile-panel input[type="text"], .profile-panel input[type="email"] {
+      border: 1px solid var(--gray-border);
+      background: var(--gray-light);
+      color: var(--navy);
+    }
+
+    .profile-panel input[type="email"][disabled] {
+      background: var(--gray-border);
+      cursor: not-allowed;
+    }
+
+    /* Hacer botones más pequeños para mejor apariencia */
+    .btn {
+      padding: 0.6rem 1rem !important;
+      font-size: 0.95rem !important;
+    }
+
+    @media (max-width: 600px) {
+      .profile-panel {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="page-bg">
+  <main>
+    <section class="glass-hero">
+      <div class="login-wrap">
+        <div class="login-card">
+          <div class="login-avatar"><img src="imagenes/logo.webp" alt="SafePet"></div>
+
+          <div id="profilePanel" class="profile-panel hidden">
+            <h2 class="login-title">Mi Perfil</h2>
+            <div class="profile-picture-wrap">
+              <img id="profilePicture" src="imagenes/logo.webp" alt="Foto de perfil" class="profile-picture">
+              <input type="file" id="profilePictureInput" accept="image/*" class="visually-hidden">
+            </div>
+            <button type="button" id="changePictureBtn" class="btn btn-primary">Cambiar Foto</button>
+
+            <div class="input-group">
+              <label for="profileName">Nombre</label>
+              <input id="profileName" type="text" placeholder="Tu nombre" aria-label="Tu nombre">
+            </div>
+
+            <div class="input-group">
+              <label for="profileEmail">Correo Electrónico</label>
+              <input id="profileEmail" type="email" disabled aria-label="Tu correo electrónico">
+            </div>
+
+            <div class="auth-actions" style="margin-top: 1.5rem; justify-content: center;">
+              <button type="button" id="saveProfileBtn" class="btn btn-primary">Guardar Cambios</button>
+              <button type="button" id="btnSignOut" class="btn btn-primary">Cerrar sesión</button>
+              <a href="index.html" class="btn btn-primary" style="text-decoration:none;">Volver</a>
+            </div>
+            <p class="auth-note" style="text-align:center; margin-top:1rem;">Para cambiar tu contraseña, por favor, cierra sesión e utiliza la opción "¿Olvidaste tu contraseña?".</p>
+          </div>
+
+          <form id="loginForm" novalidate>
+            <h2 class="login-title">Iniciar sesión</h2>
+
+            <div class="input-group">
+              <div class="input-icon">👤</div>
+              <input id="email" type="email" required placeholder="Email" aria-label="Email">
+            </div>
+
+            <div class="input-group">
+              <div class="input-icon">🔒</div>
+              <input id="password" type="password" required placeholder="Contraseña" aria-label="Contraseña">
+            </div>
+
+            <div class="remember-row">
+              <label style="display:flex; align-items:center; gap:.4rem; font-weight:600; color:rgba(255,255,255,0.9)"><input type="checkbox"> Recordar</label>
+              <a href="#" style="color:rgba(255,255,255,0.85); text-decoration:underline">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <div style="margin-top:.6rem">
+              <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+            </div>
+
+            <p style="margin-top:.8rem; text-align:center; font-size:.92rem; color:rgba(255,255,255,0.92)">¿No tienes cuenta? <a href="register.html" style="text-decoration:underline; color:inherit">Registrate</a></p>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- celebrate overlay -->
+      <div id="celebrate" class="celebrate-overlay hidden" aria-hidden="true">
+        <div class="celebrate-panel">
+          <h3>¡Bienvenido a SafePet!</h3>
+          <p>Gracias por ser parte de esta historia — vamos a seguir cuidando mascotas con amor ❤️</p>
+        </div>
+      </div>
+
+      <!-- confetti container -->
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+    </section>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+
+</html>

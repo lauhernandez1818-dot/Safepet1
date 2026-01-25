@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Registrarse — SafePet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .register-wrap{min-height:72vh; display:flex; align-items:center; justify-content:center; padding:3rem 1rem}
+    .register-card{width:460px; background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03)); border-radius:16px; padding:2rem; box-shadow:0 30px 80px rgba(3,17,27,0.28); color:#fff}
+    .register-card h2{margin-top:0;text-align:center}
+    .form-row{margin:.6rem 0}
+    label{display:block; font-weight:700; margin-bottom:.25rem}
+    input{width:100%; padding:.7rem; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff}
+    .register-actions{display:flex; gap:.6rem; margin-top:1rem}
+    .small-note{font-size:.9rem; color:rgba(255,255,255,0.85); text-align:center; margin-top:.6rem}
+  </style>
+</head>
+<body class="page-bg">
+  <main>
+    <section class="register-wrap">
+      <div class="register-card">
+        <h2>Crear cuenta — SafePet</h2>
+        <form id="registerForm">
+          <div class="form-row"><label for="firstName">Nombre</label><input id="firstName" required></div>
+          <div class="form-row"><label for="lastName">Apellido</label><input id="lastName" required></div>
+          <div class="form-row"><label for="email">Email</label><input id="email" type="email" required></div>
+          <div class="form-row"><label for="password">Contraseña</label><input id="password" type="password" required minlength="6"></div>
+          <div class="register-actions"><button class="btn btn-primary" type="submit">Crear cuenta</button><a class="btn" href="login.html">Volver</a></div>
+        </form>
+        <p class="small-note">Al registrarte aceptas nuestras políticas. (Ejemplo — no compartir datos sensibles).</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="register.js"></script>
+</body>
+</html>
