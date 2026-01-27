@@ -147,6 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
           pauseAllVideos(); tryPlay(videoWalk, null);
         }
       });
+      // keyboard accessibility: activate card on Enter or Space
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){
+          e.preventDefault();
+          card.click();
+        }
+      });
     });
   }
 
