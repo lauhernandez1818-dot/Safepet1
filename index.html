@@ -8,7 +8,7 @@
 
   <!-- Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600;700&display=swap"
     rel="stylesheet">
 
   <!-- AOS -->
@@ -261,8 +261,12 @@
   <section id="equipo" class="team" data-aos="fade-up">
     <div class="container">
       <h2>Nuestro Equipo</h2>
-      <p class="lead">Profesionales comprometidos con el bienestar de tu mascota. (Fotos y nombres de ejemplo —
-        personalizables)</p>
+      <p class="lead">Profesionales comprometidos con el bienestar de tu mascota.</p>
+
+      <div class="team-callout"
+        style="background: var(--turquoise); color: var(--white); padding: 1.2rem 2rem; border-radius: var(--radius); margin: 1.5rem 0; text-align: center; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(26,188,156,0.3); animation: pulseCallout 2s ease-in-out infinite;">
+        💫 Toca una foto para descubrir nuestra experienci a
+      </div>
 
       <!-- Destacado: avatar clicable (perfil) - Evimar Malavé -->
       <div class="team-ceo" data-aos="fade-up" data-fullname="Evimar Malavé" data-title="Fundadora y Presidente 🩺"
@@ -548,13 +552,11 @@
           <textarea id="bookNotes" name="notes" rows="3" placeholder="Información adicional"
             style="width:100%; padding:.6rem; margin:.4rem 0; border-radius:8px; border:1px solid rgba(11,37,69,0.06)"></textarea>
 
-          <div style="display:flex; gap:.6rem; margin-top:.6rem;">
+          <div style="display:flex; flex-direction: column; gap:.8rem; margin-top:1rem;">
             <button class="btn btn-primary" type="submit">Enviar por WhatsApp</button>
-            <button class="btn" type="button" id="cancelBooking">Cancelar</button>
+            <button class="btn" type="button" id="cancelBooking">Cerrar</button>
           </div>
         </form>
-        <p class="small" style="margin-top:.6rem">El mensaje será enviado por WhatsApp a <strong>+58 412
-            9983853</strong> (convertido automáticamente).</p>
       </div>
     </div>
   </div>
@@ -636,7 +638,8 @@
         <aside class="instagram-right">
           <div id="instagram-embed" class="instagram-embed" aria-live="polite" role="region">
             <div class="embed-placeholder">
-              <p class="insta-note">¿Quieres ver nuestras redes? Contáctanos por cualquiera de ellas.</p>
+              <p class="insta-note">¿Quieres ver nuestras redes? Toca el botón y contáctanos por cualquiera de ellas.
+              </p>
               <div class="embed-actions">
                 <button class="btn btn-small" id="btnRedes" aria-expanded="false" aria-controls="redesPanel">Nuestras
                   redes</button>
@@ -667,10 +670,7 @@
                   <span>TikTok</span>
                 </a>
               </div>
-
-              <p class="small">Si necesitas ayuda, solicita integración desde el panel de contacto.</p>
             </div>
-          </div>
         </aside>
 
       </div>
@@ -687,12 +687,8 @@
         <div class="locate-tabs">
           <div class="locate-grid-2">
             <div class="locate-card" id="loc-carro" data-mode="carro">
-              <div class="locate-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                  <path d="M3 13l1.5-4.5A1.5 1.5 0 0 1 6 7h11.5a1 1 0 0 1 .9.56L21 11" stroke="var(--turquoise)"
-                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                  <circle cx="7.5" cy="17" r="1.6" stroke="var(--turquoise)" stroke-width="1.6" />
-                  <circle cx="18.5" cy="17" r="1.6" stroke="var(--turquoise)" stroke-width="1.6" />
-                </svg></div>
+              <div class="locate-icon" aria-hidden="true"><img src="imagenes/Carro.png" alt="Carro" style="width:50px;">
+              </div>
               <h4>Cómo llegar en carro</h4>
               <p>Indicaciones y video de ruta para llegar en vehículo.</p>
               <a class="btn btn-map"
@@ -701,10 +697,8 @@
             </div>
 
             <div class="locate-card" id="loc-walk" data-mode="caminar">
-              <div class="locate-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2v6" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" />
-                  <path d="M5 21s1-4 7-4 7 4 7 4" stroke="var(--turquoise)" stroke-width="1.6" stroke-linecap="round" />
-                </svg></div>
+              <div class="locate-icon" aria-hidden="true"><img src="imagenes/Caminando.png" alt="Caminando"
+                  style="width:50px;"></div>
               <h4>Cómo llegar a pie</h4>
               <p>Rutas a pie y recomendaciones para llegar caminando.</p>
               <a class="btn btn-map"
@@ -754,26 +748,65 @@
     </div>
   </section>
 
-  <!-- Contacto / Footer -->
+  <!-- Footer Corporativo de Élite -->
   <footer id="contacto" class="site-footer" data-aos="fade-up">
-    <div class="container footer-inner">
-      <div>
-        <img src="imagenes/logo.webp" alt="SafePet" class="logo-small">
-        <p>SafePet — Cuidado veterinario premium. <br>Tel: <a href="https://wa.me/584129983853" target="_blank"
-            rel="noopener noreferrer" aria-label="Abrir WhatsApp">0412 998 3853</a></p>
+    <div class="footer-container">
+      <!-- Columna 1: Marca -->
+      <div class="footer-column footer-brand">
+        <img src="imagenes/logo.webp" alt="SafePet" class="footer-logo">
+        <p class="footer-tagline">Cuidado veterinario premium para quienes más amas</p>
       </div>
 
-      <div>
-        <h4>Horario</h4>
-        <ul class="schedule" aria-label="Horario de atención">
-          <li><strong>Lunes a Viernes</strong><span class="time">8:00 a. m.–5:00 p. m.</span></li>
-          <li><strong>Sábado</strong><span class="time">8:30 a. m.–5:00 p. m.</span></li>
-          <li><strong>Domingo</strong><span class="time">9:00 a. m.–2:00 p. m.</span></li>
+      <!-- Columna 2: Horarios -->
+      <div class="footer-column footer-hours">
+        <h3 class="footer-title">Horarios de Atención</h3>
+        <ul class="footer-schedule">
+          <li class="schedule-item">
+            <span class="day">Lunes a Viernes</span>
+            <span class="hours">8:00 a.m. - 5:00 p.m.</span>
+          </li>
+          <li class="schedule-item">
+            <span class="day">Sábado</span>
+            <span class="hours">8:30 a.m. - 5:00 p.m.</span>
+          </li>
+          <li class="schedule-item">
+            <span class="day">Domingo</span>
+            <span class="hours">9:00 a.m. - 2:00 p.m.</span>
+          </li>
         </ul>
       </div>
 
-      <div>
-        <p class="social">@safepet2021</p>
+      <!-- Columna 3: Contacto y Redes Sociales -->
+      <div class="footer-column footer-contact">
+        <h3 class="footer-title">Contacto</h3>
+        <div class="contact-phone">
+          <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" class="phone-link">
+            <span class="phone-icon">📱</span>
+            <span class="phone-number">0412 998 3853</span>
+          </a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/safepet2021/" target="_blank" rel="noopener noreferrer" class="social-link"
+            aria-label="Instagram">
+            <img src="imagenes/instagram.webp" alt="Instagram" class="social-icon">
+          </a>
+          <a href="https://www.tiktok.com/@safepet2021" target="_blank" rel="noopener noreferrer" class="social-link"
+            aria-label="TikTok">
+            <img src="imagenes/tiktok.webp" alt="TikTok" class="social-icon">
+          </a>
+          <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" class="social-link"
+            aria-label="WhatsApp">
+            <span class="social-icon whatsapp-icon">💬</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Línea separadora inferior -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p class="copyright">© 2026 SafePet. Todos los derechos reservados.</p>
+        <p class="made-with">Hecho con ❤️ para las mascotas</p>
       </div>
     </div>
   </footer>
