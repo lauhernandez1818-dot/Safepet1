@@ -480,16 +480,18 @@ body.menu-open .site-header {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Header Container */
+/* Header Container - Alineado Perfecto */
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  justify-content: space-between;
-  padding: 0.4rem 1.5rem;
-  min-height: 65px;
+  gap: 2rem;
+  justify-content: center;
+  padding: 0.5rem 2rem;
+  min-height: 70px;
   position: relative;
   z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* Logo */
@@ -502,18 +504,19 @@ body.menu-open .site-header {
   box-shadow: none;
 }
 
-/* Desktop Navigation */
+/* Desktop Navigation - Espaciado Óptimo */
 .main-nav {
   display: flex;
-  gap: 0.75rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
 .main-nav a {
   color: var(--pure-white);
   text-decoration: none;
-  padding: 0.4rem 0.6rem;
+  padding: 0.5rem 0.75rem;
   font-weight: 600;
+  font-size: 1rem;
   white-space: nowrap;
   position: relative;
   transition: color 0.2s ease, transform 0.18s ease;
@@ -541,12 +544,12 @@ body.menu-open .site-header {
   width: 100%;
 }
 
-/* Header Actions (Desktop) */
+/* Header Actions (Desktop) - Espaciado Óptimo */
 .header-actions {
   display: flex;
-  gap: 0.4rem;
+  gap: 1.25rem;
   align-items: center;
-  margin-left: 0.2rem;
+  margin-left: 0;
 }
 
 .header-actions .header-action {
@@ -554,7 +557,9 @@ body.menu-open .site-header {
   white-space: nowrap;
   color: var(--pure-white);
   background: transparent;
-  padding: 0.28rem 0.45rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
   border-radius: 8px;
   transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
   position: relative;
@@ -594,30 +599,31 @@ body.menu-open .site-header {
   white-space: nowrap;
 }
 
-/* User Menu */
+/* User Menu - Alineado */
 #userMenu {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.75rem;
   position: relative;
-  margin-left: 0.75rem;
+  margin-left: 0;
   order: 1;
   transition: opacity 0.3s ease;
 }
 
 #userMenu .user-avatar {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 6px 18px rgba(3, 17, 27, 0.08);
+  border: 2px solid var(--pure-white);
+  box-shadow: 0 4px 12px rgba(30, 141, 147, 0.3);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 #userMenu .user-avatar:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 28px rgba(3, 17, 27, 0.15);
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(30, 141, 147, 0.4);
 }
 
 #userName {
@@ -1027,8 +1033,8 @@ body.menu-open .mobile-toggle span:nth-child(3) {
   .petshop-header,
   .chatbot-header {
     display: inline-block;
-    margin-left: 0.8rem;
-    padding: 0.4rem 0.6rem;
+    margin-left: 0;
+    padding: 0.5rem 0.75rem;
     font-weight: 700;
   }
 
@@ -1039,6 +1045,19 @@ body.menu-open .mobile-toggle span:nth-child(3) {
 
   .mobile-menu {
     display: none !important;
+  }
+  
+  /* Header alineación perfecta en desktop */
+  .header-inner {
+    gap: 2.5rem;
+  }
+  
+  .main-nav {
+    gap: 2rem;
+  }
+  
+  .header-actions {
+    gap: 1.5rem;
   }
 }
 
@@ -1675,35 +1694,9 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
+/* Animación de brillo removida - no muestra nada útil */
 .kpi-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 70%
-  );
-  animation: cardShine 3s ease-in-out infinite;
-}
-
-@keyframes cardShine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-.kpi-card:hover {
-  transform: translateY(-12px) scale(1.05) !important;
-  box-shadow: 0 20px 60px rgba(15, 221, 229, 0.4),
-              0 0 0 2px rgba(255, 255, 255, 0.5) inset !important;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(46, 219, 220, 0.25) 50%,
-    rgba(15, 221, 229, 0.3) 100%) !important;
+  display: none;
 }
 
 .kpi-card h3 {
@@ -1724,22 +1717,7 @@ h1, h2, h3 {
                0 6px 20px rgba(0, 0, 0, 0.25),
                0 0 30px rgba(15, 221, 229, 0.3) !important;
   letter-spacing: -1px;
-  animation: counterPulse 2s ease-in-out infinite !important;
-}
-
-@keyframes counterPulse {
-  0%, 100% { 
-    transform: scale(1);
-    text-shadow: 0 3px 12px rgba(30, 141, 147, 0.5),
-                 0 6px 20px rgba(0, 0, 0, 0.25),
-                 0 0 30px rgba(15, 221, 229, 0.3);
-  }
-  50% { 
-    transform: scale(1.05);
-    text-shadow: 0 4px 16px rgba(30, 141, 147, 0.7),
-                 0 8px 24px rgba(0, 0, 0, 0.3),
-                 0 0 40px rgba(15, 221, 229, 0.5);
-  }
+  /* Solo animación de conteo via JavaScript - sin pulse visual */
 }
 
 /* Cards de Servicios e Instalaciones */
@@ -2002,17 +1980,7 @@ p, .lead {
 }
 .container p.lead{margin:0 0 0.9rem; color:var(--dark-gray); font-family:var(--font-body); font-weight:500; font-size:1.1rem; text-align:center; line-height:1.6}
 
-/* Animación de brillo en contadores */
-@keyframes counterShimmer{
-  0%, 100% {
-    text-shadow: 0 0 20px rgba(26,188,156,0.3);
-    transform: scale(1);
-  }
-  50% {
-    text-shadow: 0 0 30px rgba(26,188,156,0.6);
-    transform: scale(1.02);
-  }
-}
+/* Animación de brillo en contadores - REMOVIDA (no muestra nada útil) */
 /* Sin animación vertical - Gradiente estático */
 /* (removed stray percentage block) */
 
@@ -2050,25 +2018,13 @@ p, .lead {
   position: relative;
   overflow: hidden;
 }
+/* Animación de brillo en tarjetas KPI removida - no muestra nada útil */
 .kpi-card::before{
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, 
-    transparent, 
-    rgba(26,188,156,0.1), 
-    transparent);
-  animation: shimmerCard 3s ease-in-out infinite;
+  display: none;
 }
-@keyframes shimmerCard{
-  0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
+
 .kpi-card:hover{
-  transform:translateY(-8px) scale(1.02); 
+  /* Sin animaciones - solo efectos visuales */
   box-shadow:0 20px 60px rgba(26,188,156,0.25);
   border-color: var(--turquoise);
 }
@@ -2078,7 +2034,7 @@ p, .lead {
   color:var(--turquoise); 
   font-family:var(--font-title);
   position: relative;
-  animation: counterShimmer 2s ease-in-out infinite;
+  /* Solo animación de conteo via JavaScript */
 }
 
 /* KPI específico para PC */
@@ -6260,18 +6216,17 @@ p, .lead {
     background:var(--turquoise-dark);
     box-shadow: 0 4px 12px rgba(0,206,209,0.2);
   }
-  .user-name-text{
-  }
   /* Ensure header elements align correctly with user menu */
   .header-inner{
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
+    gap: 2.5rem;
   }
   .header-actions{
     display:flex !important;
-    gap:0.6rem;
+    gap:1.5rem;
     align-items:center;
-    margin-left:1rem;
+    margin-left:0;
   }
   .mobile-login-btn{
     display:none !important;
