@@ -8,17 +8,25 @@
   <link rel="stylesheet" href="style.css">
   <style>
     :root {
-      --turquoise: #00B3B8;
-      --turquoise-dark: #00999d;
-      --turquoise-light: #E6F7F8;
-      --navy: #0B2545;
-      --navy-light: rgba(11, 37, 69, 0.6);
+      /* PALETA OFICIAL SAFEPET */
+      --primary-teal: #1E8D93;
+      --dark-gray: #4F5656;
+      --bright-cyan: #2EDBDC;
+      --pure-white: #FFFFFF;
+      --neon-aqua: #0FDDE5;
+      
+      /* Compatibilidad (usar nombres SafePet) */
+      --turquoise: #1E8D93;
+      --turquoise-dark: #1E8D93;
+      --turquoise-light: rgba(30, 141, 147, 0.1);
+      --navy: #4F5656;
+      --navy-light: rgba(79, 86, 86, 0.6);
       --white: #FFFFFF;
       --gray-light: #F7FAFB;
-      --gray-border: rgba(11, 37, 69, 0.08);
-      --shadow-sm: 0 2px 8px rgba(11, 37, 69, 0.04);
-      --shadow-md: 0 8px 24px rgba(11, 37, 69, 0.08);
-      --shadow-lg: 0 16px 48px rgba(11, 37, 69, 0.12);
+      --gray-border: rgba(79, 86, 86, 0.08);
+      --shadow-sm: 0 2px 8px rgba(30, 141, 147, 0.04);
+      --shadow-md: 0 8px 24px rgba(30, 141, 147, 0.08);
+      --shadow-lg: 0 16px 48px rgba(30, 141, 147, 0.12);
     }
 
     * {
@@ -34,15 +42,14 @@
       line-height: 1.6;
     }
 
-    /* Header */
+    /* Header con colores SafePet */
     .topbar {
       background: var(--white);
-      border-bottom: 3px solid var(--turquoise);
+      border-bottom: 3px solid var(--primary-teal);
       box-shadow: var(--shadow-sm);
       position: sticky;
       top: 0;
       z-index: 1000;
-      /* Aumentar z-index para asegurar que esté debajo del modal */
     }
 
     .topbar-inner {
@@ -78,89 +85,9 @@
       display: block;
     }
 
-    .menu-btn {
-      display: flex;
-      background: var(--turquoise);
-      color: var(--white);
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow-sm);
-    }
+    /* Botón hamburger eliminado - Ya no se usa */
 
-    .menu-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    /* Pet Filter Menu */
-    .pet-filter-menu {
-      position: relative;
-    }
-
-    .pet-filter-dropdown {
-      position: absolute;
-      top: calc(100% + 15px);
-      left: 50%;
-      /* Centrar */
-      transform: translateX(-50%) scaleX(0);
-      /* Centrar y animar horizontalmente */
-      transform-origin: center center;
-      background: var(--white);
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      padding: 0.75rem;
-      z-index: 1010;
-      min-width: 200px;
-      max-width: calc(100vw - 2rem);
-      /* Limitar el ancho al viewport */
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease-out;
-      white-space: nowrap;
-    }
-
-    .pet-filter-dropdown.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) scaleX(1);
-    }
-
-    .pet-filter-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      font-size: 1rem;
-      color: var(--navy);
-      font-weight: 600;
-    }
-
-    .pet-filter-item:hover {
-      background: var(--turquoise-light);
-    }
-
-    .pet-filter-item.active {
-      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
-      color: var(--white);
-    }
-
-    .pet-filter-item .icon {
-      font-size: 1.5rem;
-    }
+    /* Pet Filter Menu - ELIMINADO (Ya no se usa) */
 
     .search-wrap {
       flex: 1;
@@ -192,7 +119,7 @@
     }
 
     .icon-btn {
-      background: var(--turquoise);
+      background: var(--primary-teal);
       border: none;
       color: var(--white);
       width: 44px;
@@ -205,9 +132,11 @@
       box-shadow: var(--shadow-sm);
       position: relative;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
 
     .icon-btn:hover {
+      background: var(--bright-cyan);
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
@@ -302,10 +231,10 @@
     }
 
     .category-card.active {
-      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan));
       color: var(--white);
       border-color: transparent;
-      box-shadow: 0 4px 12px rgba(0, 179, 184, 0.2);
+      box-shadow: 0 4px 12px rgba(30, 141, 147, 0.3);
     }
 
     /* Search dropdown */
@@ -616,11 +545,13 @@
     }
 
     .btn-primary {
-      background: linear-gradient(90deg, var(--turquoise), var(--turquoise-dark));
+      background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan));
       color: var(--white);
+      font-weight: 700;
     }
 
     .btn-primary:hover {
+      background: linear-gradient(135deg, var(--bright-cyan), var(--neon-aqua));
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
@@ -1343,42 +1274,23 @@
             <a href="index.html" class="logo" aria-label="SafePet Home">
               <img src="imagenes/logo.webp" alt="SafePet">
             </a>
-            <div class="pet-filter-menu">
-              <button class="menu-btn" id="petFilterBtn" aria-label="Filtrar por mascota">☰</button>
-              <div class="pet-filter-dropdown" id="petFilterDropdown">
-                <button class="pet-filter-item active" data-pet="all">
-                  <span class="icon">🐾</span>
-                  <span>Todas las mascotas</span>
-                </button>
-                <button class="pet-filter-item" data-pet="perro">
-                  <span class="icon">🐕</span>
-                  <span>Perros</span>
-                </button>
-                <button class="pet-filter-item" data-pet="gato">
-                  <span class="icon">🐈</span>
-                  <span>Gatos</span>
-                </button>
-              </div>
-            </div>
             <div class="top-actions">
-              <button class="icon-btn" aria-label="Contactar por WhatsApp">
-                <a href="https://wa.me/584129983853" target="_blank"
-                  style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path
-                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.38 1.77.78 2.59a2 2 0 0 1-.45 2.11L9.91 9.91a14 14 0 0 0 6 6l1.5-1.5a2 2 0 0 1 2.11-.45c.82.4 1.69.66 2.59.78A2 2 0 0 1 22 16.92z">
-                    </path>
-                  </svg>
-                </a>
-              </button>
-              <button class="icon-btn" aria-label="Cuenta" id="accountBtn">
+              <a href="tel:+584129983853" class="icon-btn" aria-label="Llamar a SafePet">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.38 1.77.78 2.59a2 2 0 0 1-.45 2.11L9.91 9.91a14 14 0 0 0 6 6l1.5-1.5a2 2 0 0 1 2.11-.45c.82.4 1.69.66 2.59.78A2 2 0 0 1 22 16.92z">
+                  </path>
+                </svg>
+              </a>
+              <a href="login.html" class="icon-btn" aria-label="Iniciar sesión" id="accountBtnLink">
+                <svg id="accountIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                   stroke-linejoin="round" aria-hidden="true">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-              </button>
+                <img id="userAvatarPetshop" src="imagenes/logo.webp" alt="Usuario" style="display: none; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; position: absolute; top: 0; left: 0;">
+              </a>
               <button class="icon-btn" aria-label="Productos seleccionados" id="cartBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                   stroke-linejoin="round" aria-hidden="true">
@@ -2812,6 +2724,43 @@
         }
       }, 4000);
     }
+  </script>
+
+  <!-- Firebase Auth Integration -->
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js';
+
+    const accountIcon = document.getElementById('accountIcon');
+    const userAvatar = document.getElementById('userAvatarPetshop');
+    const accountLink = document.getElementById('accountBtnLink');
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Usuario logueado - mostrar avatar
+        // Primero buscar en localStorage (donde se guarda la foto subida)
+        const userPhoto = localStorage.getItem(`profilePhoto_${user.uid}`);
+        const photoURL = userPhoto || user.photoURL || 'imagenes/logo.webp';
+        
+        userAvatar.src = photoURL;
+        userAvatar.style.display = 'block';
+        accountIcon.style.display = 'none';
+        
+        // Cambiar link a perfil en lugar de login
+        accountLink.href = 'login.html';
+        accountLink.setAttribute('aria-label', 'Ver perfil');
+        
+        console.log('Usuario logueado en PetShop:', user.email);
+        console.log('Foto desde localStorage:', userPhoto);
+        console.log('Foto desde Firebase:', user.photoURL);
+      } else {
+        // Usuario no logueado - mostrar icono
+        userAvatar.style.display = 'none';
+        accountIcon.style.display = 'block';
+        accountLink.href = 'login.html';
+        accountLink.setAttribute('aria-label', 'Iniciar sesión');
+      }
+    });
   </script>
 </body>
 
