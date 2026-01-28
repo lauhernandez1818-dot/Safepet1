@@ -26,59 +26,89 @@
     <div class="preloader-text">Acabas de llegar a <strong>SafePet</strong></div>
   </div>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container header-inner">
+  <!-- ============================================
+       HEADER & NAVEGACIÓN
+       ============================================ -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      
+      <!-- Mobile Login Button (visible only on mobile when not logged in) -->
       <a href="login.html" id="mobileLoginBtn" class="btn btn-primary mobile-login-btn"
         aria-label="Iniciar sesión">Iniciar Sesión</a>
-      <nav class="main-nav">
+      
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" aria-label="Navegación principal">
         <a href="#servicios">Servicios</a>
         <a href="#instalaciones">Nuestras Instalaciones</a>
         <a href="#equipo">Nuestro Equipo</a>
         <a href="#como-llegar">Cómo Llegar</a>
       </nav>
-      <div class="header-actions" aria-hidden="false">
-        <a href="#contacto" class="btn btn-ghost header-action contact-link">Contacto</a>
-        <a id="headerChatbot" href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion"
-          class="btn btn-outline header-action chatbot-header" target="_blank" rel="noopener noreferrer"
+      
+      <!-- Header Actions (Desktop) -->
+      <div class="header-actions">
+        <a href="#contacto" class="header-action contact-link" aria-label="Ir a Contacto">Contacto</a>
+        <a href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion"
+          class="header-action chatbot-header" 
+          target="_blank" 
+          rel="noopener noreferrer"
           aria-label="Hablar con nuestro Chatbot">Chatbot</a>
-        <a id="headerPetshop" href="petshop.html" class="nav-link header-action petshop-header"
+        <a href="petshop.html" class="header-action petshop-header"
           aria-label="Ir a Pet Shop">Pet Shop</a>
-        <a href="login.html" id="desktopLoginBtn" class="nav-link header-action">Iniciar Sesión</a>
+        <a href="login.html" id="desktopLoginBtn" class="header-action"
+          aria-label="Iniciar sesión">Iniciar Sesión</a>
       </div>
-      <div id="userMenu" class="user-menu hidden">
-        <a href="login.html" id="userAvatarLink">
-          <img id="userAvatar" src="imagenes/logo.webp" alt="Cuenta" class="user-avatar"
-            style="border-radius:50%;object-fit:cover;display:none">
+      
+      <!-- User Menu (visible when logged in) -->
+      <div id="userMenu" class="user-menu hidden" aria-label="Menú de usuario">
+        <a href="login.html" id="userAvatarLink" aria-label="Ver perfil">
+          <img id="userAvatar" 
+               src="imagenes/logo.webp" 
+               alt="Avatar de usuario" 
+               class="user-avatar"
+               style="border-radius:50%;object-fit:cover;display:none">
         </a>
         <span id="userName" style="font-weight:700;display:none"></span>
       </div>
 
-      <button id="mobileToggle" class="mobile-toggle" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
+      <!-- Mobile Hamburger Toggle -->
+      <button id="mobileToggle" 
+              class="mobile-toggle" 
+              aria-label="Abrir menú de navegación"
+              aria-expanded="false"
+              aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-
-      <!-- Avatar Hover Modal -->
     </div>
 
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true" role="navigation" aria-label="Menú móvil">
       <button id="mobileClose" class="mobile-close" aria-label="Cerrar menú">✕</button>
-      <nav>
+      
+      <nav aria-label="Navegación móvil">
         <a href="#hero">Inicio</a>
         <a href="#servicios">Servicios</a>
         <a href="#equipo">Nuestro Equipo</a>
         <a href="#instalaciones">Nuestras Instalaciones</a>
-        <a href="#instagram">Instagram Live</a>
+        <a href="#instagram">Comentarios</a>
         <a href="#como-llegar">Cómo Llegar</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
       <div class="mobile-menu-actions" role="group" aria-label="Acciones móviles">
         <a href="https://wa.me/584129983853?text=Hola%20SafePet,%20quiero%20informacion"
-          class="btn btn-primary mobile-menu-btn whatsapp-mobile-btn" target="_blank" rel="noopener noreferrer"
-          aria-label="Hablar con nuestro Chatbot">Hablar con nuestro Chatbot</a>
-        <a id="mobilePetshopBtn" href="petshop.html" class="btn btn-primary mobile-menu-btn petshop-mobile-btn"
-          aria-label="Ir a Pet Shop">Ir a Pet Shop</a>
+          class="btn btn-primary mobile-menu-btn whatsapp-mobile-btn" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Hablar con nuestro Chatbot por WhatsApp">
+          Hablar con nuestro Chatbot
+        </a>
+        <a href="petshop.html" 
+           class="btn btn-primary mobile-menu-btn petshop-mobile-btn"
+           aria-label="Ir a Pet Shop">
+          Ir a Pet Shop
+        </a>
       </div>
     </div>
   </header>
@@ -89,7 +119,7 @@
     <div class="container hero-inner" data-aos="fade-up">
       <img src="imagenes/logo.webp" alt="SafePet" class="hero-logo">
       <h1 class="headline">Un Hogar fuera de casa</h1>
-      <p class="hero-sub">Cuidado médico, hospedaje y cariño para tu compañero de vida — a la altura del lujo que ambos
+      <p class="hero-sub">Cuidado médico, hospedaje y cariño para tu compañero de vida a la altura del lujo que ambos
         merecen.</p>
       <div class="hero-cta">
         <button id="heroAgendar" class="btn btn-primary luminous">Agendar Cita</button>
@@ -98,18 +128,6 @@
     </div>
   </section>
 
-  <div class="hero-wave" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" role="img"
-      aria-hidden="true">
-      <defs>
-        <linearGradient id="heroWaveGrad" x1="0" x2="1">
-          <stop offset="0" stop-color="#00CED1" />
-          <stop offset="1" stop-color="#ffffff" />
-        </linearGradient>
-      </defs>
-      <path d="M0,40 C360,120 1080,-40 1440,40 L1440,120 L0,120 Z" fill="url(#heroWaveGrad)" />
-    </svg>
-  </div>
 
   <!-- Contador Mascotas Felices -->
   <section class="kpi" data-aos="fade-up">
@@ -264,7 +282,7 @@
       <p class="lead">Profesionales comprometidos con el bienestar de tu mascota.</p>
 
       <div class="team-callout"
-        style="background: var(--turquoise); color: var(--white); padding: 1.2rem 2rem; border-radius: var(--radius); margin: 1.5rem 0; text-align: center; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(26,188,156,0.3); animation: pulseCallout 2s ease-in-out infinite;">
+        style="background: linear-gradient(135deg, var(--primary-teal), var(--bright-cyan)); color: var(--pure-white); padding: 1.2rem 2rem; border-radius: var(--radius); margin: 1.5rem 0; text-align: center; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(30, 141, 147, 0.4); animation: pulseCallout 2s ease-in-out infinite; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
         💫 Toca una foto para descubrir nuestra experiencia
       </div>
 
@@ -561,16 +579,18 @@
     </div>
   </div>
 
-  <!-- Instagram Live Hub -->
+  <!-- Comentarios de Clientes -->
   <section id="instagram" class="instagram section-accent" data-aos="fade-up">
     <div class="container">
-      <h2>Instagram Live — @safepet2021</h2>
-      <!-- Instagram feed removed (no API token available) — use el botón de Instagram en "Nuestras redes" para abrir el perfil -->
+      <h2 style="color: var(--pure-white) !important; text-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);">Comentarios De Clientes</h2>
+      <p class="lead" style="color: var(--pure-white) !important; opacity: 0.95; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);">Haz clic en cualquier comentario para leerlo completo</p>
 
       <div class="instagram-layout">
         <div class="instagram-left">
           <div class="testimonials-grid-3x2">
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="1" style="cursor: pointer;" 
+              data-full-text="Gracias a SafePet, Bruno volvió a casa sano y feliz. El servicio fue impecable desde el primer momento. El equipo médico fue muy profesional y cariñoso con mi perrito. Definitivamente volveré y los recomendaré a todos mis amigos con mascotas."
+              data-author="Laura G." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"Gracias a <strong>SafePet</strong>, Bruno volvió a casa sano y feliz. ¡Servicio
                   impecable!"</p>
@@ -579,9 +599,12 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Laura G">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
 
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="2" style="cursor: pointer;"
+              data-full-text="El equipo fue muy atento con Lulú y me mantuvieron informado en todo momento. Me encantó la comunicación constante y el cariño con el que trataron a mi gatita. Las instalaciones están muy limpias y el personal es súper amable. Muy recomendado para cualquier dueño preocupado por su mascota."
+              data-author="Ana S." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"El equipo fue muy atento con Lulú y me mantuvieron informado en todo momento."</p>
                 <div class="meta"><strong>Ana S.</strong><span class="stars">★★★★★</span></div>
@@ -589,9 +612,12 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Ana S">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
 
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="3" style="cursor: pointer;"
+              data-full-text="Profesionales y mucho cariño con las mascotas, me gustó mucho la atención recibida. Desde que llegamos nos sentimos bienvenidos. El doctor explicó todo el procedimiento con mucha paciencia y respondió todas mis dudas. Mi perro Max salió feliz y saludable. Sin duda el mejor lugar para nuestras mascotas."
+              data-author="Carlos P." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"Profesionales y cariño con las mascotas, me gustó mucho la atención recibida."</p>
                 <div class="meta"><strong>Carlos P.</strong><span class="stars">★★★★★</span></div>
@@ -599,9 +625,12 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Carlos P">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
 
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="4" style="cursor: pointer;"
+              data-full-text="Atención 24/7 y una comunicación que me tranquiliza siempre. Confío plenamente en el equipo de SafePet. La disponibilidad para emergencias es invaluable. Cuando mi gato tuvo una urgencia a las 3 AM, respondieron inmediatamente y lo salvaron. Estoy eternamente agradecido con todo el equipo médico."
+              data-author="Miguel R." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"Atención 24/7 y una comunicación que me tranquiliza siempre. Confío plenamente en el
                   equipo."</p>
@@ -610,9 +639,12 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Miguel R">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
 
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="5" style="cursor: pointer;"
+              data-full-text="Muy satisfechos con el servicio de peluquería y la limpieza del lugar. Mi perra Princesa siempre sale hermosa y oliendo delicioso. El grooming es de primera calidad y los precios son muy justos. El lugar está impecable y se nota el cuidado que tienen con cada detalle. Totalmente recomendado."
+              data-author="Sofía M." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"Muy satisfechos con el servicio de peluquería y la limpieza del lugar."</p>
                 <div class="meta"><strong>Sofía M.</strong><span class="stars">★★★★★</span></div>
@@ -620,9 +652,12 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Sofia M">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
 
-            <article class="testimonial-card">
+            <article class="testimonial-card" data-testimonial-id="6" style="cursor: pointer;"
+              data-full-text="Siempre vuelvo por la confianza que me genera el equipo y el cariño con mi mascota. Llevo años trayendo a mis perros aquí y nunca me han decepcionado. El trato es familiar, conocen a mis mascotas por nombre y siempre están atentos a sus necesidades. Es como una segunda casa para nosotros. Gracias SafePet por todo."
+              data-author="Diego L." data-stars="5">
               <div class="testimonial-body">
                 <p class="quote">"Siempre vuelvo por la confianza que me genera el equipo y el cariño con mi mascota."
                 </p>
@@ -631,6 +666,7 @@
               <img class="testimonial-avatar"
                 src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
                 loading="lazy" width="48" height="48" alt="Diego L">
+              <span class="testimonial-expand-hint">👁️ Ver más</span>
             </article>
           </div>
         </div>
@@ -687,6 +723,7 @@
         <div class="locate-tabs">
           <div class="locate-grid-2">
             <div class="locate-card" id="loc-carro" data-mode="carro" role="button" tabindex="0">
+              <span class="tap-hint">👆 Toca para ver video</span>
               <div class="locate-icon" aria-hidden="true"><img src="imagenes/Carro.png" alt="Carro" style="width:50px;">
               </div>
               <h4>Cómo llegar en carro</h4>
@@ -697,6 +734,7 @@
             </div>
 
             <div class="locate-card" id="loc-walk" data-mode="caminar" role="button" tabindex="0">
+              <span class="tap-hint">👆 Toca para ver video</span>
               <div class="locate-icon" aria-hidden="true"><img src="imagenes/Caminando.png" alt="Caminando"
                   style="width:50px;"></div>
               <h4>Cómo llegar a pie</h4>
@@ -780,23 +818,34 @@
       <div class="footer-column footer-contact">
         <h3 class="footer-title">Contacto</h3>
         <div class="contact-phone">
-          <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" class="phone-link">
+          <a href="tel:+584129983853" class="phone-link">
             <span class="phone-icon">📱</span>
             <span class="phone-number">0412 998 3853</span>
           </a>
         </div>
         <div class="social-links">
-          <a href="https://www.instagram.com/safepet2021/" target="_blank" rel="noopener noreferrer" class="social-link"
-            aria-label="Instagram">
-            <img src="imagenes/instagram.webp" alt="Instagram" class="social-icon">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/safepet2021/" target="_blank" rel="noopener noreferrer" class="social-link social-link-instagram"
+            aria-label="Instagram de SafePet">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
           </a>
-          <a href="https://www.tiktok.com/@safepet2021" target="_blank" rel="noopener noreferrer" class="social-link"
-            aria-label="TikTok">
-            <img src="imagenes/tiktok.webp" alt="TikTok" class="social-icon">
+          
+          <!-- WhatsApp -->
+          <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" class="social-link social-link-whatsapp"
+            aria-label="WhatsApp de SafePet">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
           </a>
-          <a href="https://wa.me/584129983853" target="_blank" rel="noopener noreferrer" class="social-link"
-            aria-label="WhatsApp">
-            <span class="social-icon whatsapp-icon">💬</span>
+          
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@safepet2021" target="_blank" rel="noopener noreferrer" class="social-link social-link-tiktok"
+            aria-label="TikTok de SafePet">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
           </a>
         </div>
       </div>
@@ -811,7 +860,25 @@
     </div>
   </footer>
 
-
+  <!-- Modal para Testimonios -->
+  <div id="testimonialModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="testimonialModalTitle" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-panel testimonial-modal-panel">
+      <button class="modal-close" aria-label="Cerrar modal">✕</button>
+      <div class="modal-body testimonial-modal-body">
+        <div class="testimonial-modal-header">
+          <img id="testimonialModalAvatar" class="testimonial-modal-avatar" src="" alt="" width="80" height="80">
+          <div class="testimonial-modal-info">
+            <h3 id="testimonialModalAuthor" class="testimonial-modal-author"></h3>
+            <div id="testimonialModalStars" class="testimonial-modal-stars"></div>
+          </div>
+        </div>
+        <div class="testimonial-modal-content">
+          <p id="testimonialModalText" class="testimonial-modal-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -874,6 +941,62 @@
         try { await signOut(auth); location.href = 'index.html'; } catch (e) { console.error(e); alert('No se pudo cerrar sesión.'); }
       });
     }
+  </script>
+
+  <!-- Script para Modal de Testimonios -->
+  <script>
+    // Testimonial Modal Functionality
+    (function() {
+      const testimonialCards = document.querySelectorAll('.testimonial-card[data-testimonial-id]');
+      const modal = document.getElementById('testimonialModal');
+      const modalOverlay = modal.querySelector('.modal-overlay');
+      const modalClose = modal.querySelector('.modal-close');
+      const modalText = document.getElementById('testimonialModalText');
+      const modalAuthor = document.getElementById('testimonialModalAuthor');
+      const modalStars = document.getElementById('testimonialModalStars');
+      const modalAvatar = document.getElementById('testimonialModalAvatar');
+
+      // Open modal on testimonial card click
+      testimonialCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const fullText = this.dataset.fullText;
+          const author = this.dataset.author;
+          const stars = parseInt(this.dataset.stars);
+          const avatarSrc = this.querySelector('.testimonial-avatar').src;
+
+          // Populate modal
+          modalText.textContent = fullText;
+          modalAuthor.textContent = author;
+          modalStars.innerHTML = '★'.repeat(stars);
+          modalAvatar.src = avatarSrc;
+          modalAvatar.alt = author;
+
+          // Show modal
+          modal.style.display = 'flex';
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Close modal functions
+      function closeModal() {
+        modal.classList.remove('open');
+        setTimeout(() => {
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 300);
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', closeModal);
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    })();
   </script>
 </body>
 

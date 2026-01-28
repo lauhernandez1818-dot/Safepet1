@@ -3,6 +3,25 @@
 // Global safety: suppress noisy unhandled promise rejections early
 window.addEventListener('unhandledrejection', (e) => { console.info('Unhandled promise rejection (suppressed):', e.reason); try{ if(e.preventDefault) e.preventDefault(); }catch(e){} });
 
+// Preloader - SOLO PRIMERA VEZ con localStorage
+(() => {
+  const pre = document.getElementById('preloader');
+  if (!pre) return;
+
+  // Verificar si es la primera visita
+  const hasVisited = localStorage.getItem('safepet_visited');
+  
+  if (hasVisited) {
+    // Ya visitó antes - ocultar preloader inmediatamente
+    pre.style.display = 'none';
+    if (pre.parentNode) pre.parentNode.removeChild(pre);
+    return;
+  }
+
+  // Primera visita - mostrar preloader y marcar como visitado
+  localStorage.setItem('safepet_visited', 'true');
+})();
+
 // Backup preloader hide in case DOMContentLoaded flow is interrupted
 setTimeout(()=>{ const pre = document.getElementById('preloader'); if(pre){ pre.classList.add('preloader--hide'); setTimeout(()=>{ if(pre.parentNode) pre.parentNode.removeChild(pre); }, 450); } }, 3000);
 
@@ -12,20 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const pre = document.getElementById('preloader');
     if(!pre) return;
     // allow user to dismiss by clicking
-    pre.addEventListener('click', () => { pre.classList.add('preloader--hide'); });
+    pre.addEventListener('click', () => { 
+      pre.classList.add('preloader--hide'); 
+      setTimeout(() => { if(pre && pre.parentNode) pre.parentNode.removeChild(pre); }, 600);
+    });
 
     setTimeout(() => {
       // add hide class to trigger CSS transition (auto-hide after ~1.5s)
       pre.classList.add('preloader--hide');
       // remove from DOM after transition ends
       pre.addEventListener('transitionend', () => { if(pre && pre.parentNode) pre.parentNode.removeChild(pre); }, { once: true });
-    }, 1500); // hide shortly after load for faster UX
+    }, 2000); // hide after 2s for first-time experience
   });
-  // Safety fallback in case load event hangs (shorter, hide after ~2s)
+  // Safety fallback in case load event hangs
   setTimeout(() => {
     const pre = document.getElementById('preloader');
     if(pre){ pre.classList.add('preloader--hide'); setTimeout(()=>{ if(pre.parentNode) pre.parentNode.removeChild(pre); }, 450); }
-  }, 2000);
+  }, 2500);
   // AOS Init
   if (window.AOS) { AOS.init({ duration: 900, once: true, easing: 'ease-in-out' }); }
 
