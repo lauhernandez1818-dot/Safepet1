@@ -37,19 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     setTimeout(() => {
-      // add hide class to trigger CSS transition (auto-hide after ~1.5s)
+      // add hide class to trigger CSS transition (auto-hide más rápido en mobile)
       pre.classList.add('preloader--hide');
       // remove from DOM after transition ends
       pre.addEventListener('transitionend', () => { if(pre && pre.parentNode) pre.parentNode.removeChild(pre); }, { once: true });
-    }, 2000); // hide after 2s for first-time experience
+    }, window.innerWidth <= 768 ? 1200 : 2000); // más rápido en móvil (1.2s vs 2s)
   });
   // Safety fallback in case load event hangs
   setTimeout(() => {
     const pre = document.getElementById('preloader');
     if(pre){ pre.classList.add('preloader--hide'); setTimeout(()=>{ if(pre.parentNode) pre.parentNode.removeChild(pre); }, 450); }
   }, 2500);
-  // AOS Init
-  if (window.AOS) { AOS.init({ duration: 900, once: true, easing: 'ease-in-out' }); }
+  // AOS Init - Solo en desktop para mejor rendimiento móvil
+  if (window.AOS && window.innerWidth >= 768) { 
+    AOS.init({ duration: 900, once: true, easing: 'ease-in-out', disable: 'mobile' }); 
+  }
 
   // Mobile menu toggle (only active on small screens)
   const mobileToggle = document.getElementById('mobileToggle');
